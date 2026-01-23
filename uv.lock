@@ -63,7 +63,6 @@ version = "0.6"
 source = { virtual = "." }
 dependencies = [
     { name = "fire" },
-    { name = "lxml" },
     { name = "pydantic" },
     { name = "xmltodict" },
 ]
@@ -71,6 +70,7 @@ dependencies = [
 [package.optional-dependencies]
 dev = [
     { name = "black" },
+    { name = "lxml" },
     { name = "mypy" },
     { name = "pytest" },
     { name = "xmlschema" },
@@ -80,10 +80,10 @@ dev = [
 requires-dist = [
     { name = "black", marker = "extra == 'dev'" },
     { name = "fire" },
-    { name = "lxml", specifier = ">=6.0.2" },
+    { name = "lxml", marker = "extra == 'dev'", specifier = ">=6.0.2" },
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pydantic" },
-    { name = "pytest", marker = "extra == 'dev'" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.1" },
     { name = "xmlschema", marker = "extra == 'dev'" },
     { name = "xmltodict" },
 ]

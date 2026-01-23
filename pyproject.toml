@@ -5,12 +5,7 @@ description = "Python package for DesignBuilder XML files with read / edit / wri
 authors = [
     { name = "Bartlomiej Tokarzewski", email = "bartlomiej.tokarzewski@gmail.com" },
 ]
-dependencies = [
-    "pydantic",
-    "xmltodict",
-    "fire",
-    "lxml>=6.0.2",
-]
+dependencies = ["pydantic", "xmltodict", "fire"]
 
 readme = "README.md"
 #license = { file = "LICENSE" }
@@ -23,7 +18,7 @@ Homepage = "https://github.com/tokarzewski/designbuilder_schema"
 packages = ["designbuilder_schema", "designbuilder_schema.hvac"]
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "mypy", "xmlschema"]
+dev = ["pytest", "black", "mypy", "xmlschema", "lxml"]
 
 [tool.pytest.ini_options]
 pythonpath = ["C:/GitHub/designbuilder_schema"]
