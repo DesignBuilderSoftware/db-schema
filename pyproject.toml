@@ -19,6 +19,9 @@ packages = ["designbuilder_schema", "designbuilder_schema.hvac"]
 
 [project.optional-dependencies]
 dev = ["pytest", "black", "mypy", "xmlschema", "lxml"]
+visualise = ["matplotlib"]
+tables = ["pandas"]
+all = ["pytest", "black", "mypy", "xmlschema", "lxml", "matplotlib", "pandas"]
 
 [tool.pytest.ini_options]
 pythonpath = ["C:/GitHub/designbuilder_schema"]
