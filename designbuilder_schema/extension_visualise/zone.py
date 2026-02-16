@@ -76,7 +76,7 @@ def display_zones(zones_geometry: list):
 
         faces = zone["faces"]
         if faces:
-            face_collection = Poly3DCollection(faces, alpha=0.3)
+            face_collection = Poly3DCollection(faces, alpha=1.0)
             face_collection.set_facecolor(colors[zone_idx])
             face_collection.set_edgecolor("black")
             ax.add_collection3d(face_collection)
@@ -114,20 +114,78 @@ def display_zones(zones_geometry: list):
     plt.show()
 
 
-def vis_building(building: Building):
+def display_zones_with_defined_colours(zones_geometry: list, colours: list):
+    """Display zone faces and openings with user-defined colours.
+
+    Args:
+        zones_geometry: List of zone geometries, each with 'faces' and 'openings' keys.
+        colours: List of matplotlib color strings corresponding to each zone.
+
+    Example:
+        zones_geometry = [{'faces': [...], 'openings': [...]}, ...]
+        colours = ['red', 'blue', 'green', 'yellow']
+    """
+    # Create 3D figure
+    fig = plt.figure(figsize=(12, 12))
+    ax = fig.add_subplot(111, projection="3d")
+
+    # Track bounds for axis scaling
+    x_coords, y_coords, z_coords = [], [], []
+
+    # Plot each zone with its defined colour
+    for zone_idx, zone in enumerate(zones_geometry):
+        colour = colours[zone_idx] if zone_idx < len(colours) else "lightgray"
+
+        faces = zone["faces"]
+        if faces:
+            face_collection = Poly3DCollection(faces, alpha=1.0)
+            face_collection.set_facecolor(colour)
+            face_collection.set_edgecolor("black")
+            ax.add_collection3d(face_collection)
+
+            # Collect coordinates for bounds
+            for face in faces:
+                x, y, z = zip(*face)
+                x_coords.extend(x)
+                y_coords.extend(y)
+                z_coords.extend(z)
+
+        openings = zone["openings"]
+        if openings:
+            opening_collection = Poly3DCollection(openings, alpha=0.5)
+            opening_collection.set_facecolor("lightblue")
+            opening_collection.set_edgecolor("blue")
+            ax.add_collection3d(opening_collection)
+
+    # Set axis labels
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("Z")
+
+    max_range = max([max(x_coords), max(y_coords), max(z_coords)])
+    min_range = min([min(x_coords), min(y_coords), min(z_coords)])
+
+    # Set the limits with equal scaling
+    ax.set_xlim(min_range, max_range)
+    ax.set_ylim(min_range, max_range)
+    ax.set_zlim(min_range, max_range)
+
+    # Add title
+    plt.title(f"Visualization of {len(zones_geometry)} Zones")
+
+    plt.show()
+
+
+def building_zones(building: Building):
     """Show matplotlib plot for all zones in building."""
     zones = [
         zone
         for block in building.BuildingBlocks.BuildingBlock
         for zone in block.Zones.Zone
     ]
+    return zones
+    
 
+def vis_building(self: Building):
+    zones = building_zones(self)
     display_zones([zone_geometry(zone) for zone in zones])
-
-
-def add_extention():
-    """Extend classes with the visualise methods"""
-    Building.visualise = vis_building
-    # BuildingBlock.visualise = vis_building_block
-    # Zone.visualise = vis_zone
-    # ...
