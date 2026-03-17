@@ -17,8 +17,8 @@ from designbuilder_schema.attributes import NameAttributes
 class HVACNetwork(BaseModel):
     ObjectHandle: int
     ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    HVACLoops: "HVACLoops"
-    HVACZoneGroups: "HVACZoneGroups"
+    HVACLoops: Optional["HVACLoops"]
+    HVACZoneGroups: Optional["HVACZoneGroups"]
 
 
 class HVACLoops(BaseModel):

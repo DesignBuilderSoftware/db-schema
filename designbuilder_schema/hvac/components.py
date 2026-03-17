@@ -306,10 +306,40 @@ class GroundHeatExchanger(NoTypeHVACComponent):
 
 class UnitarySystem(NoTypeHVACComponent):
     type: Literal["Unitary system"]
+    Width: float
+    Height: float
+    FanType: int
+    DOASAirInConnected: int
+    DOASAirOutConnected: int
+    Origin: "Point3D"
+    OutdoorAirSystem: "OutdoorAirSystem"
+    IntakeDamper: "IntakeDamper"
+    ExhaustDamper: "ExhaustDamper"
+    DOASIntakeDamper: "DOASIntakeDamper"
+    DOASExhaustDamper: "DOASExhaustDamper"
+    MixingDamper: "MixingDamper"
+    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
+    IntakeUnitComponentList: "IntakeUnitComponentList"
+    LineArray: "LineArray"
 
 
 class UnitaryHeatPumpAirToAir(NoTypeHVACComponent):
     type: Literal["Unitary heat pump air-to-air"]
+    Width: float
+    Height: float
+    FanType: int
+    DOASAirInConnected: int
+    DOASAirOutConnected: int
+    Origin: "Point3D"
+    OutdoorAirSystem: "OutdoorAirSystem"
+    IntakeDamper: "IntakeDamper"
+    ExhaustDamper: "ExhaustDamper"
+    DOASIntakeDamper: "DOASIntakeDamper"
+    DOASExhaustDamper: "DOASExhaustDamper"
+    MixingDamper: "MixingDamper"
+    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
+    IntakeUnitComponentList: "IntakeUnitComponentList"
+    LineArray: "LineArray"
 
 
 class TemperingValve(NoTypeHVACComponent):
@@ -326,6 +356,21 @@ class WaterHeaterHeatPump(NoTypeHVACComponent):
 
 class UnitaryHeatPumpWaterToAir(NoTypeHVACComponent):
     type: Literal["Unitary heat pump water-to-air"]
+    Width: float
+    Height: float
+    FanType: int
+    DOASAirInConnected: int
+    DOASAirOutConnected: int
+    Origin: "Point3D"
+    OutdoorAirSystem: "OutdoorAirSystem"
+    IntakeDamper: "IntakeDamper"
+    ExhaustDamper: "ExhaustDamper"
+    DOASIntakeDamper: "DOASIntakeDamper"
+    DOASExhaustDamper: "DOASExhaustDamper"
+    MixingDamper: "MixingDamper"
+    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
+    IntakeUnitComponentList: "IntakeUnitComponentList"
+    LineArray: "LineArray"
 
 
 class WaterCoolingCoil(NoTypeHVACComponent):

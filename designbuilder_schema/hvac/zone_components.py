@@ -1,9 +1,29 @@
-from pydantic import field_validator
-from typing import List, Literal, Optional
+from pydantic import Field, field_validator
+from typing import Annotated, List, Literal, Optional
 from designbuilder_schema.base import BaseModel
 from designbuilder_schema.geometry import Point3D
 from designbuilder_schema.hvac.unit_components import UnitElementList
 from designbuilder_schema.hvac.components import NoTypeHVACComponent, HVACComponent
+
+
+class ExtractGrille(NoTypeHVACComponent):
+    pass
+
+
+class SupplyDiffuser(NoTypeHVACComponent):
+    pass
+
+
+class IntakeLouvre(NoTypeHVACComponent):
+    pass
+
+
+class MixingBox(NoTypeHVACComponent):
+    pass
+
+
+class CooledBeam(NoTypeHVACComponent):
+    pass
 
 
 class ZoneElementList(BaseModel):
@@ -57,6 +77,8 @@ class ADU(NoTypeHVACComponent):
     Origin: "Point3D"
     SupplyDiffuser: "SupplyDiffuser"
     UnitElementList: Optional["UnitElementList"]
+    IntakeLouvre: Annotated[Optional["IntakeLouvre"], Field(default=None)]
+    MixingBox: Annotated[Optional["MixingBox"], Field(default=None)]
 
 
 class ZoneADUSingleDuctCAVNoReheat(ADU):
@@ -104,6 +126,8 @@ class ZoneUnit(NoTypeHVACComponent):
     Origin: "Point3D"
     SupplyDiffuser: "SupplyDiffuser"
     UnitElementList: Optional["UnitElementList"]
+    IntakeLouvre: Annotated[Optional["IntakeLouvre"], Field(default=None)]
+    MixingBox: Annotated[Optional["MixingBox"], Field(default=None)]
 
 
 class ZoneFanCoilUnit(ZoneUnit):
@@ -158,13 +182,3 @@ class ZoneRadiativeConvectiveWaterBaseboard(NoTypeHVACComponent):
     type: Literal["Zone radiative convective water baseboard"]
 
 
-class ExtractGrille(NoTypeHVACComponent):
-    pass
-
-
-class SupplyDiffuser(NoTypeHVACComponent):
-    pass
-
-
-class CooledBeam(NoTypeHVACComponent):
-    pass
