@@ -26,14 +26,14 @@ def add_prefixes(data_dict):
 
 def file_to_dict(filepath: str) -> dict:
     """Load a file as a dictionary"""
-    with open(filepath, "r") as f:
-        file_content = f.read()
-        if filepath.endswith(".json"):
-            return json.loads(file_content)
-        elif filepath.endswith(".xml"):
-            return xmltodict.parse(file_content, postprocessor=remove_prefixes)
-        else:
-            raise ValueError("Unsupported file format")
+    if filepath.endswith(".json"):
+        with open(filepath, "r") as f:
+            return json.loads(f.read())
+    elif filepath.endswith(".xml"):
+        with open(filepath, "rb") as f:
+            return xmltodict.parse(f.read(), postprocessor=remove_prefixes)
+    else:
+        raise ValueError("Unsupported file format")
 
 
 def load_model(filepath: str) -> DSB:

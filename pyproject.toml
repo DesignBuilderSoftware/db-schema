@@ -5,7 +5,10 @@ description = "Python package for DesignBuilder XML files with read / edit / wri
 authors = [
     { name = "Bartlomiej Tokarzewski", email = "bartlomiej.tokarzewski@gmail.com" },
 ]
-dependencies = ["pydantic", "xmltodict", "fire"]
+dependencies = [
+    "pydantic",
+    "xmltodict",
+]
 
 readme = "README.md"
 #license = { file = "LICENSE" }
