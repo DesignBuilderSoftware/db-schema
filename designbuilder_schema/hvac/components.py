@@ -12,45 +12,14 @@ from designbuilder_schema.geometry import (
 
 
 class HVACComponents(BaseModel):
-    HVACComponent: List
+    HVACComponent: List  # elements are recast to specific subclasses by the validator
 
     @field_validator("HVACComponent", mode="before")
     def recast_components(cls, components):
-        mapping = {
-            "Sub-loop node": SubLoopNode,
-            "Zone mixer": ZoneMixer,
-            "Zone splitter": ZoneSplitter,
-            "Splitter": Splitter,
-            "Mixer": Mixer,
-            "Setpoint manager": SetpointManager,
-            "Pump": Pump,
-            "Boiler": Boiler,
-            "Generator": Generator,
-            "Heat pump heating": HeatPumpHeating,
-            "Water heater heat pump": WaterHeaterHeatPump,
-            "Chiller": Chiller,
-            "Heat pump cooling": HeatPumpCooling,
-            "Cooling tower": CoolingTower,
-            "Fluid cooler": FluidCooler,
-            "Chilled water storage": ChilledWaterStorage,
-            "Ice thermal storage": IceThermalStorage,
-            "Water heater": WaterHeater,
-            "Domestic water connections": DomesticWaterConnections,
-            "Fluid-to-fluid heat exchanger": FluidToFluidHeatExchanger,
-            "Ground heat exchanger": GroundHeatExchanger,
-            "Air handling unit": AirHandlingUnit,
-            "Unitary system": UnitarySystem,
-            "Unitary heat pump air-to-air": UnitaryHeatPumpAirToAir,
-            "Unitary heat pump water-to-air": UnitaryHeatPumpWaterToAir,
-            "Tempering valve": TemperingValve,
-            "Solar collector": SolarCollector,
-            "Generic heating coil": GenericHeatingCoil,
-            "Water cooling coil": WaterCoolingCoil,
-        }
         if not isinstance(components, list):
             components = [components]
         return [
-            mapping.get(component["type"], HVACComponent)(**component)
+            HVAC_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
             for component in components
         ]
 
@@ -379,3 +348,36 @@ class WaterCoolingCoil(NoTypeHVACComponent):
 
 class GenericHeatingCoil(NoTypeHVACComponent):
     type: Literal["Generic heating coil"]
+
+
+HVAC_COMPONENT_MAPPING = {
+    "Sub-loop node": SubLoopNode,
+    "Zone mixer": ZoneMixer,
+    "Zone splitter": ZoneSplitter,
+    "Splitter": Splitter,
+    "Mixer": Mixer,
+    "Setpoint manager": SetpointManager,
+    "Pump": Pump,
+    "Boiler": Boiler,
+    "Generator": Generator,
+    "Heat pump heating": HeatPumpHeating,
+    "Water heater heat pump": WaterHeaterHeatPump,
+    "Chiller": Chiller,
+    "Heat pump cooling": HeatPumpCooling,
+    "Cooling tower": CoolingTower,
+    "Fluid cooler": FluidCooler,
+    "Chilled water storage": ChilledWaterStorage,
+    "Ice thermal storage": IceThermalStorage,
+    "Water heater": WaterHeater,
+    "Domestic water connections": DomesticWaterConnections,
+    "Fluid-to-fluid heat exchanger": FluidToFluidHeatExchanger,
+    "Ground heat exchanger": GroundHeatExchanger,
+    "Air handling unit": AirHandlingUnit,
+    "Unitary system": UnitarySystem,
+    "Unitary heat pump air-to-air": UnitaryHeatPumpAirToAir,
+    "Unitary heat pump water-to-air": UnitaryHeatPumpWaterToAir,
+    "Tempering valve": TemperingValve,
+    "Solar collector": SolarCollector,
+    "Generic heating coil": GenericHeatingCoil,
+    "Water cooling coil": WaterCoolingCoil,
+}

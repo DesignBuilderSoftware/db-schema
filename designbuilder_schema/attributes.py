@@ -3,27 +3,27 @@ from typing import Optional
 
 
 class NameAttribute(BaseModel):
-    """Site and HVAC Attibute"""
+    """Site and HVAC Attribute"""
 
     name: str
     text: Optional[str] = None
 
 
 class KeyAttribute(BaseModel):
-    """Non-Site and Non-HVAC Attibute"""
+    """Non-Site and Non-HVAC Attribute"""
 
     key: str
     text: str = None
 
 
 class NameAttributes(BaseModel):
-    """Site and HVAC Attibutes"""
+    """Site and HVAC Attributes"""
 
     Attribute: AlwaysList["NameAttribute"]
 
 
 class KeyAttributes(BaseModel):
-    """Non-Site and Non-HVAC Attibute"""
+    """Non-Site and Non-HVAC Attribute"""
 
     Attribute: AlwaysList["KeyAttribute"]
 

@@ -28,7 +28,7 @@ def file_to_dict(filepath: str) -> dict:
     """Load a file as a dictionary"""
     if filepath.endswith(".json"):
         with open(filepath, "r") as f:
-            return json.loads(f.read())
+            return json.load(f)
     elif filepath.endswith(".xml"):
         with open(filepath, "rb") as f:
             return xmltodict.parse(f.read(), postprocessor=remove_prefixes)
@@ -67,5 +67,6 @@ def dict_to_file(dictionary: dict, filepath: str) -> None:
 
 
 def save_model(model: DSB, filepath: str) -> None:
+    # model_dump() creates a new dict, so dict_to_file's pop() won't mutate the model
     model = model.model_dump(mode="json", by_alias=True)
     dict_to_file({"dsbXML": model}, filepath)

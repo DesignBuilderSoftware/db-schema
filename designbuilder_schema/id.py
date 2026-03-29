@@ -1,8 +1,10 @@
+import threading
 from designbuilder_schema.base import BaseModel
 from pydantic import Field
 
 
 _site_counter = 0
+_site_counter_lock = threading.Lock()
 # _assembly_counter = 0
 
 
@@ -12,13 +14,15 @@ def current_site_handle() -> int:
 
 def generate_site_handle() -> int:
     global _site_counter
-    _site_counter += 1
-    return _site_counter - 1
+    with _site_counter_lock:
+        _site_counter += 1
+        return _site_counter - 1
 
 
 def set_site_counter(value: int) -> None:
     global _site_counter
-    _site_counter = value
+    with _site_counter_lock:
+        _site_counter = value
 
 
 class ObjectIDs(BaseModel):

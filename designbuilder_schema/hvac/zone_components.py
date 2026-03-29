@@ -27,37 +27,14 @@ class CooledBeam(NoTypeHVACComponent):
 
 
 class ZoneElementList(BaseModel):
-    HVACZoneComponent: List
+    HVACZoneComponent: List  # elements are recast to specific subclasses by the validator
 
     @field_validator("HVACZoneComponent", mode="before")
     def recast_components(cls, components) -> List:
-        mapping = {
-            "Zone ADU single duct CAV no reheat": ZoneADUSingleDuctCAVNoReheat,
-            "Zone ADU single duct VAV reheat": ZoneADUSingleDuctVAVReheat,
-            "Zone ADU single duct VAV no reheat": ZoneADUSingleDuctVAVNoReheat,
-            "Zone ADU parallel PIU": ZoneADUParallelPIU,
-            "Zone ADU cooled beam": ZoneADUCooledBeam,
-            "Zone ADU four-pipe induction": ZoneADUFourPipeInduction,
-            "Zone ADU dual duct VAV": ZoneADUDualDuctVAV,
-            "Zone ADU series PIU": ZoneADUSeriesPIU,
-            "Zone extract": ZoneExtract,
-            "Zone fan-coil unit": ZoneFanCoilUnit,
-            "Zone terminal packaged heat pump": ZoneTerminalPackagedHeatPump,
-            "Zone water-to-air heat pump": ZoneWaterToAirHeatPump,
-            "Zone variable refrigerant flow unit": ZoneVariableRefrigerantFlowUnit,
-            "Zone high temperature radiant heating": ZoneHighTemperatureRadiantHeating,
-            "Zone heated floor": ZoneHeatedFloor,
-            "Zone chilled ceiling": ZoneChilledCeiling,
-            "Zone radiant surface": ZoneRadiantSurface,
-            "Zone convective electric baseboard": ZoneConvectiveElectricBaseboard,
-            "Zone convective water baseboard": ZoneConvectiveWaterBaseboard,
-            "Zone radiative convective electric baseboard": ZoneRadiativeConvectiveElectricBaseboard,
-            "Zone radiative convective water baseboard": ZoneRadiativeConvectiveWaterBaseboard,
-        }
         if not isinstance(components, list):
             components = [components]
         return [
-            mapping.get(component["type"], HVACComponent)(**component)
+            ZONE_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
             for component in components
         ]
 
@@ -115,10 +92,6 @@ class ZoneADUDualDuctVAV(ADU):
     type: Literal["Zone ADU dual duct VAV"]
 
 
-class ZoneExtract(NoTypeHVACComponent):
-    type: Literal["Zone extract"]
-
-
 class ZoneUnit(NoTypeHVACComponent):
     Width: float
     Height: float
@@ -166,10 +139,6 @@ class ZoneConvectiveElectricBaseboard(NoTypeHVACComponent):
     type: Literal["Zone convective electric baseboard"]
 
 
-class ZoneConvectiveElectricBaseboard(NoTypeHVACComponent):
-    type: Literal["Zone convective electric baseboard"]
-
-
 class ZoneConvectiveWaterBaseboard(NoTypeHVACComponent):
     type: Literal["Zone convective water baseboard"]
 
@@ -180,5 +149,30 @@ class ZoneRadiativeConvectiveElectricBaseboard(NoTypeHVACComponent):
 
 class ZoneRadiativeConvectiveWaterBaseboard(NoTypeHVACComponent):
     type: Literal["Zone radiative convective water baseboard"]
+
+
+ZONE_COMPONENT_MAPPING = {
+    "Zone ADU single duct CAV no reheat": ZoneADUSingleDuctCAVNoReheat,
+    "Zone ADU single duct VAV reheat": ZoneADUSingleDuctVAVReheat,
+    "Zone ADU single duct VAV no reheat": ZoneADUSingleDuctVAVNoReheat,
+    "Zone ADU parallel PIU": ZoneADUParallelPIU,
+    "Zone ADU cooled beam": ZoneADUCooledBeam,
+    "Zone ADU four-pipe induction": ZoneADUFourPipeInduction,
+    "Zone ADU dual duct VAV": ZoneADUDualDuctVAV,
+    "Zone ADU series PIU": ZoneADUSeriesPIU,
+    "Zone extract": ZoneExtract,
+    "Zone fan-coil unit": ZoneFanCoilUnit,
+    "Zone terminal packaged heat pump": ZoneTerminalPackagedHeatPump,
+    "Zone water-to-air heat pump": ZoneWaterToAirHeatPump,
+    "Zone variable refrigerant flow unit": ZoneVariableRefrigerantFlowUnit,
+    "Zone high temperature radiant heating": ZoneHighTemperatureRadiantHeating,
+    "Zone heated floor": ZoneHeatedFloor,
+    "Zone chilled ceiling": ZoneChilledCeiling,
+    "Zone radiant surface": ZoneRadiantSurface,
+    "Zone convective electric baseboard": ZoneConvectiveElectricBaseboard,
+    "Zone convective water baseboard": ZoneConvectiveWaterBaseboard,
+    "Zone radiative convective electric baseboard": ZoneRadiativeConvectiveElectricBaseboard,
+    "Zone radiative convective water baseboard": ZoneRadiativeConvectiveWaterBaseboard,
+}
 
 

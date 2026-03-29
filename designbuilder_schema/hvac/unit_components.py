@@ -10,27 +10,14 @@ from designbuilder_schema.hvac.components import (
 
 
 class UnitElementList(BaseModel):
-    HVACComponent: List
+    HVACComponent: List  # elements are recast to specific subclasses by the validator
 
     @field_validator("HVACComponent", mode="before")
     def recast_components(cls, components):
-        mapping = {
-            "Supply fan": SupplyFan,
-            "Zone ADU louvre": ZoneADULouvre,
-            "Zone ADU PIU intake louvre": ZoneADUPIUIntakeLouvre,
-            "Water cooling coil": WaterCoolingCoil,
-            "Generic heating coil": GenericHeatingCoil,
-            "DX cooling coil": DXCoolingCoil,
-            "DX heating coil": DXHeatingCoil,
-            "Variable refrigerant flow cooling DX coil": VariableRefrigerantFlowCoolingDXCoil,
-            "Variable refrigerant flow heating DX coil": VariableRefrigerantFlowHeatingDXCoil,
-            "Water-to-air heat pump cooling coil": WaterToAirHeatPumpCoolingCoil,
-            "Water-to-air heat pump heating coil": WaterToAirHeatPumpHeatingCoil,
-        }
         if not isinstance(components, list):
             components = [components]
         return [
-            mapping.get(component["type"], HVACComponent)(**component)
+            UNIT_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
             for component in components
         ]
 
@@ -69,3 +56,18 @@ class WaterToAirHeatPumpCoolingCoil(NoTypeHVACComponent):
 
 class WaterToAirHeatPumpHeatingCoil(NoTypeHVACComponent):
     type: Literal["Water-to-air heat pump heating coil"]
+
+
+UNIT_COMPONENT_MAPPING = {
+    "Supply fan": SupplyFan,
+    "Zone ADU louvre": ZoneADULouvre,
+    "Zone ADU PIU intake louvre": ZoneADUPIUIntakeLouvre,
+    "Water cooling coil": WaterCoolingCoil,
+    "Generic heating coil": GenericHeatingCoil,
+    "DX cooling coil": DXCoolingCoil,
+    "DX heating coil": DXHeatingCoil,
+    "Variable refrigerant flow cooling DX coil": VariableRefrigerantFlowCoolingDXCoil,
+    "Variable refrigerant flow heating DX coil": VariableRefrigerantFlowHeatingDXCoil,
+    "Water-to-air heat pump cooling coil": WaterToAirHeatPumpCoolingCoil,
+    "Water-to-air heat pump heating coil": WaterToAirHeatPumpHeatingCoil,
+}

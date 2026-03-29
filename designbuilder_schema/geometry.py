@@ -13,21 +13,30 @@ from pydantic import Field
 class Point3D(BaseModel):
     Point3D: str
 
+    _coords_cache: Union[tuple, None] = None
+
+    @property
+    def _cached_coords(self) -> tuple:
+        if self._coords_cache is None:
+            parsed = tuple(float(c) for c in self.Point3D.split(";"))
+            object.__setattr__(self, "_coords_cache", parsed)
+        return self._coords_cache
+
     @property
     def x(self) -> float:
-        return float(self.Point3D.split(";")[0])
+        return self._cached_coords[0]
 
     @property
     def y(self) -> float:
-        return float(self.Point3D.split(";")[1])
+        return self._cached_coords[1]
 
     @property
     def z(self) -> float:
-        return float(self.Point3D.split(";")[2])
+        return self._cached_coords[2]
 
     @property
     def coords(self) -> List[float]:
-        return [float(coord) for coord in self.Point3D.split(";")]
+        return list(self._cached_coords)
 
     def __setattr__(self, name: str, value: Union[float, List[float]]) -> None:
         if name == "coords":
@@ -41,6 +50,9 @@ class Point3D(BaseModel):
             coords[index] = str(value)
             self.Point3D = ";".join(coords)
         else:
+            # Invalidate cache when Point3D string changes
+            if name == "Point3D":
+                object.__setattr__(self, "_coords_cache", None)
             super().__setattr__(name, value)
 
 

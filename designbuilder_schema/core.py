@@ -97,7 +97,7 @@ class Opening(BaseModel):
     type: str
     Polygon: "Polygon"
     Attributes: Optional["KeyAttributes"]
-    SegmentList: Optional["SegmentList"]
+    SegmentList: Optional["CFDSegmentList"]
 
 
 class Adjacencies(BaseModel):
@@ -320,7 +320,7 @@ class CFDBoundary(BaseModel):
     CFDBoundaryComponentList: None
 
 
-class SegmentList(BaseModel):
+class CFDSegmentList(BaseModel):
     CFDBoundary: "CFDBoundary"
 
 

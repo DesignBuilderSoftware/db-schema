@@ -6,7 +6,6 @@ from designbuilder_schema.base import BaseModel
 class Tables(BaseModel):
     Table: List["Table"]
 
-    @staticmethod
     def get_table_by_name(self, name: str) -> "Table":
         table_names = {table.name: index for index, table in enumerate(self.Table)}
         index = table_names[name]

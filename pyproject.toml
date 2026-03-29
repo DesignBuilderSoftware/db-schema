@@ -27,9 +27,13 @@ visualise = ["matplotlib"]
 tables = ["pandas"]
 all = ["pytest", "black", "mypy", "xmlschema", "lxml", "matplotlib", "pandas"]
 
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [tool.pytest.ini_options]
-pythonpath = ["C:/GitHub/designbuilder_schema"]
-testpaths = ["tests"]
+pythonpath = ["."]
+testpaths = ["designbuilder_schema/tests"]
 
 [tool.coverage.run]
 source = ["designbuilder_schema"]
