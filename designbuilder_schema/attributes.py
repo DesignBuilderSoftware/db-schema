@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 from designbuilder_schema.base import BaseModel
 from pydantic_xml import attr, element
