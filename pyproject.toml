@@ -1,6 +1,6 @@
 [project]
 name = "designbuilder_schema"
-version = "0.6"
+version = "1.0.0"
 description = "Python package for DesignBuilder XML files with read / edit / write functionality."
 requires-python = ">=3.10"
 authors = [
