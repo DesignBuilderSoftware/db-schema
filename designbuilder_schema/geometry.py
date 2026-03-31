@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 geometry.py
 ====================================
@@ -74,7 +76,7 @@ class Vertices(BaseModel):
         except IndexError as e:
             raise ValueError(f"Invalid index {index} for Vertices.point_3d") from e
 
-    def __iter__(self):
+    def __iter__(self) -> iter:
         return iter(self.point_3d)
 
 

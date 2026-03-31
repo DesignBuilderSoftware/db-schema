@@ -4,6 +4,8 @@ core.py
 The core module of the designbuilder_schema
 """
 
+from __future__ import annotations
+
 from typing import Optional, List, Annotated
 from pydantic import field_serializer, Field, ConfigDict
 from pydantic_xml import attr, element

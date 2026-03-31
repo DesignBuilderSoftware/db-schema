@@ -17,36 +17,41 @@ from designbuilder_schema.core import (
 
 # Backwards compatibility alias
 DSB = dsbXML
-from designbuilder_schema.utils import load_model, save_model
+from designbuilder_schema.utils import load_model, save_model, clear_model_cache
 
 # Import essential dependencies first
 from designbuilder_schema.tables import Tables  # noqa: F401
 from designbuilder_schema.geometry import Point3D, Vertices, Line, Range  # noqa: F401
 from designbuilder_schema.attributes import NameAttributes, KeyAttributes  # noqa: F401
 
-# Only import HVAC modules here for essential model rebuilding
-# They'll be re-imported lazily below for actual use
-from pydantic_xml import BaseXmlModel
-import inspect
+# Rebuild core and essential models to resolve forward references for pydantic-xml
+def _rebuild_models():
+    """Rebuild all models with forward references.
 
-# Rebuild core models to resolve forward references for pydantic-xml
-_core_module = inspect.getmodule(dsbXML)
-_all_models = [
-    obj for name, obj in inspect.getmembers(_core_module)
-    if inspect.isclass(obj) and issubclass(obj, BaseXmlModel) and obj is not BaseXmlModel
-]
+    This is necessary for pydantic-xml to properly resolve string type hints
+    like "Site", "Building", etc. that reference classes defined later.
+    Uses inspect to automatically find all BaseModel subclasses in each module.
+    """
+    import inspect
+    from pydantic_xml import BaseXmlModel
 
-# Rebuild each model, catching individual failures
-for _model in _all_models:
-    try:
-        _model.model_rebuild()
-    except Exception:
-        # Some models may fail to rebuild due to unsupported field types
-        # but they may still be usable if accessed through their parents
-        pass
+    # Rebuild all core models
+    from designbuilder_schema import core, geometry, attributes, tables
+    for module in [core, geometry, attributes, tables]:
+        for name, obj in inspect.getmembers(module):
+            if (inspect.isclass(obj) and
+                issubclass(obj, BaseXmlModel) and
+                obj is not BaseXmlModel and
+                obj.__module__.startswith('designbuilder_schema')):
+                try:
+                    obj.model_rebuild()
+                except Exception:
+                    # Some models may fail due to unsupported field types
+                    # but they're still usable through parent classes
+                    pass
 
-# Clean up namespace
-del _core_module, _all_models, _model, inspect, BaseXmlModel
+_rebuild_models()
+del _rebuild_models
 
 # Lazy loading for HVAC modules
 # Import on first access to reduce startup time

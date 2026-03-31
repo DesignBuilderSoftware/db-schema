@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pydantic import field_validator, Field
 from pydantic_xml import attr, element
 from typing import Optional, Literal, List, Annotated
