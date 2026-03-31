@@ -5,9 +5,10 @@ The core module of the designbuilder_schema
 """
 
 from typing import Optional, List, Annotated
-from pydantic import field_serializer, Field
+from pydantic import field_serializer, Field, ConfigDict
+from pydantic_xml import attr, element
 from designbuilder_schema.hvac.network import HVACNetwork
-from designbuilder_schema.base import BaseModel, AlwaysList
+from designbuilder_schema.base import BaseModel
 from designbuilder_schema.id import ObjectIDs, current_site_handle
 from designbuilder_schema.geometry import Point3D, Vertices, Line
 from designbuilder_schema.tables import Tables
@@ -15,21 +16,60 @@ from designbuilder_schema.attributes import NameAttributes, KeyAttributes
 import datetime
 
 
-class DSB(BaseModel):
-    name: str
-    date: datetime.date
-    version: str
-    objects: str
-    Site: Optional["Site"]
+class dsbXML(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    name: str = attr()
+    date: datetime.date = attr()
+    version: str = attr()
+    objects: str = attr()
+    site: Optional["Site"] = element(default=None)
+
+    @classmethod
+    def from_xml(cls, source, **kwargs):
+        """Override to handle PascalCase XML tags to snake_case Python fields"""
+        from lxml import etree
+        if isinstance(source, (str, bytes)):
+            root = etree.fromstring(source)
+        else:
+            root = source
+
+        # Rename PascalCase child elements to lowercase
+        # This handles XML like <Site> being mapped to field 'site'
+        def lowercase_tags(element, skip_root=True):
+            # Convert tag names: Site -> site, Tables -> tables, etc.
+            # but skip the root element
+            if not skip_root and element.tag and len(element.tag) > 1 and element.tag[0].isupper():
+                element.tag = element.tag[0].lower() + element.tag[1:]
+            for child in element:
+                lowercase_tags(child, skip_root=False)
+
+        lowercase_tags(root, skip_root=True)
+
+        instance = super().from_xml_tree(root)
+        return instance
+
+    def to_xml(self, **kwargs) -> str | bytes:
+        """Override to output dsbXML as root element"""
+        from lxml import etree
+        xml_output = super().to_xml(**kwargs)
+        if isinstance(xml_output, bytes):
+            root = etree.fromstring(xml_output)
+            root.tag = "dsbXML"
+            return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
+        else:
+            root = etree.fromstring(xml_output.encode())
+            root.tag = "dsbXML"
+            return etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8")
 
 
 class Site(BaseModel):
-    count: int
-    handle: int
-    Attributes: "NameAttributes"
-    Tables: Optional["Tables"]
-    AssemblyLibrary: Optional["AssemblyLibrary"]
-    Buildings: Optional["Buildings"]
+    count: int = attr()
+    handle: int = attr()
+    attributes: "NameAttributes" = element(default_factory=lambda: NameAttributes())
+    tables: Optional["Tables"] = element(default=None)
+    assembly_library: Optional["AssemblyLibrary"] = element(default=None)
+    buildings: Optional["Buildings"] = element(default=None)
 
     @field_serializer("handle")
     def serialize_handle(self, _) -> int:
@@ -37,315 +77,317 @@ class Site(BaseModel):
 
 
 class AssemblyLibrary(BaseModel):
-    assemblyHandle: int
-    Assembly: AlwaysList["Assembly"]
+    assemblyHandle: int = attr()
+    assembly: List["Assembly"] = element(tag="Assembly")
 
 
 class Assembly(BaseModel):
-    assemblyHandle: int
-    componentBlockHandle: int
-    reference: str
-    HandlePoint: "Point3D"
-    ComponentBlocks: "ComponentBlocks"
-    Attributes: "KeyAttributes"
+    assemblyHandle: int = attr()
+    componentBlockHandle: int = attr()
+    reference: str = attr()
+    handle_point: "Point3D" = element()
+    component_blocks: "ComponentBlocks" = element()
+    attributes: "KeyAttributes" = element()
 
 
 class ComponentBlocks(BaseModel):
-    ComponentBlock: AlwaysList["ComponentBlock"]
+    component_block: List["ComponentBlock"] = element(tag="ComponentBlock")
 
 
 class ComponentBlock(BaseModel):
-    type: str
-    Body: "Body"
+    type: str = attr()
+    body: "Body" = element()
 
 
 class Body(BaseModel):
-    volume: float
-    extrusionHeight: float
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    Vertices: "Vertices"
-    Surfaces: "Surfaces"
-    VoidPerimeterList: Optional["VoidPerimeterList"]
-    Attributes: Optional["KeyAttributes"]
+    volume: float = attr()
+    extrusionHeight: float = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: "Vertices" = element()
+    surfaces: "Surfaces" = element()
+    void_perimeter_list: Optional["VoidPerimeterList"] = element()
+    attributes: Optional["KeyAttributes"] = element()
 
 
 class Surfaces(BaseModel):
-    Surface: List["Surface"]
+    surface: List["Surface"] = element(tag="Surface")
 
 
 class Surface(BaseModel):
-    type: str
-    area: float
-    alpha: float
-    phi: float
-    defaultOpenings: str
-    adjacentPartitionHandle: int
-    thickness: float
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    VertexIndices: str  # vertex indexes of parent body
-    HoleIndices: Optional[str]
-    Openings: Optional["Openings"]
-    Adjacencies: Optional["Adjacencies"]
-    Attributes: Optional["KeyAttributes"]
+    type: str = attr()
+    area: float = attr()
+    alpha: float = attr()
+    phi: float = attr()
+    defaultOpenings: str = attr()
+    adjacentPartitionHandle: int = attr()
+    thickness: float = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertex_indices: str = element()
+    hole_indices: Optional[str] = element(default=None)
+    openings: Optional["Openings"] = element()
+    adjacencies: Optional["Adjacencies"] = element()
+    attributes: Optional["KeyAttributes"] = element()
 
 
 class Openings(BaseModel):
-    Opening: AlwaysList["Opening"]
+    opening: List["Opening"] = element(tag="Opening")
 
 
 class Opening(BaseModel):
-    type: str
-    Polygon: "Polygon"
-    Attributes: Optional["KeyAttributes"]
-    SegmentList: Optional["CFDSegmentList"]
+    type: str = attr()
+    polygon: "Polygon" = element()
+    attributes: Optional["KeyAttributes"] = element()
+    segment_list: Optional["CFDSegmentList"] = element()
 
 
 class Adjacencies(BaseModel):
-    Adjacency: AlwaysList["Adjacency"]
+    adjacency: List["Adjacency"] = element(tag="Adjacency")
 
 
 class Adjacency(BaseModel):
-    type: str
-    adjacencyDistance: float
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    AdjacencyPolygonList: "AdjacencyPolygonList"
+    type: str = attr()
+    adjacencyDistance: float = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    adjacency_polygon_list: "AdjacencyPolygonList" = element()
 
 
 class AdjacencyPolygonList(BaseModel):
-    Polygon: AlwaysList["Polygon"]
+    polygon: List["Polygon"] = element(tag="Polygon")
 
 
 class Buildings(BaseModel):
-    numberOfBuildings: int
-    Building: AlwaysList["Building"]
+    numberOfBuildings: int = attr()
+    building: List["Building"] = element(tag="Building")
 
 
 class Building(BaseModel):
-    currentComponentBlockHandle: int
-    currentAssemblyInstanceHandle: int
-    currentPlaneHandle: int
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    BuildingBlocks: Optional["BuildingBlocks"]
-    ComponentBlocks: Optional["ComponentBlocks"]
-    AssemblyInstances: Optional["AssemblyInstances"]
-    ProfileOutlines: Optional["ProfileOutlines"]  # OutlineBlocks
-    ConstructionLines: Optional["ConstructionLines"]
-    Planes: Optional["Planes"]
-    HVACNetwork: Optional["HVACNetwork"]
-    BookmarkBuildings: Optional["BookmarkBuildings"]
-    Attributes: "KeyAttributes"
+    currentComponentBlockHandle: int = attr()
+    currentAssemblyInstanceHandle: int = attr()
+    currentPlaneHandle: int = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    building_blocks: Optional["BuildingBlocks"] = element()
+    component_blocks: Optional["ComponentBlocks"] = element()
+    assembly_instances: Optional["AssemblyInstances"] = element()
+    profile_outlines: Optional["ProfileOutlines"] = element()
+    construction_lines: Optional["ConstructionLines"] = element()
+    planes: Optional["Planes"] = element()
+    hvac_network: Optional["HVACNetwork"] = element()
+    bookmark_buildings: Optional["BookmarkBuildings"] = element()
+    attributes: "KeyAttributes" = element()
 
 
 class BuildingBlocks(BaseModel):
-    BuildingBlock: AlwaysList["BuildingBlock"]
+    building_block: List["BuildingBlock"] = element(tag="BuildingBlock")
 
 
 class BuildingBlock(BaseModel):
-    type: str
-    height: float
-    roofSlope: float
-    roofOverlap: float
-    roofType: str
-    wallSlope: float
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    ComponentBlocks: Optional["ComponentBlocks"]
-    CFDFans: Optional["CFDFans"]
-    AssemblyInstances: Optional["AssemblyInstances"]
-    ProfileOutlines: Optional["ProfileOutlines"]
-    InternalPartitions: Optional["InternalPartitions"]
-    VoidBodies: Optional["VoidBodies"]
-    Zones: Optional["Zones"]
-    ProfileBody: Optional["ProfileBody"]
-    Perimeter: Optional["Perimeter"]
-    BaseProfileBody: Optional["BaseProfileBody"]
-    Attributes: "KeyAttributes"
+    type: str = attr()
+    height: float = attr()
+    roofSlope: float = attr()
+    roofOverlap: float = attr()
+    roofType: str = attr()
+    wallSlope: float = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    component_blocks: Optional["ComponentBlocks"] = element()
+    cfd_fans: Optional["CFDFans"] = element()
+    assembly_instances: Optional["AssemblyInstances"] = element()
+    profile_outlines: Optional["ProfileOutlines"] = element()
+    internal_partitions: Optional["InternalPartitions"] = element()
+    void_bodies: Optional["VoidBodies"] = element()
+    zones: Optional["Zones"] = element()
+    profile_body: Optional["ProfileBody"] = element()
+    perimeter: Optional["Perimeter"] = element()
+    base_profile_body: Optional["BaseProfileBody"] = element()
+    attributes: "KeyAttributes" = element()
 
 
 class InternalPartitions(BaseModel):
-    InternalPartition: AlwaysList["InternalPartition"]
+    internal_partition: List["InternalPartition"] = element(tag="InternalPartition")
 
 
 class InternalPartition(BaseModel):
-    type: str
-    height: float
-    area: float
-    floatingPartition: bool
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    StartPoint: "Point3D"
-    EndPoint: "Point3D"
+    type: str = attr()
+    height: float = attr()
+    area: float = attr()
+    floatingPartition: bool = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    start_point: "Point3D" = element()
+    end_point: "Point3D" = element()
 
 
 class Zones(BaseModel):
-    Zone: AlwaysList["Zone"]
+    zone: List["Zone"] = element(tag="Zone")
 
 
 class Zone(BaseModel):
-    parentZoneHandle: str
-    inheritedZoneHandle: str
-    planExtrusion: str
-    innerSurfaceMode: str
-    Body: "Body"
-    LightSensorOne: "LightSensorOne"
-    LightSensorTwo: "LightSensorTwo"
-    LabelPosition: "Point3D"
-    Polygon: Optional["Polygon"]
-    InnerSurfaceBody: Optional["InnerSurfaceBody"]
+    parentZoneHandle: str = attr()
+    inheritedZoneHandle: str = attr()
+    planExtrusion: str = attr()
+    innerSurfaceMode: str = attr()
+    body: "Body" = element()
+    light_sensor_one: "LightSensorOne" = element()
+    light_sensor_two: "LightSensorTwo" = element()
+    label_position: "Point3D" = element()
+    polygon: Optional["Polygon"] = element(default=None)
+    inner_surface_body: Optional["InnerSurfaceBody"] = element()
 
 
 class ProfileBody(BaseModel):
-    elementSlope: float
-    roofOverlap: float
-    Body: "Body"
+    elementSlope: float = attr()
+    roofOverlap: float = attr()
+    body: "Body" = element()
 
 
 class Perimeter(BaseModel):
-    Polygon: "Polygon"
+    polygon: "Polygon" = element()
 
 
 class BaseProfileBody(BaseModel):
-    ProfileBody: "ProfileBody"
+    profile_body: "ProfileBody" = element()
 
 
 class Polygon(BaseModel):
-    auxiliaryType: str
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    Vertices: Optional["Vertices"]
-    PolygonHoles: Optional["PolygonHoles"]
+    auxiliaryType: str = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: Optional["Vertices"] = element(default=None)
+    polygon_holes: Optional["PolygonHoles"] = element()
 
 
 class PolygonHoles(BaseModel):
-    PolygonHole: AlwaysList["PolygonHole"]
+    polygon_hole: List["PolygonHole"] = element(tag="PolygonHole")
 
 
 class PolygonHole(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    Vertices: "Vertices"
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: "Vertices" = element()
 
 
 class LightSensorOne(BaseModel):
-    index: int
-    Point3D: str
+    index: int = attr()
+    point_3d: str = element()
 
 
 class LightSensorTwo(BaseModel):
-    index: int
-    Point3D: str
+    index: int = attr()
+    point_3d: str = element()
 
 
 class InnerSurfaceBody(BaseModel):
-    Body: "Body"
+    body: "Body" = element()
 
 
 class BookmarkBuildings(BaseModel):
-    numberOfBuildings: int
+    numberOfBuildings: int = attr()
 
 
 class ConstructionLines(BaseModel):
-    ConstructionLine: AlwaysList["ConstructionLine"]
+    construction_line: List["ConstructionLine"] = element(tag="ConstructionLine")
 
 
 class ConstructionLine(BaseModel):
-    Line: "Line"
-    Planes: "CPlanes"
+    line: "Line" = element()
+    planes: "CPlanes" = element()
 
 
 class CPlanes(BaseModel):
-    Polygon: AlwaysList["Polygon"]
+    polygon: List["Polygon"] = element(tag="Polygon")
 
 
 class Planes(BaseModel):
-    Plane: AlwaysList["Plane"]
+    plane: List["Plane"] = element(tag="Plane")
 
 
 class Plane(BaseModel):
-    type: int
-    Polygon: "Polygon"
+    type: int = attr()
+    polygon: "Polygon" = element()
 
 
 class AssemblyInstances(BaseModel):
-    AssemblyInstance: AlwaysList["AssemblyInstance"]
+    assembly_instance: List["AssemblyInstance"] = element(tag="AssemblyInstance")
 
 
 class AssemblyInstance(BaseModel):
-    assemblyHandle: int
-    reflected: int
-    active: int
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    AssemblyInstanceTransformationMatrix: "AssemblyInstanceTransformationMatrix"
-    Attributes: Optional["KeyAttributes"]
+    assemblyHandle: int = attr()
+    reflected: int = attr()
+    active: int = attr()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    assembly_instance_transformation_matrix: "AssemblyInstanceTransformationMatrix" = (
+        element()
+    )
+    attributes: Optional["KeyAttributes"] = element()
 
 
 class AssemblyInstanceTransformationMatrix(BaseModel):
-    Matrix: "Matrix"
+    matrix: "Matrix" = element()
 
 
 class Matrix(BaseModel):
-    MatrixRow: List[str]
+    matrix_row: List[str] = element(tag="MatrixRow")
 
 
 class ProfileOutlines(BaseModel):
-    ProfileOutline: AlwaysList["ProfileOutline"]
+    profile_outline: List["ProfileOutline"] = element(tag="ProfileOutline")
 
 
 class ProfileOutline(BaseModel):
-    Body: "Body"
+    body: "Body" = element()
 
 
 class VoidBodies(BaseModel):
-    VoidBody: AlwaysList["VoidBody"]
+    void_body: List["VoidBody"] = element(tag="VoidBody")
 
 
 class VoidBody(BaseModel):
-    ProfileBody: "ProfileBody"
+    profile_body: "ProfileBody" = element()
 
 
 class VoidPerimeterList(BaseModel):
-    Polygon: AlwaysList["Polygon"]
+    polygon: List["Polygon"] = element(tag="Polygon")
 
 
 class CFDFans(BaseModel):
-    CFDFan: AlwaysList["CFDFan"]
+    cfd_fan: List["CFDFan"] = element(tag="CFDFan")
 
 
 class CFDFan(BaseModel):
-    ComponentBlock: "ComponentBlock"
+    component_block: "ComponentBlock" = element()
 
 
 class CFDBoundary(BaseModel):
-    type: str
-    Polygon: "Polygon"
-    CFDBoundarySettings: "CFDBoundarySettings"
-    MinimumRefinementRegionPoint: "Point3D"
-    MaximumRefinementRegionPoint: "Point3D"
-    CFDBoundaryComponentList: None
+    type: str = attr()
+    polygon: "Polygon" = element()
+    cfd_boundary_settings: "CFDBoundarySettings" = element()
+    minimum_refinement_region_point: "Point3D" = element()
+    maximum_refinement_region_point: "Point3D" = element()
+    cfd_boundary_component_list: Optional[None] = element(default=None)
 
 
 class CFDSegmentList(BaseModel):
-    CFDBoundary: "CFDBoundary"
+    cfd_boundary: "CFDBoundary" = element()
 
 
 class CFDBoundarySettings(BaseModel):
-    Temperature: float
-    FlowRate: float
-    XDirectionDischargeAngle: float
-    YDirectionDischargeAngle: float
-    MultiWayDiffuserDischargeAngle: float
-    TwoWayDiffuserDischargeDirection: int
-    MinimumDischargeVelocity: float
-    ActualDischargeVelocity: float
-    HeatFlux: float
-    Pressure: float
-    PressureType: int
-    MoistureSource: float
-    ContaminantSource: float
-    RelativeHumidity: float
-    NonOrthoElementWidth: float
-    NonOrthoElementHeight: float
-    NonOrthoFaceOffset: float
-    NonOrthoElementXSpacing: float
-    NonOrthoElementYSpacing: float
-    NonOrthoElementXEdgeOffset: float
-    NonOrthoElementYEdgeOffset: float
+    temperature: float = attr()
+    flow_rate: float = attr()
+    x_direction_discharge_angle: float = attr()
+    y_direction_discharge_angle: float = attr()
+    multi_way_diffuser_discharge_angle: float = attr()
+    two_way_diffuser_discharge_direction: int = attr()
+    minimum_discharge_velocity: float = attr()
+    actual_discharge_velocity: float = attr()
+    heat_flux: float = attr()
+    pressure: float = attr()
+    pressure_type: int = attr()
+    moisture_source: float = attr()
+    contaminant_source: float = attr()
+    relative_humidity: float = attr()
+    non_ortho_element_width: float = attr()
+    non_ortho_element_height: float = attr()
+    non_ortho_face_offset: float = attr()
+    non_ortho_element_x_spacing: float = attr()
+    non_ortho_element_y_spacing: float = attr()
+    non_ortho_element_x_edge_offset: float = attr()
+    non_ortho_element_y_edge_offset: float = attr()
     DiffuserElementDimension: float
     RefinementRegionDistance: float
     RefinementRegionLevel: int

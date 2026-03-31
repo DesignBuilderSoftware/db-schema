@@ -1,7 +1,7 @@
 import threading
 from designbuilder_schema.base import BaseModel
-from pydantic import Field
-
+from pydantic import Field, ConfigDict
+from pydantic_xml import attr
 
 _site_counter = 0
 _site_counter_lock = threading.Lock()
@@ -34,9 +34,13 @@ class ObjectIDs(BaseModel):
     4. each ObjectID is given new handle on creation
     """
 
-    handle: int = Field(default_factory=generate_site_handle)
-    buildingHandle: int = -1
-    buildingBlockHandle: int = -1
-    zoneHandle: int = -1
-    surfaceIndex: int = -1
-    openingIndex: int = -1
+    handle: int = attr(default=Field(default_factory=generate_site_handle))
+    buildingHandle: int = attr(default=-1)
+    buildingBlockHandle: int = attr(default=-1)
+    zoneHandle: int = attr(default=-1)
+    surfaceIndex: int = attr(default=-1)
+    openingIndex: int = attr(default=-1)
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+    )

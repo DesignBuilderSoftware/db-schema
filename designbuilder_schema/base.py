@@ -1,8 +1,11 @@
-from pydantic import BaseModel, ConfigDict, BeforeValidator
+from pydantic_xml import BaseXmlModel
+from pydantic import ConfigDict, BeforeValidator
 from typing import Annotated, TypeVar, List
 
 
-class BaseModel(BaseModel):
+class BaseModel(BaseXmlModel):
+    """Base class for all DesignBuilder XML models"""
+
     # slots=True could be enabled on leaf models for memory/speed gains
     model_config = ConfigDict(
         populate_by_name=True,
