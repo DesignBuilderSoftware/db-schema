@@ -1,3 +1,10 @@
+"""
+DesignBuilder XML Schema - pydantic-xml based models for DesignBuilder simulation files
+
+This module provides Pydantic models that can serialize to/from DesignBuilder XML format.
+HVAC modules are loaded lazily on first access to reduce import overhead.
+"""
+
 from designbuilder_schema.core import (
     dsbXML,
     Site,
@@ -12,23 +19,17 @@ from designbuilder_schema.core import (
 DSB = dsbXML
 from designbuilder_schema.utils import load_model, save_model
 
-# Import all dependent models first to ensure they're registered
-# before rebuilding parent models
+# Import essential dependencies first
 from designbuilder_schema.tables import Tables  # noqa: F401
 from designbuilder_schema.geometry import Point3D, Vertices, Line, Range  # noqa: F401
 from designbuilder_schema.attributes import NameAttributes, KeyAttributes  # noqa: F401
-from designbuilder_schema.hvac.components import HVACComponents  # noqa: F401
-from designbuilder_schema.hvac.network import HVACNetwork  # noqa: F401
 
+# Only import HVAC modules here for essential model rebuilding
+# They'll be re-imported lazily below for actual use
 from pydantic_xml import BaseXmlModel
-
-# Rebuild models to resolve forward references for pydantic-xml
-# This rebuilds models in the order they were imported, which generally works
-# for most forward references
 import inspect
-from pydantic_xml import BaseXmlModel
 
-# Get all BaseXmlModel classes from the core module and rebuild them
+# Rebuild core models to resolve forward references for pydantic-xml
 _core_module = inspect.getmodule(dsbXML)
 _all_models = [
     obj for name, obj in inspect.getmembers(_core_module)
@@ -45,4 +46,16 @@ for _model in _all_models:
         pass
 
 # Clean up namespace
-del _core_module, _all_models, _model
+del _core_module, _all_models, _model, inspect, BaseXmlModel
+
+# Lazy loading for HVAC modules
+# Import on first access to reduce startup time
+def __getattr__(name: str):
+    """Lazy load HVAC modules on first access"""
+    if name == "HVACComponents":
+        from designbuilder_schema.hvac.components import HVACComponents  # noqa: F401
+        return HVACComponents
+    elif name == "HVACNetwork":
+        from designbuilder_schema.hvac.network import HVACNetwork  # noqa: F401
+        return HVACNetwork
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
