@@ -1,4 +1,5 @@
 from pydantic import field_validator
+from pydantic_xml import element
 from typing import List, Literal
 from designbuilder_schema.base import BaseModel
 from designbuilder_schema.hvac.components import (
@@ -10,16 +11,7 @@ from designbuilder_schema.hvac.components import (
 
 
 class UnitElementList(BaseModel):
-    HVACComponent: List  # elements are recast to specific subclasses by the validator
-
-    @field_validator("HVACComponent", mode="before")
-    def recast_components(cls, components):
-        if not isinstance(components, list):
-            components = [components]
-        return [
-            UNIT_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
-            for component in components
-        ]
+    hvac_component: List[HVACComponent] = element(tag="HVACComponent")
 
 
 class SupplyFan(NoTypeHVACComponent):

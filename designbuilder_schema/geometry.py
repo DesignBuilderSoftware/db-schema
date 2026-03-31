@@ -6,33 +6,36 @@ The geometry module of the designbuilder_schema
 
 from designbuilder_schema.base import BaseModel
 from designbuilder_schema.id import ObjectIDs
+from pydantic_xml import attr, element
 from typing import List, Union, Annotated
 from pydantic import Field
 
 
 class Point3D(BaseModel):
-    Point3D: str
+    value: str
 
-    _coords_cache: Union[tuple, None] = None
+    _coords_cache: Union[tuple[float, float, float], None] = None
 
     @property
-    def _cached_coords(self) -> tuple:
+    def _cached_coords(self) -> tuple[float, float, float]:
         if self._coords_cache is None:
-            parsed = tuple(float(c) for c in self.Point3D.split(";"))
-            object.__setattr__(self, "_coords_cache", parsed)
+            parsed = tuple(float(c) for c in self.value.split(";"))
+            assert len(parsed) == 3, "Expected 3 coordinates"
+            object.__setattr__(self, "_coords_cache", tuple(parsed))
+        assert self._coords_cache is not None
         return self._coords_cache
 
     @property
     def x(self) -> float:
-        return self._cached_coords[0]
+        return float(self._cached_coords[0])
 
     @property
     def y(self) -> float:
-        return self._cached_coords[1]
+        return float(self._cached_coords[1])
 
     @property
     def z(self) -> float:
-        return self._cached_coords[2]
+        return float(self._cached_coords[2])
 
     @property
     def coords(self) -> List[float]:
@@ -41,38 +44,38 @@ class Point3D(BaseModel):
     def __setattr__(self, name: str, value: Union[float, List[float]]) -> None:
         if name == "coords":
             if isinstance(value, list) and len(value) == 3:
-                self.Point3D = ";".join(map(str, value))
+                self.value = ";".join(map(str, value))
             else:
                 raise ValueError("Coordinates must be a list of 3 numbers")
         elif name in ["x", "y", "z"]:
             index = {"x": 0, "y": 1, "z": 2}[name]
-            coords = self.Point3D.split(";")
+            coords = self.value.split(";")
             coords[index] = str(value)
-            self.Point3D = ";".join(coords)
+            self.value = ";".join(coords)
         else:
-            # Invalidate cache when Point3D string changes
-            if name == "Point3D":
+            # Invalidate cache when value string changes
+            if name == "value":
                 object.__setattr__(self, "_coords_cache", None)
             super().__setattr__(name, value)
 
 
 class Vertices(BaseModel):
-    Point3D: List["str"]
+    point_3d: List[Point3D] = element(tag="Point3D")
 
-    def __getitem__(self, index: int) -> "Point3D":
-        return Point3D(Point3D=self.Point3D[index])
+    def __getitem__(self, index: int) -> Point3D:
+        return self.point_3d[index]
 
-    def __setitem__(self, index: int, value: Union[str, "Point3D"]) -> None:
+    def __setitem__(self, index: int, value: Union[str, Point3D]) -> None:
         try:
             if isinstance(value, Point3D):
-                self.Point3D[index] = value.Point3D
+                self.point_3d[index] = value
             elif isinstance(value, str):
-                self.Point3D[index] = value
+                self.point_3d[index] = Point3D(value=value)
         except IndexError as e:
-            raise ValueError(f"Invalid index {index} for Vertices.Point3D") from e
+            raise ValueError(f"Invalid index {index} for Vertices.point_3d") from e
 
     def __iter__(self):
-        return iter(self.Point3D)
+        return iter(self.point_3d)
 
 
 class Range(BaseModel):
@@ -80,35 +83,35 @@ class Range(BaseModel):
     Org - top left corner.
     End -  bottom right corner."""
 
-    Org: "Point3D"
-    End: "Point3D"
+    org: "Point3D" = element()
+    end: "Point3D" = element()
 
 
 class Line(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    Begin: "Point3D"
-    End: "Point3D"
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    begin: "Point3D" = element()
+    end: "Point3D" = element()
 
 
 class ImageRectangle(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    ImageTextureIndex: int
-    MaskTextureIndex: int
-    SelectedImageTextureIndex: int
-    InactiveImageTextureIndex: int
-    Textured: str
-    Masked: str
-    SelectedImage: str
-    InactiveImage: str
-    Color: str
-    Active: str
-    Vertices: "Vertices"
-    Range: "Range"
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    image_texture_index: int = attr()
+    mask_texture_index: int = attr()
+    selected_image_texture_index: int = attr()
+    inactive_image_texture_index: int = attr()
+    textured: str = attr()
+    masked: str = attr()
+    selected_image: str = attr()
+    inactive_image: str = attr()
+    color: str = attr()
+    active: str = attr()
+    vertices: "Vertices" = element()
+    range: "Range" = element()
 
 
 class SegmentList(BaseModel):
-    LineArray: "LineArray"
+    line_array: "LineArray" = element()
 
 
 class LineArray(BaseModel):
-    Line: Union["Line", list["Line"]]
+    line: List["Line"] = element(tag="Line")

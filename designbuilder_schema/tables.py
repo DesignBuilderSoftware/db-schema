@@ -1,49 +1,43 @@
-from pydantic import field_validator, field_serializer
+"""
+tables.py
+====================================
+The tables module of the designbuilder_schema
+"""
+
+from pydantic import field_validator, field_serializer, BaseModel as PydanticBaseModel
+from pydantic_xml import attr, element
 from typing import Any, List, Optional
 from designbuilder_schema.base import BaseModel
 
 
-class Tables(BaseModel):
-    Table: List["Table"]
+class TableRow(BaseModel):
+    """Single row of data in a table - XML compatible"""
 
-    def get_table_by_name(self, name: str) -> "Table":
-        table_names = {table.name: index for index, table in enumerate(self.Table)}
-        index = table_names[name]
-        return self.Table[index]
+    cells: List[str] = element(tag="Cell")
 
+    def __getitem__(self, index: int) -> str:
+        return self.cells[index]
 
-class TableItem(BaseModel):
-    FieldName: List[str]
-    Row: List[Any]
+    def __setitem__(self, index: int, value: str) -> None:
+        self.cells[index] = value
 
-    def __getattr__(self, name):
-        if name in self.FieldName:
-            i = self.FieldName.index(name)
-            return self.Row[i]
-        raise AttributeError(
-            f"'{self.__class__.__name__}' object has no attribute '{name}'"
-        )
+    def __iter__(self):
+        return iter(self.cells)
 
-    def __setattr__(self, name, value):
-        if name in self.__dict__:
-            super().__setattr__(name, value)
-        elif name in self.FieldName:
-            index = self.FieldName.index(name)
-            self.Row[index] = value
-        else:
-            raise AttributeError(
-                f"'{self.__class__.__name__}' object has no attribute '{name}'"
-            )
+    def __len__(self) -> int:
+        return len(self.cells)
 
 
 class Table(BaseModel):
-    name: str
-    numberOfFields: int
-    Category: Optional[List[str]] = None
-    FieldName: List[str]
-    Row: Optional[List[List[str]]] = None
+    """Table data container - now fully XML-compatible"""
 
-    @field_validator("Category", mode="before")
+    name: str = attr()
+    numberOfFields: int = attr()
+    category: Optional[List[str]] = element(tag="Category", default=None)
+    field_name: List[str] = element(tag="FieldName")
+    rows: Optional[List[TableRow]] = element(tag="Row", default=None)
+
+    @field_validator("category", mode="before")
     def parse_category(cls, value: Optional[str | List]) -> Optional[List[str]]:
         if value is None:
             return None
@@ -51,49 +45,86 @@ class Table(BaseModel):
             return [value]
         return value
 
-    @field_validator("Row", mode="before")
-    def parse_rows(cls, value):
-        def parse_row(row: str) -> list:
-            parts = row.split(" #")
-            return [parts[0].lstrip("#")] + parts[1:]
+    def __getitem__(self, index: int) -> "TableRow":
+        """Get a specific row by index"""
+        if self.rows is None or index >= len(self.rows):
+            raise IndexError("Table row index out of range")
+        return self.rows[index]
 
-        if value is None:
-            return None
-        elif isinstance(value, str):
-            return [parse_row(value)]
+    def __getattr__(self, name: str) -> List[str]:
+        """Get all values for a specific field by name"""
+        try:
+            field_index = self.field_name.index(name)
+        except ValueError:
+            raise AttributeError(
+                f"'{self.__class__.__name__}' object has no attribute '{name}'"
+            )
+
+        if self.rows is None:
+            return []
+
+        return [row.cells[field_index] for row in self.rows]
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        """Set values for a specific field by name"""
+        # Let Pydantic handle special attributes
+        if name in self.__dict__ or name.startswith("_"):
+            super().__setattr__(name, value)
+            return
+
+        # Handle field_name and rows specially
+        if name in ("field_name", "rows", "name", "numberOfFields", "category"):
+            super().__setattr__(name, value)
+            return
+
+        # Handle custom field setting
+        if self.rows is not None and name in self.field_name:
+            field_index = self.field_name.index(name)
+            if isinstance(value, list) and len(value) == len(self.rows):
+                for i, row in enumerate(self.rows):
+                    row.cells[field_index] = value[i]
+            else:
+                raise ValueError(f"Value must be a list with {len(self.rows)} elements")
         else:
-            return [parse_row(row) for row in value]
+            raise AttributeError(
+                f"'{self.__class__.__name__}' object has no attribute '{name}'"
+            )
 
-    @field_serializer("Row")
-    def serialize_rows(self, row: List[Any]) -> List[str]:
-        if row is None:
-            return None
-        else:
-            return ["#" + " #".join(str(x) for x in item) for item in row]
 
-    def __getitem__(self, index):
-        if index >= len(self.Row):
-            raise IndexError("Table index out of range")
-        return TableItem(FieldName=self.FieldName, Row=self.Row[index])
+class Tables(BaseModel):
+    """Tables container - now fully XML-compatible"""
 
-    def __getattr__(self, name):
-        if name in self.FieldName:
-            fieldname_index = self.FieldName.index(name)
-            return [row[fieldname_index] for row in self.Row]
+    table: List[Table] = element(tag="Table", default_factory=list)
+
+    def get_table_by_name(self, name: str) -> Table:
+        """Get a table by its name"""
+        table_dict = {t.name: t for t in self.table}
+        if name not in table_dict:
+            raise KeyError(f"Table '{name}' not found")
+        return table_dict[name]
+
+
+# Legacy compatibility class - for code that expects TableItem
+class TableItem(PydanticBaseModel):
+    """Helper class for accessing table row data like a dictionary"""
+
+    field_name: List[str]
+    row: List[Any]
+
+    def __getattr__(self, name: str) -> Any:
+        if name in self.field_name:
+            i = self.field_name.index(name)
+            return self.row[i]
         raise AttributeError(
             f"'{self.__class__.__name__}' object has no attribute '{name}'"
         )
 
-    def __setattr__(self, name, value):
+    def __setattr__(self, name: str, value: Any) -> None:
         if name in self.__dict__:
             super().__setattr__(name, value)
-        elif name in self.FieldName:
-            field_index = self.FieldName.index(name)
-            if isinstance(value, list) and len(value) == len(self.Row):
-                for i, row in enumerate(self.Row):
-                    row[field_index] = value[i]
-            else:
-                raise ValueError(f"Value must be a list with {len(self.Row)} elements")
+        elif name in self.field_name:
+            index = self.field_name.index(name)
+            self.row[index] = value
         else:
             raise AttributeError(
                 f"'{self.__class__.__name__}' object has no attribute '{name}'"

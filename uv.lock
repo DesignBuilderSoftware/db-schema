@@ -255,7 +255,7 @@ version = "0.6"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
-    { name = "xmltodict" },
+    { name = "pydantic-xml" },
 ]
 
 [package.optional-dependencies]
@@ -297,11 +297,11 @@ requires-dist = [
     { name = "pandas", marker = "extra == 'all'" },
     { name = "pandas", marker = "extra == 'tables'" },
     { name = "pydantic" },
+    { name = "pydantic-xml" },
     { name = "pytest", marker = "extra == 'all'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "xmlschema", marker = "extra == 'all'" },
     { name = "xmlschema", marker = "extra == 'dev'" },
-    { name = "xmltodict" },
 ]
 provides-extras = ["dev", "visualise", "tables", "all"]
 
@@ -1321,6 +1321,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pydantic-xml"
+version = "2.19.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b8/cb/5f80b61d73a8d6171ee4611bfd2b944c036c6f6e5f6e01d9fb02f29d7bfc/pydantic_xml-2.19.0.tar.gz", hash = "sha256:b7acba5a0966cbbbc9bf88d0d870b2bc875da063fe1bbe62d83939b549224730", size = 26228, upload-time = "2026-02-14T17:33:53.368Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/2d/dce0dc471fade04829c2948462d79c9bc4991305b0f73889f70c9645e540/pydantic_xml-2.19.0-py3-none-any.whl", hash = "sha256:42854bf962758bec338c112c2de984723708262793e108416f33aa4d6c11b3b4", size = 42536, upload-time = "2026-02-14T17:33:54.206Z" },
+]
+
+[[package]]
 name = "pygments"
 version = "2.19.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1489,13 +1502,4 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/84/f8/33b43a53503d0892e7555d16c593cf001d5aaa5b0ad7d53c68098235805b/xmlschema-4.2.0.tar.gz", hash = "sha256:b1f88c53493b2e75471977cbf218d939b872d0c7046bb63d48cc219fa7e241b9", size = 643756, upload-time = "2025-10-14T09:19:32.253Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/dc/1a/81ac398d35be848f3655893b6260f227b29ca6acf5c2674dc5ed9af63027/xmlschema-4.2.0-py3-none-any.whl", hash = "sha256:82d24a50eea5e7f2d603312813848cd66fddf8fa2b6730839c6aa3d66312e3b6", size = 467246, upload-time = "2025-10-14T09:19:28.359Z" },
-]
-
-[[package]]
-name = "xmltodict"
-version = "1.0.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/6a/aa/917ceeed4dbb80d2f04dbd0c784b7ee7bba8ae5a54837ef0e5e062cd3cfb/xmltodict-1.0.2.tar.gz", hash = "sha256:54306780b7c2175a3967cad1db92f218207e5bc1aba697d887807c0fb68b7649", size = 25725, upload-time = "2025-09-17T21:59:26.459Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c0/20/69a0e6058bc5ea74892d089d64dfc3a62ba78917ec5e2cfa70f7c92ba3a5/xmltodict-1.0.2-py3-none-any.whl", hash = "sha256:62d0fddb0dcbc9f642745d8bbf4d81fd17d6dfaec5a15b5c1876300aad92af0d", size = 13893, upload-time = "2025-09-17T21:59:24.859Z" },
 ]
