@@ -34,7 +34,7 @@ class ObjectIDs(BaseModel):
     4. each ObjectID is given new handle on creation
     """
 
-    handle: int = attr(default=Field(default_factory=generate_site_handle))
+    handle: int = Field(default_factory=generate_site_handle)
     buildingHandle: int = attr(default=-1)
     buildingBlockHandle: int = attr(default=-1)
     zoneHandle: int = attr(default=-1)

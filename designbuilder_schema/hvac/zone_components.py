@@ -1,4 +1,5 @@
 from pydantic import Field, field_validator
+from pydantic_xml import attr, element
 from typing import Annotated, List, Literal, Optional
 from designbuilder_schema.base import BaseModel
 from designbuilder_schema.geometry import Point3D
@@ -27,9 +28,9 @@ class CooledBeam(NoTypeHVACComponent):
 
 
 class ZoneElementList(BaseModel):
-    HVACZoneComponent: List  # elements are recast to specific subclasses by the validator
+    hvac_zone_component: List["HVACComponent"] = element(tag="HVACZoneComponent")
 
-    @field_validator("HVACZoneComponent", mode="before")
+    @field_validator("hvac_zone_component", mode="before")
     def recast_components(cls, components) -> List:
         if not isinstance(components, list):
             components = [components]

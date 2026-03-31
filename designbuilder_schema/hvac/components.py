@@ -1,4 +1,5 @@
 from pydantic import field_validator, Field
+from pydantic_xml import attr, element
 from typing import Optional, Literal, List, Annotated
 from designbuilder_schema.base import BaseModel, AlwaysList
 from designbuilder_schema.id import ObjectIDs
@@ -12,9 +13,9 @@ from designbuilder_schema.geometry import (
 
 
 class HVACComponents(BaseModel):
-    HVACComponent: List  # elements are recast to specific subclasses by the validator
+    hvac_component: List["HVACComponent"] = element(tag="HVACComponent")
 
-    @field_validator("HVACComponent", mode="before")
+    @field_validator("hvac_component", mode="before")
     def recast_components(cls, components):
         if not isinstance(components, list):
             components = [components]
@@ -25,38 +26,38 @@ class HVACComponents(BaseModel):
 
 
 class NoTypeHVACComponent(BaseModel):
-    ImageRectangle: "ImageRectangle"
-    ConnectingPlantLoopHandle: AlwaysList[int]
-    ConnectingAirLoopHandle: int
-    LoopType: int
-    SubLoopType: int
-    PlantLoopType: int
-    AirLoopDuctType: int
-    ComponentType: int
-    Location: int
-    ConnectionOffset: float
-    Editable: int
-    ZoneBranchFlag: int
-    Orientation: int
-    WaterInConnectionOrientation: int
-    WaterOutConnectionOrientation: int
-    AirInConnectionOrientation: int
-    AirOutConnectionOrientation: int
-    WaterInConnection: int
-    WaterOutConnection: int
-    AirInConnection: int
-    AirOutConnection: int
-    WaterInConnected: int
-    WaterOutConnected: int
-    AirInConnected: int
-    AirOutConnected: int
-    FanPlacement: int
-    WaterInConnectionCoordinate: "Point3D"
-    WaterOutConnectionCoordinate: "Point3D"
-    AirInConnectionCoordinate: "Point3D"
-    AirOutConnectionCoordinate: "Point3D"
-    ZoneComponentAttributeList: Optional["ZoneComponentAttributeList"]
-    Attributes: Optional["NameAttributes"]
+    image_rectangle: Optional["ImageRectangle"] = element(default=None)
+    connecting_plant_loop_handle: List[int] = element(tag="ConnectingPlantLoopHandle", default_factory=list)
+    connecting_air_loop_handle: int = attr()
+    loop_type: int = attr()
+    sub_loop_type: int = attr()
+    plant_loop_type: int = attr()
+    air_loop_duct_type: int = attr()
+    component_type: int = attr()
+    location: int = attr()
+    connection_offset: float = attr()
+    editable: int = attr()
+    zone_branch_flag: int = attr()
+    orientation: int = attr()
+    water_in_connection_orientation: int = attr()
+    water_out_connection_orientation: int = attr()
+    air_in_connection_orientation: int = attr()
+    air_out_connection_orientation: int = attr()
+    water_in_connection: int = attr()
+    water_out_connection: int = attr()
+    air_in_connection: int = attr()
+    air_out_connection: int = attr()
+    water_in_connected: int = attr()
+    water_out_connected: int = attr()
+    air_in_connected: int = attr()
+    air_out_connected: int = attr()
+    fan_placement: int = attr()
+    water_in_connection_coordinate: Optional["Point3D"] = element(default=None)
+    water_out_connection_coordinate: Optional["Point3D"] = element(default=None)
+    air_in_connection_coordinate: Optional["Point3D"] = element(default=None)
+    air_out_connection_coordinate: Optional["Point3D"] = element(default=None)
+    zone_component_attribute_list: Optional["ZoneComponentAttributeList"] = element(default=None)
+    attributes: Optional["NameAttributes"] = element(default=None)
 
 
 class HVACComponent(NoTypeHVACComponent):
