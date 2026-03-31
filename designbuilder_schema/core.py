@@ -34,17 +34,16 @@ class dsbXML(BaseModel):
         else:
             root = source
 
-        # Rename PascalCase child elements to lowercase
+        # Rename PascalCase child elements to lowercase (iterative, non-recursive)
         # This handles XML like <Site> being mapped to field 'site'
-        def lowercase_tags(element, skip_root=True):
+        stack = [root]
+        while stack:
+            element = stack.pop()
             # Convert tag names: Site -> site, Tables -> tables, etc.
-            # but skip the root element
-            if not skip_root and element.tag and len(element.tag) > 1 and element.tag[0].isupper():
+            if element.tag and len(element.tag) > 1 and element.tag[0].isupper():
                 element.tag = element.tag[0].lower() + element.tag[1:]
-            for child in element:
-                lowercase_tags(child, skip_root=False)
-
-        lowercase_tags(root, skip_root=True)
+            # Add children to stack for processing
+            stack.extend(reversed(element))
 
         instance = super().from_xml_tree(root)
         return instance
