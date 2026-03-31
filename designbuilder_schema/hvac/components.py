@@ -1,7 +1,7 @@
 from pydantic import field_validator, Field
 from pydantic_xml import attr, element
 from typing import Optional, Literal, List, Annotated
-from designbuilder_schema.base import BaseModel, AlwaysList
+from designbuilder_schema.base import BaseModel
 from designbuilder_schema.id import ObjectIDs
 from designbuilder_schema.attributes import NameAttributes, ZoneComponentAttributeList
 from designbuilder_schema.geometry import (
@@ -171,15 +171,15 @@ class AbsorptionChillerGeneratorHeatExchanger(NoTypeHVACComponent):
 
 
 class FlowConnections(BaseModel):
-    HVACSubLoopNodeConnection: AlwaysList["HVACSubLoopNodeConnection"]
+    HVACSubLoopNodeConnection: Annotated[List["HVACSubLoopNodeConnection"], element(tag="HVACSubLoopNodeConnection")]
 
 
 class ExhaustUnitComponentList(BaseModel):
-    AirHandlingUnitHVACComponent: AlwaysList["AirHandlingUnitHVACComponent"]
+    AirHandlingUnitHVACComponent: Annotated[List["AirHandlingUnitHVACComponent"], element(tag="AirHandlingUnitHVACComponent")]
 
 
 class IntakeUnitComponentList(BaseModel):
-    AirHandlingUnitHVACComponent: AlwaysList["AirHandlingUnitHVACComponent"]
+    AirHandlingUnitHVACComponent: Annotated[List["AirHandlingUnitHVACComponent"], element(tag="AirHandlingUnitHVACComponent")]
 
 
 class HVACConnectorNode(BaseModel):

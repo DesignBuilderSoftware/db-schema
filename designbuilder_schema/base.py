@@ -1,26 +1,19 @@
 from pydantic_xml import BaseXmlModel
-from pydantic import ConfigDict, BeforeValidator
-from typing import Annotated, TypeVar, List
+from pydantic import ConfigDict
+from typing import List
 
 
 class BaseModel(BaseXmlModel):
-    """Base class for all DesignBuilder XML models"""
+    """Base class for all DesignBuilder XML models.
 
-    # slots=True could be enabled on leaf models for memory/speed gains
+    Provides consistent configuration for XML serialization:
+    - populate_by_name: Accept both snake_case and XML names
+    - validate_assignment: Validate on field assignment
+    - str_strip_whitespace: Trim whitespace from strings
+    """
+
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         str_strip_whitespace=True,
     )
-
-
-T = TypeVar("T")
-
-
-def ensure_list(v):
-    if isinstance(v, list):
-        return v
-    return [v]
-
-
-AlwaysList = Annotated[List[T], BeforeValidator(ensure_list)]
