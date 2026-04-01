@@ -15,4 +15,5 @@ class BaseModel(BaseXmlModel):
         populate_by_name=True,
         validate_assignment=True,
         str_strip_whitespace=True,
+        slots=True,
     )
