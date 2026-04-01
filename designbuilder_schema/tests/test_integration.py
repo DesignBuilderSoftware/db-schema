@@ -217,7 +217,7 @@ class TestLazyLoading:
         import designbuilder_schema
 
         with pytest.raises(AttributeError, match="has no attribute 'NonExistent'"):
-            _ = designbuilder_schema.NonExistent  # type: ignore
+            getattr(designbuilder_schema, "NonExistent")
 
 
 class TestErrorHandling:

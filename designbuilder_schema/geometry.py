@@ -8,7 +8,7 @@ The geometry module of the designbuilder_schema
 from designbuilder_schema.base import BaseModel
 from designbuilder_schema.id import ObjectIDs
 from pydantic_xml import attr, element
-from typing import List, Union, Annotated
+from typing import List, Union, Annotated, Iterator
 from pydantic import Field
 
 
@@ -68,6 +68,11 @@ class Point3D(BaseModel):
             super().__setattr__(name, value)
 
 
+class VerticesList(list[Point3D]):
+    """List subclass for type-safe iteration over Point3D objects."""
+    pass
+
+
 class Vertices(BaseModel):
     """Container for a list of 3D vertices.
 
@@ -90,7 +95,8 @@ class Vertices(BaseModel):
         except IndexError as e:
             raise ValueError(f"Invalid index {index} for Vertices.point_3d") from e
 
-    def __iter__(self) -> iter:
+    def __iter__(self) -> Iterator[Point3D]:
+        """Iterate over Point3D vertices (overrides BaseModel to yield Point3D instead of tuples)."""
         return iter(self.point_3d)
 
 

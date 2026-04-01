@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
-def faces(body: Body) -> List[List[float]]:
-    """List of faces where, where each face is a list of x,y,z coordiantes."""
+def faces(body: Body) -> List[List[List[float]]]:
+    """List of faces where each face is a list of vertices, each vertex is a list of x,y,z coordinates."""
 
     vertices = [v.coords for v in body.vertices.point_3d]
     faces = []
@@ -28,8 +28,8 @@ def faces(body: Body) -> List[List[float]]:
     return faces
 
 
-def openings(body: Body) -> List[List[float]]:
-    """List of openings where, where each opening is a list of x,y,z coordiantes."""
+def openings(body: Body) -> List[List[List[float]]]:
+    """List of openings where each opening is a list of vertices, each vertex is a list of x,y,z coordinates."""
     opening_list = []
     for surface in body.surfaces.surface:
         if surface.openings:
@@ -55,6 +55,8 @@ def zone_geometry(zone: Zone):
 def building_block_geometry(building_block: BuildingBlock):
     # attributes = {a.key: a.value for a in self.attributes.attribute}
     # attributes["Title"]
+    if building_block.base_profile_body is None:
+        raise ValueError("BuildingBlock must have base_profile_body defined")
     body = building_block.base_profile_body.profile_body.body
     return {"faces": faces(body), "openings": openings(body)}
 

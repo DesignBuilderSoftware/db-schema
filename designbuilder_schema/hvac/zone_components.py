@@ -7,26 +7,6 @@ from designbuilder_schema.hvac.unit_components import UnitElementList
 from designbuilder_schema.hvac.components import NoTypeHVACComponent, HVACComponent
 
 
-class ExtractGrille(NoTypeHVACComponent):
-    pass
-
-
-class SupplyDiffuser(NoTypeHVACComponent):
-    pass
-
-
-class IntakeLouvre(NoTypeHVACComponent):
-    pass
-
-
-class MixingBox(NoTypeHVACComponent):
-    pass
-
-
-class CooledBeam(NoTypeHVACComponent):
-    pass
-
-
 class ZoneElementList(BaseModel):
     """Container for zone HVAC component list with automatic type casting.
 

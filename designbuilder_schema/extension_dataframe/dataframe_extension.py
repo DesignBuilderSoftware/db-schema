@@ -1,18 +1,29 @@
 import pandas as pd
+from typing import TYPE_CHECKING
 from designbuilder_schema.tables import Table
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 def to_dataframe(self: Table) -> pd.DataFrame:
-    return pd.DataFrame(self.Row, columns=self.FieldName)
+    """Convert Table to pandas DataFrame."""
+    if self.rows is None:
+        return pd.DataFrame(columns=self.field_name)
+    return pd.DataFrame([row.cells for row in self.rows], columns=self.field_name)
 
 
 def from_dataframe(self: Table, dataframe: pd.DataFrame) -> None:
-    def compose_row(row) -> str:
-        return "#" + str(row[0]) + " #" + " #".join(str(item) for item in row[1:])
+    """Update Table rows from pandas DataFrame."""
+    from designbuilder_schema.tables import TableRow
 
-    self.Row = [compose_row(row[1:]) for row in dataframe.itertuples()]
+    def compose_row(row: Any) -> str:
+        return ";".join(str(item) for item in row)
+
+    self.rows = [TableRow(cells=compose_row(row).split(";")) for _, row in dataframe.iterrows()]
 
 
-def add_extension():
-    Table.to_dataframe = to_dataframe
-    Table.from_dataframe = from_dataframe
+def add_extension() -> None:
+    """Add to_dataframe and from_dataframe methods to Table class."""
+    setattr(Table, "to_dataframe", to_dataframe)
+    setattr(Table, "from_dataframe", from_dataframe)

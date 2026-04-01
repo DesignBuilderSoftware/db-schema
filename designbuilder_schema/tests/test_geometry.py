@@ -97,7 +97,7 @@ class TestVertices:
         vertices = Vertices(
             point_3d=[Point3D(value="1.0;2.0;3.0"), Point3D(value="4.0;5.0;6.0")]
         )
-        coords_list = list(vertices)
+        coords_list: list[Point3D] = list(vertices)
         assert len(coords_list) == 2
         assert coords_list[0].value == "1.0;2.0;3.0"
         assert coords_list[1].value == "4.0;5.0;6.0"

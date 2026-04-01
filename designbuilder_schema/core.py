@@ -39,7 +39,7 @@ class dsbXML(BaseModel):
     site: Optional["Site"] = element(default=None)
 
     @classmethod
-    def from_xml(cls, source, **kwargs):
+    def from_xml(cls, source: str | bytes) -> "dsbXML":
         """Override to handle PascalCase XML tags to snake_case Python fields"""
         from lxml import etree
         if isinstance(source, (str, bytes)):
@@ -68,11 +68,11 @@ class dsbXML(BaseModel):
         if isinstance(xml_output, bytes):
             root = etree.fromstring(xml_output)
             root.tag = "dsbXML"
-            return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
+            return bytes(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
         else:
             root = etree.fromstring(xml_output.encode())
             root.tag = "dsbXML"
-            return etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8")
+            return str(etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8"))
 
 
 class Site(BaseModel):
