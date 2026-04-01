@@ -13,8 +13,6 @@
         <link rel="canonical" href="https://tokarzewski.github.io/designbuilder_schema/contributing/">
       
       
-        <link rel="prev" href="../api/models/">
-      
       
       
         
@@ -238,27 +236,6 @@
   
 
       
-        
-  
-  
-  
-    
-  
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Contributing
-
-      </a>
-    </li>
-  
-
-      
     </ul>
   </div>
 </nav>
@@ -432,102 +409,6 @@
   
 
     
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contributing
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contributing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-docs-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building Docs Locally
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -555,10 +436,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentation
+        Getting Started
       
     </span>
   </a>
@@ -566,10 +447,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-docs-locally" class="md-nav__link">
+  <a href="#development" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Building Docs Locally
+        Development
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
       
     </span>
   </a>
@@ -594,24 +497,34 @@
 
 
 <h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
-<p>Contributions are welcome! Here's how to help:</p>
+<p>We welcome contributions to the DesignBuilder Schema project!</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Clone the repository</li>
+<li>Install dependencies: <code>pip install -e .</code></li>
+<li>Run tests: <code>pytest</code></li>
+<li>Build docs: <code>mkdocs serve</code></li>
+</ol>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Follow PEP 8 style guidelines</li>
+<li>Add docstrings to all public classes and functions</li>
+<li>Write tests for new functionality</li>
+<li>Update documentation as needed</li>
+</ul>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Run the full test suite:</p>
+<div class="highlight"><pre><span></span><code>pytest
+</code></pre></div>
+<p>Check type hints:</p>
+<div class="highlight"><pre><span></span><code>mypy<span class="w"> </span>designbuilder_schema
+</code></pre></div>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
-<p>Documentation is auto-generated from docstrings. Make sure your models have clear Google-style docstrings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A detailed description of the model.</span>
-
-<span class="sd">    This model does something important.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        field_name: Description of the field</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">field_name</span><span class="p">:</span> <span class="nb">str</span>
+<p>Build documentation locally:</p>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>build<span class="w">  </span><span class="c1"># Build static site</span>
+mkdocs<span class="w"> </span>serve<span class="w">  </span><span class="c1"># Preview live with auto-reload</span>
 </code></pre></div>
-<h2 id="building-docs-locally">Building Docs Locally<a class="headerlink" href="#building-docs-locally" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material<span class="w"> </span>mkdocstrings<span class="o">[</span>python<span class="o">]</span>
-mkdocs<span class="w"> </span>serve
-</code></pre></div>
-<p>Then visit <code>http://localhost:8000</code> to preview.</p>
+<p>Documentation uses Google-style docstrings and is auto-generated from code.</p>
 
 
 

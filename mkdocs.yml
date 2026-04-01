@@ -1,6 +1,8 @@
 site_name: DesignBuilder Schema
 site_url: https://tokarzewski.github.io/designbuilder_schema/
 site_description: Automatically generated API documentation for DesignBuilder Schema
+docs_dir: docs_src
+site_dir: docs
 
 theme:
   name: material
@@ -32,7 +34,7 @@ plugins:
             show_source: true
             show_bases: true
             members_order: source
-            show_root_members: true
+            show_root_heading: true
             show_if_no_docstring: true
 
 nav:
@@ -40,7 +42,6 @@ nav:
   - API Reference:
     - Overview: api/overview.md
     - Models: api/models.md
-  - Contributing: contributing.md
 
 markdown_extensions:
   - pymdownx.highlight

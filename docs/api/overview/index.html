@@ -242,25 +242,6 @@
   
 
       
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../contributing/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Contributing
-
-      </a>
-    </li>
-  
-
-      
     </ul>
   </div>
 </nav>
@@ -443,10 +424,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schema-structure" class="md-nav__link">
+  <a href="#model-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Schema Structure
+        Model Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
       
     </span>
   </a>
@@ -497,33 +489,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contributing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -551,10 +516,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schema-structure" class="md-nav__link">
+  <a href="#model-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Schema Structure
+        Model Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
       
     </span>
   </a>
@@ -579,11 +555,31 @@
 
 
 <h1 id="api-overview">API Overview<a class="headerlink" href="#api-overview" title="Permanent link">&para;</a></h1>
-<p>This page provides an overview of the DesignBuilder Schema models.</p>
-<p>All models are Pydantic v2 compatible and provide full type hints and validation.</p>
-<h2 id="schema-structure">Schema Structure<a class="headerlink" href="#schema-structure" title="Permanent link">&para;</a></h2>
-<p>The schema is organized into logical groups of models that work together to define the complete DesignBuilder structure.</p>
-<p>For detailed information on individual models, see the <a href="../models/">Models Reference</a>.</p>
+<p>Complete API reference for all DesignBuilder Schema Pydantic models.</p>
+<p>The DesignBuilder Schema library provides a comprehensive set of type-safe models for working with DesignBuilder files. All models are built on Pydantic v2 and support both XML and JSON serialization.</p>
+<h2 id="model-organization">Model Organization<a class="headerlink" href="#model-organization" title="Permanent link">&para;</a></h2>
+<p>Models are organized into logical modules:</p>
+<ul>
+<li><strong>core.py</strong> - Core building models: Site, Building, Zone, Surface</li>
+<li><strong>geometry.py</strong> - 3D geometry: Point3D, Line, Vertices</li>
+<li><strong>attributes.py</strong> - Named and key-value attributes</li>
+<li><strong>tables.py</strong> - Simulation tables and schedules</li>
+<li><strong>hvac/</strong> - Complete HVAC system models:</li>
+<li>network.py - HVAC loops and connections</li>
+<li>components.py - Equipment: boilers, chillers, pumps</li>
+<li>unit_components.py - Unitary systems</li>
+<li>zone_components.py - Zone-level equipment</li>
+<li><strong>id.py</strong> - Object identification system</li>
+</ul>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Type-Safe</strong>: Full type hints for IDE autocompletion</li>
+<li><strong>Validated</strong>: Pydantic validation on all inputs</li>
+<li><strong>Documented</strong>: Comprehensive docstrings with examples</li>
+<li><strong>Optimized</strong>: Slots-enabled for memory efficiency</li>
+<li><strong>Serializable</strong>: XML and JSON support via pydantic-xml</li>
+</ul>
+<p>See the <a href="models/">Models</a> page for complete class documentation.</p>
 
 
 

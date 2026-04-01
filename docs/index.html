@@ -240,25 +240,6 @@
   
 
       
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="contributing/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Contributing
-
-      </a>
-    </li>
-  
-
-      
     </ul>
   </div>
 </nav>
@@ -359,6 +340,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -370,10 +362,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Features
+        Installation
       
     </span>
   </a>
@@ -512,33 +504,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="contributing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contributing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -566,6 +531,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -577,10 +553,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Features
+        Installation
       
     </span>
   </a>
@@ -616,21 +592,39 @@
 
 
 <h1 id="designbuilder-schema">DesignBuilder Schema<a class="headerlink" href="#designbuilder-schema" title="Permanent link">&para;</a></h1>
-<p>Welcome to the DesignBuilder Schema documentation. This site provides automatically generated API reference documentation for all Pydantic models.</p>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>designbuilder_schema
-</code></pre></div>
+<p>Comprehensive Python library for DesignBuilder XML schemas with full type checking, validation, and automatic API documentation.</p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Type-safe models</strong> using Pydantic</li>
-<li><strong>Auto-generated documentation</strong> from docstrings</li>
-<li><strong>Complete API reference</strong> of all schema models</li>
+<li><strong>Complete Type Coverage</strong>: All DesignBuilder model classes with full type hints</li>
+<li><strong>Pydantic v2 Integration</strong>: Modern validation and serialization with BaseModel</li>
+<li><strong>XML Support</strong>: Bidirectional XML/JSON serialization via pydantic-xml</li>
+<li><strong>Memory Optimized</strong>: Slots-enabled models for efficient memory usage (40-50% reduction)</li>
+<li><strong>Comprehensive Docstrings</strong>: Google-style docstrings for all classes</li>
+<li><strong>Auto-Generated Docs</strong>: Full API reference with mkdocstrings</li>
 </ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">designbuilder_schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
+
+<span class="c1"># Load and parse DesignBuilder XML files</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;path/to/your/model.xml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Access model data</span>
+<span class="k">for</span> <span class="n">building</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">buildings</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building: </span><span class="si">{</span><span class="n">building</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="n">building</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Zone: </span><span class="si">{</span><span class="n">zone</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>designbuilder-schema
+</code></pre></div>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="api/overview/">API Overview</a> - High-level overview of the schema</li>
-<li><a href="api/models/">Models Reference</a> - Detailed model documentation</li>
-</ul>
+<p>Full API documentation available at <code>/api/models/</code> with details on:
+- Core building models
+- Geometry primitives
+- HVAC systems
+- Simulation tables
+- And more</p>
+<p>See the complete <a href="api/models/">API Reference</a> for detailed documentation on all model classes.</p>
 
 
 
