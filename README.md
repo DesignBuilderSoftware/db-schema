@@ -16,12 +16,6 @@ A robust Python package for reading, editing, and writing DesignBuilder XML file
 - ✅ **Clean API** - Intuitive Python objects for navigating complex XML structures
 - ✅ **Well-Tested** - 103 passing tests including integration round-trip tests
 
-## Installation
-
-```bash
-pip install ???
-```
-
 ### Requirements
 
 - Python 3.10+
