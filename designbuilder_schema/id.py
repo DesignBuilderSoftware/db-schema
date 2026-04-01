@@ -26,12 +26,22 @@ def set_site_counter(value: int) -> None:
 
 
 class ObjectIDs(BaseModel):
-    """
-    RULES:
+    """Unique identifiers for DesignBuilder model objects.
+
+    Maintains a hierarchical system of handles to track object relationships
+    throughout the model. Rules:
     1. All defined handles must be unique integers
-    2. undefined handle is -1
+    2. Undefined handle is -1
     3. Site handle is always the max current handle
-    4. each ObjectID is given new handle on creation
+    4. Each ObjectID is given new handle on creation
+
+    Attributes:
+        handle: Globally unique object handle (auto-generated)
+        buildingHandle: Reference to parent building (-1 if undefined)
+        buildingBlockHandle: Reference to parent building block (-1 if undefined)
+        zoneHandle: Reference to parent zone (-1 if undefined)
+        surfaceIndex: Index of surface within parent zone (-1 if undefined)
+        openingIndex: Index of opening within parent surface (-1 if undefined)
     """
 
     handle: int = Field(default_factory=generate_site_handle)

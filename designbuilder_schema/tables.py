@@ -12,7 +12,13 @@ from designbuilder_schema.base import BaseModel
 
 
 class TableRow(BaseModel):
-    """Single row of data in a table - XML compatible"""
+    """Single row of data in a table.
+
+    Represents a row of cell values in a table with array-like access.
+
+    Attributes:
+        cells: List of cell values in this row
+    """
 
     cells: List[str] = element(tag="Cell")
 
@@ -30,7 +36,18 @@ class TableRow(BaseModel):
 
 
 class Table(BaseModel):
-    """Table data container - now fully XML-compatible"""
+    """A single data table with named fields and rows.
+
+    Represents simulation data such as climate, schedules, or other tabular information.
+    Provides access to rows by index and columns by field name.
+
+    Attributes:
+        name: Table name/identifier
+        numberOfFields: Number of columns in the table
+        category: Optional category classification for the table
+        field_name: Names of each column/field
+        rows: List of data rows
+    """
 
     name: str = attr()
     numberOfFields: int = attr()
@@ -93,7 +110,14 @@ class Table(BaseModel):
 
 
 class Tables(BaseModel):
-    """Tables container - now fully XML-compatible"""
+    """Collection of all simulation data tables.
+
+    Contains all tables in the DesignBuilder project including climate data,
+    schedules, and other simulation parameters.
+
+    Attributes:
+        table: List of table definitions
+    """
 
     table: List[Table] = element(tag="Table", default_factory=list)
 
@@ -107,7 +131,14 @@ class Tables(BaseModel):
 
 # Legacy compatibility class - for code that expects TableItem
 class TableItem(PydanticBaseModel):
-    """Helper class for accessing table row data like a dictionary"""
+    """Legacy helper for accessing table row data like a dictionary.
+
+    Provides backward compatibility for code expecting table data in item format.
+
+    Attributes:
+        field_name: Names of the fields/columns
+        row: Values for this row
+    """
 
     field_name: List[str]
     row: List[Any]

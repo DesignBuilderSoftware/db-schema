@@ -14,6 +14,13 @@ from designbuilder_schema.geometry import (
 
 
 class HVACComponents(BaseModel):
+    """Container for HVAC component list with automatic type casting.
+
+    Holds all HVAC components (boilers, chillers, pumps, etc.) with type-aware parsing.
+
+    Attributes:
+        hvac_component: List of HVAC components
+    """
     hvac_component: List["HVACComponent"] = element(tag="HVACComponent")
 
     @field_validator("hvac_component", mode="before")
@@ -27,6 +34,35 @@ class HVACComponents(BaseModel):
 
 
 class NoTypeHVACComponent(BaseModel):
+    """Base class for HVAC components without an explicit type attribute.
+
+    Provides common properties for all HVAC equipment and connection information.
+
+    Attributes:
+        image_rectangle: Visualization rectangle for the component
+        connecting_plant_loop_handle: References to connected loops
+        connecting_air_loop_handle: Reference to air loop
+        loop_type: Type of loop (heating/cooling/air)
+        sub_loop_type: Sub-loop classification
+        plant_loop_type: Plant equipment type
+        air_loop_duct_type: Duct type if air system
+        component_type: Component equipment type
+        location: Position in loop
+        connection_offset: Offset for connection point
+        editable: Whether component properties are editable
+        zone_branch_flag: Zone branch indicator
+        orientation: Component orientation/rotation
+        water_in/out_connection_orientation: Inlet/outlet orientations
+        air_in/out_connection_orientation: Air side orientations
+        water_in/out_connection: Water connection indices
+        air_in/out_connection: Air connection indices
+        water_in/out_connected: Water connection flags
+        air_in/out_connected: Air connection flags
+        fan_placement: Placement location for fans
+        *_connection_coordinate: 3D connection points
+        zone_component_attribute_list: Zone-specific attributes
+        attributes: Named attributes for the component
+    """
     image_rectangle: Optional["ImageRectangle"] = element(default=None)
     connecting_plant_loop_handle: List[int] = element(tag="ConnectingPlantLoopHandle", default_factory=list)
     connecting_air_loop_handle: int = attr()
@@ -62,6 +98,13 @@ class NoTypeHVACComponent(BaseModel):
 
 
 class HVACComponent(NoTypeHVACComponent):
+    """Base class for HVAC components with explicit type attribute.
+
+    Represents generic HVAC equipment with a type classifier.
+
+    Attributes:
+        type: Equipment type identifier
+    """
     type: str
 
 
@@ -172,28 +215,67 @@ class AbsorptionChillerGeneratorHeatExchanger(NoTypeHVACComponent):
 
 
 class FlowConnections(BaseModel):
+    """Container for sub-loop node flow connections.
+
+    Attributes:
+        HVACSubLoopNodeConnection: List of node connections
+    """
     HVACSubLoopNodeConnection: Annotated[List["HVACSubLoopNodeConnection"], element(tag="HVACSubLoopNodeConnection")]
 
 
 class ExhaustUnitComponentList(BaseModel):
+    """Container for air handling unit exhaust components.
+
+    Attributes:
+        AirHandlingUnitHVACComponent: List of exhaust components
+    """
     AirHandlingUnitHVACComponent: Annotated[List["AirHandlingUnitHVACComponent"], element(tag="AirHandlingUnitHVACComponent")]
 
 
 class IntakeUnitComponentList(BaseModel):
+    """Container for air handling unit intake components.
+
+    Attributes:
+        AirHandlingUnitHVACComponent: List of intake components
+    """
     AirHandlingUnitHVACComponent: Annotated[List["AirHandlingUnitHVACComponent"], element(tag="AirHandlingUnitHVACComponent")]
 
 
 class HVACConnectorNode(BaseModel):
+    """Connection node in the HVAC network.
+
+    Represents a junction or connection point between components.
+
+    Attributes:
+        ObjectIDs: Unique object identifiers
+        Name: Name of the connection node
+        Active: Whether the node is active
+    """
     ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
     Name: str
     Active: int
 
 
 class BranchConnectionList(BaseModel):
+    """Container for branch connection node list.
+
+    Attributes:
+        HVACConnectorNode: List of connector nodes
+    """
     HVACConnectorNode: list["HVACConnectorNode"]
 
 
 class HVACSubLoopNodeConnection(BaseModel):
+    """Connection detail for a sub-loop node.
+
+    Specifies how a component connects to a sub-loop.
+
+    Attributes:
+        ObjectIDs: Unique object identifiers
+        Connected: Connection status flag
+        Coordinate: 3D location of the connection
+        Attributes: Named attributes for the connection
+    """
     ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
     Connected: int
     Coordinate: "Point3D"

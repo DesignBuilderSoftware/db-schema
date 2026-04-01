@@ -21,7 +21,7 @@ Homepage = "https://github.com/tokarzewski/designbuilder_schema"
 packages = ["designbuilder_schema", "designbuilder_schema.hvac"]
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "mypy", "xmlschema", "lxml"]
+dev = ["pytest", "black", "mypy", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
 visualise = ["matplotlib"]
 tables = ["pandas"]
 all = ["pytest", "black", "mypy", "xmlschema", "lxml", "matplotlib", "pandas"]

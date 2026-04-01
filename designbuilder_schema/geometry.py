@@ -13,6 +13,14 @@ from pydantic import Field
 
 
 class Point3D(BaseModel):
+    """A 3D point in space.
+
+    Represents coordinates with cached property accessors for x, y, z values.
+    Internally stores coordinates as a semicolon-separated string.
+
+    Attributes:
+        value: Semicolon-separated coordinates as string (e.g., "10.5;20.3;5.0")
+    """
     value: str
 
     _coords_cache: Union[tuple[float, float, float], None] = None
@@ -61,6 +69,13 @@ class Point3D(BaseModel):
 
 
 class Vertices(BaseModel):
+    """Container for a list of 3D vertices.
+
+    Represents a collection of 3D points with array-like access.
+
+    Attributes:
+        point_3d: List of 3D point coordinates
+    """
     point_3d: List[Point3D] = element(tag="Point3D")
 
     def __getitem__(self, index: int) -> Point3D:
@@ -89,12 +104,40 @@ class Range(BaseModel):
 
 
 class Line(BaseModel):
+    """A line segment defined by start and end points.
+
+    Represents a straight line in 3D space.
+
+    Attributes:
+        object_ids: Unique object identifiers
+        begin: Starting point of the line
+        end: Ending point of the line
+    """
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
     begin: "Point3D" = element()
     end: "Point3D" = element()
 
 
 class ImageRectangle(BaseModel):
+    """A rectangle with texture mapping for visualization.
+
+    Represents a textured rectangle used for background images or materials.
+
+    Attributes:
+        object_ids: Unique object identifiers
+        image_texture_index: Index of the primary image texture
+        mask_texture_index: Index of the mask texture
+        selected_image_texture_index: Index of selected state image
+        inactive_image_texture_index: Index of inactive state image
+        textured: Whether texturing is enabled
+        masked: Whether masking is enabled
+        selected_image: Selected image reference
+        inactive_image: Inactive image reference
+        color: Color value
+        active: Whether rectangle is active
+        vertices: Corner vertices of the rectangle
+        range: Position range relative to top-left
+    """
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
     image_texture_index: int = attr()
     mask_texture_index: int = attr()
@@ -111,8 +154,18 @@ class ImageRectangle(BaseModel):
 
 
 class SegmentList(BaseModel):
+    """Container for a list of line segments.
+
+    Attributes:
+        line_array: Array of line segments
+    """
     line_array: "LineArray" = element()
 
 
 class LineArray(BaseModel):
+    """Container for multiple line segment definitions.
+
+    Attributes:
+        line: List of line segments
+    """
     line: List["Line"] = element(tag="Line")

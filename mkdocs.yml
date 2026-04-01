@@ -1,0 +1,52 @@
+site_name: DesignBuilder Schema
+site_url: https://tokarzewski.github.io/designbuilder_schema/
+site_description: Automatically generated API documentation for DesignBuilder Schema
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_bases: true
+            members_order: source
+            show_root_members: true
+            show_if_no_docstring: true
+
+nav:
+  - Home: index.md
+  - API Reference:
+    - Overview: api/overview.md
+    - Models: api/models.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
