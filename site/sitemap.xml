@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://tokarzewski.github.io/designbuilder_schema/</loc>
+         <lastmod>2026-04-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tokarzewski.github.io/designbuilder_schema/contributing/</loc>
+         <lastmod>2026-04-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tokarzewski.github.io/designbuilder_schema/api/models/</loc>
+         <lastmod>2026-04-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tokarzewski.github.io/designbuilder_schema/api/overview/</loc>
+         <lastmod>2026-04-01</lastmod>
+    </url>
+</urlset>
