@@ -26,47 +26,27 @@ class ZoneElementList(BaseModel):
 
 
 class ExtractGrille(NoTypeHVACComponent):
-    """Air extraction grille in a zone.
-
-    Attributes:
-        (inherits from NoTypeHVACComponent)
-    """
+    """Air extraction grille in a zone."""
     pass
 
 
 class SupplyDiffuser(NoTypeHVACComponent):
-    """Air supply diffuser in a zone.
-
-    Attributes:
-        (inherits from NoTypeHVACComponent)
-    """
+    """Air supply diffuser in a zone."""
     pass
 
 
 class IntakeLouvre(NoTypeHVACComponent):
-    """Air intake louvre in a zone.
-
-    Attributes:
-        (inherits from NoTypeHVACComponent)
-    """
+    """Air intake louvre in a zone."""
     pass
 
 
 class MixingBox(NoTypeHVACComponent):
-    """Mixing box for zone air conditioning.
-
-    Attributes:
-        (inherits from NoTypeHVACComponent)
-    """
+    """Mixing box for zone air conditioning."""
     pass
 
 
 class CooledBeam(NoTypeHVACComponent):
-    """Cooled ceiling beam for zone conditioning.
-
-    Attributes:
-        (inherits from NoTypeHVACComponent)
-    """
+    """Cooled ceiling beam for zone conditioning."""
     pass
 
 
