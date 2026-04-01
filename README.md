@@ -10,17 +10,16 @@ A robust Python package for reading, editing, and writing DesignBuilder XML file
 
 - ✅ **Type-Safe XML Handling** - Full Pydantic v2 integration with comprehensive type hints
 - ✅ **XXE Protection** - Secure by default with built-in XML External Entity attack prevention
-- ✅ **XML-Only Format** - Optimized for DesignBuilder XML files (JSON support removed for simplicity)
+- ✅ **XML-Only Format** - Optimized for DesignBuilder XML files
 - ✅ **Complete Schema Support** - Full coverage of DesignBuilder XML schema including HVAC components
-- ✅ **High Performance** - Optimized imports (3.9% faster), lazy loading for HVAC modules
+- ✅ **High Performance** - Optimized imports, lazy loading for HVAC modules
 - ✅ **Clean API** - Intuitive Python objects for navigating complex XML structures
 - ✅ **Well-Tested** - 103 passing tests including integration round-trip tests
-- ✅ **Comprehensive Documentation** - Detailed usage guide and optimization roadmap
 
 ## Installation
 
 ```bash
-pip install designbuilder-schema
+pip install ???
 ```
 
 ### Requirements
@@ -114,7 +113,7 @@ print(f"Updated: {point.value}")
 ### Data Model Hierarchy
 
 ```
-DSB (root)
+dsbXML (root)
 └── Site
     ├── Attributes
     ├── Tables
@@ -134,38 +133,9 @@ DSB (root)
 
 ## Documentation
 
-For comprehensive usage documentation, see:
-- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - Complete user guide with examples
-- **[OPTIMIZATION_SUMMARY.md](OPTIMIZATION_SUMMARY.md)** - Technical optimization details
-- **[OPTIMIZATION_ROADMAP.md](OPTIMIZATION_ROADMAP.md)** - Future improvement roadmap
-
-## Recent Optimizations (2026)
-
-The library underwent a comprehensive optimization initiative focusing on:
-
-### Architecture Improvements
-- ✅ Removed `AlwaysList` pattern for cleaner field definitions
-- ✅ Optimized field specifications with pydantic-xml integration
-
-### Performance Enhancements
-- ✅ Lazy loading for HVAC modules (3.9% faster imports)
-- ✅ Optimized import path for non-HVAC use cases
-
-### Testing & Quality
-- ✅ Added 16 integration test functions (103 total tests passing)
-- ✅ Round-trip validation ensures save/load integrity
-- ✅ Comprehensive error handling tests
-
-### Documentation
-- ✅ Complete usage guide with examples
-- ✅ API reference and troubleshooting guide
-- ✅ Performance considerations documented
-
-**No breaking changes.** All existing code continues to work seamlessly.
-
 ## Advanced Usage
 
-### Custom Validation
+### Validation
 
 All Pydantic validation features are available:
 
@@ -177,16 +147,6 @@ try:
     dsb = dsbXML.model_validate(data)
 except Exception as e:
     print(f"Validation error: {e}")
-```
-
-### Backward Compatibility
-
-For code using the old `DSB` name:
-
-```python
-from designbuilder_schema import DSB  # Still works - alias to dsbXML
-
-dsb = DSB.from_xml(xml_content)
 ```
 
 ### Table Access
@@ -216,7 +176,7 @@ xml_output = dsb.to_xml()
 
 ### Main Classes
 
-#### `DSB`
+#### `dsbXML`
 Root document class representing a DesignBuilder XML file.
 
 **Attributes:**
@@ -320,17 +280,6 @@ black designbuilder_schema/
 flake8 designbuilder_schema/
 ```
 
-## Migration from xmltodict
-
-This package previously used `xmltodict` but has been migrated to `pydantic-xml` for better type safety and security. The API remains mostly compatible, with these key improvements:
-
-- Built-in XXE protection
-- Full type hints for IDE support
-- ~37% less code in utilities
-- Automatic singular/plural element handling
-
-See [PYDANTIC_XML_MIGRATION.md](PYDANTIC_XML_MIGRATION.md) for detailed migration information.
-
 ## Contributing
 
 Contributions are welcome! Please:
@@ -351,18 +300,18 @@ MIT License - See [LICENSE](LICENSE) file for details
 - **Documentation**: See `examples/` directory and docstrings
 - **Questions**: Open a discussion on GitHub
 
-## Authors
+## Author
 
 - Bartłomiej Tokarzewski ([@tokarzewski](https://github.com/tokarzewski))
 
 ## Changelog
 
 ### Version 0.6 (Current)
-- ✅ Migrated from xmltodict to pydantic-xml
-- ✅ Added XXE protection by default
-- ✅ Improved type safety with full type hints
-- ✅ ~22% performance improvement
-- ✅ 37% code reduction in utilities
+- Migrated from xmltodict to pydantic-xml
+- Added XXE protection by default
+- Improved type safety with full type hints
+- ~22% performance improvement
+- 37% code reduction in utilities
 
 ### Version 0.5 and earlier
 - Basic XML/JSON read/write support
