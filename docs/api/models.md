@@ -11,7 +11,7 @@ Building geometry, thermal zones, surfaces, and structural components.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## Geometry Models
 
@@ -22,7 +22,7 @@ Building geometry, thermal zones, surfaces, and structural components.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## Attributes
 
@@ -33,7 +33,7 @@ Key-value and named attributes for sites, buildings, and HVAC components.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## Tables
 
@@ -44,7 +44,7 @@ Simulation data tables: climate, schedules, and other tabular information.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## HVAC Components
 
@@ -55,7 +55,7 @@ Individual HVAC equipment: boilers, chillers, pumps, coils, dampers, and connect
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## HVAC Network
 
@@ -66,7 +66,7 @@ HVAC system structure: loops, connections, zones, and operation schemes.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## HVAC Unit Components
 
@@ -77,7 +77,7 @@ Unitary HVAC system components: fans, coils, and dampers.
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## HVAC Zone Components
 
@@ -88,7 +88,7 @@ Zone-level HVAC equipment: diffusers, grilles, air distribution units, and termi
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
 
 ## Object IDs
 
@@ -99,4 +99,4 @@ Unique identifier system for tracking object relationships throughout the model 
       show_bases: true
       show_source: true
       docstring_style: google
-      show_root_members: true
+      show_root_heading: true
