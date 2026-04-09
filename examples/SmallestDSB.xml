@@ -1,11 +1,2 @@
-<?xml version="1.0" encoding="utf-8"?>
-<dsbXML name="MadeByPydantic" date="2025-01-05" version="8.0.0.057" objects="all">
-	<Site count="1" handle="0">
-		<Attributes>
-			<Attribute name="Version">8.0.0.057</Attribute>
-		</Attributes>
-		<Tables></Tables>
-		<AssemblyLibrary></AssemblyLibrary>
-		<Buildings></Buildings>
-	</Site>
-</dsbXML>
+<?xml version='1.0' encoding='UTF-8'?>
+<dsbXML name="MadeByPydantic" date="2026-04-09" version="2025.1.1.004" objects="all"/>

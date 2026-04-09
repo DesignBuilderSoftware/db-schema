@@ -1,24 +1,19 @@
-from designbuilder_schema.core import DSB, Site
-from designbuilder_schema.attributes import NameAttributes, NameAttribute
+from designbuilder_schema.core import dsbXML, Site
 from designbuilder_schema.utils import save_model
 import datetime
 
-version = "8.0.0.057"
-
-version_site_attribute = NameAttribute(name="Version", text=version)
-
-site_attributes = NameAttributes(Attribute=[version_site_attribute])
+version = "2025.1.1.004"
 
 site = Site(
     handle=1,
     count=1,
-    Attributes=site_attributes,
+    Attributes=None,
     Tables=None,
     AssemblyLibrary=None,
     Buildings=None,
 )
 
-model = DSB(
+model = dsbXML(
     name="MadeByPydantic",
     date=datetime.date.today().isoformat(),
     version=version,
@@ -27,4 +22,3 @@ model = DSB(
 )
 
 save_model(model, "examples/SmallestDSB.xml")
-save_model(model, "examples/SmallestDSB.json")
