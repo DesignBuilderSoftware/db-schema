@@ -9,6 +9,7 @@ authors = [
 dependencies = [
     "pydantic",
     "pydantic-xml",
+    "lxml",
 ]
 
 readme = "README.md"
