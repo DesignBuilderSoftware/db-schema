@@ -64,20 +64,20 @@ class Site(BaseModel):
 
 class AssemblyLibrary(BaseModel):
     assemblyHandle: int = attr()
-    Assembly: List["Assembly"] = element(tag="Assembly")
+    assembly: List["Assembly"] = element(tag="Assembly")
 
 
 class Assembly(BaseModel):
     assemblyHandle: int = attr()
     componentBlockHandle: int = attr()
     reference: str = attr()
-    HandlePoint: "Point3D" = element()
-    ComponentBlocks: "ComponentBlocks" = element()
+    handle_point: "Point3D" = element()
+    component_blocks: "ComponentBlocks" = element()
     attributes: "KeyAttributes" = element()
 
 
 class ComponentBlocks(BaseModel):
-    ComponentBlock: List["ComponentBlock"] = element(tag="ComponentBlock")
+    component_block: List["ComponentBlock"] = element(tag="ComponentBlock")
 
 
 class ComponentBlock(BaseModel):
@@ -88,15 +88,15 @@ class ComponentBlock(BaseModel):
 class Body(BaseModel):
     volume: float = attr()
     extrusionHeight: float = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    Vertices: "Vertices" = element()
-    Surfaces: "Surfaces" = element()
-    VoidPerimeterList: Optional["VoidPerimeterList"] = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: "Vertices" = element()
+    surfaces: "Surfaces" = element()
+    void_perimeter_list: Optional["VoidPerimeterList"] = element(tag="VoidPerimeterList")
     attributes: Optional["KeyAttributes"] = element()
 
 
 class Surfaces(BaseModel):
-    Surface: List["Surface"] = element(tag="Surface")
+    surface: List["Surface"] = element(tag="Surface")
 
 
 class Surface(BaseModel):
@@ -104,66 +104,66 @@ class Surface(BaseModel):
     area: float = attr()
     alpha: float = attr()
     phi: float = attr()
-    defaultOpenings: str = attr()
+    defaultopenings: str = attr()
     adjacentPartitionHandle: int = attr()
     thickness: float = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    VertexIndices: str = element()
-    HoleIndices: Optional[str] = element(default=None)
-    Openings: Optional["Openings"] = element()
-    Adjacencies: Optional["Adjacencies"] = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertex_indices: str = element()
+    hole_indices: Optional[str] = element(default=None)
+    openings: Optional["Openings"] = element()
+    adjacencies: Optional["Adjacencies"] = element()
     attributes: Optional["KeyAttributes"] = element()
 
 
 class Openings(BaseModel):
-    Opening: List["Opening"] = element(tag="Opening")
+    opening: List["Opening"] = element(tag="Opening")
 
 
 class Opening(BaseModel):
     type: str = attr()
-    Polygon: "Polygon" = element()
+    polygon: "Polygon" = element(tag="Polygon")
     attributes: Optional["KeyAttributes"] = element()
-    CFDSegmentList: Optional["CFDSegmentList"] = element()
+    cfd_segment_list: Optional["CFDSegmentList"] = element(tag="CFDSegmentList")
 
 
 class Adjacencies(BaseModel):
-    Adjacency: List["Adjacency"] = element(tag="Adjacency")
+    adjacency: List["Adjacency"] = element(tag="Adjacency")
 
 
 class Adjacency(BaseModel):
     type: str = attr()
     adjacencyDistance: float = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    AdjacencyPolygonList: "AdjacencyPolygonList" = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    adjacency_polygon_list: "AdjacencyPolygonList" = element(tag="AdjacencyPolygonList")
 
 
 class AdjacencyPolygonList(BaseModel):
-    Polygon: List["Polygon"] = element(tag="Polygon")
+    polygon: List["Polygon"] = element(tag="Polygon")
 
 
 class Buildings(BaseModel):
     numberOfBuildings: int = attr()
-    Building: List["Building"] = element(tag="Building")
+    building: List["Building"] = element(tag="Building")
 
 
 class Building(BaseModel):
     currentComponentBlockHandle: int = attr()
     currentAssemblyInstanceHandle: int = attr()
     currentPlaneHandle: int = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    BuildingBlocks: Optional["BuildingBlocks"] = element()
-    ComponentBlocks: Optional["ComponentBlocks"] = element()
-    AssemblyInstances: Optional["AssemblyInstances"] = element()
-    ProfileOutlines: Optional["ProfileOutlines"] = element()
-    ConstructionLines: Optional["ConstructionLines"] = element()
-    Planes: Optional["Planes"] = element()
-    HVACNetwork: Optional["HVACNetwork"] = element()
-    BookmarkBuildings: Optional["BookmarkBuildings"] = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    building_blocks: Optional["BuildingBlocks"] = element()
+    component_blocks: Optional["ComponentBlocks"] = element()
+    assembly_instances: Optional["AssemblyInstances"] = element()
+    profile_outlines: Optional["ProfileOutlines"] = element()
+    construction_lines: Optional["ConstructionLines"] = element()
+    planes: Optional["Planes"] = element()
+    hvac_network: Optional["HVACNetwork"] = element()
+    bookmark_buildings: Optional["BookmarkBuildings"] = element()
     attributes: "KeyAttributes" = element()
 
 
 class BuildingBlocks(BaseModel):
-    BuildingBlock: List["BuildingBlock"] = element(tag="BuildingBlock")
+    building_block: List["BuildingBlock"] = element(tag="BuildingBlock")
 
 
 class BuildingBlock(BaseModel):
@@ -173,22 +173,22 @@ class BuildingBlock(BaseModel):
     roofOverlap: float = attr()
     roofType: str = attr()
     wallSlope: float = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    ComponentBlocks: Optional["ComponentBlocks"] = element()
-    CFDFans: Optional["CFDFans"] = element()
-    AssemblyInstances: Optional["AssemblyInstances"] = element()
-    ProfileOutlines: Optional["ProfileOutlines"] = element()
-    InternalPartitions: Optional["InternalPartitions"] = element()
-    VoidBodies: Optional["VoidBodies"] = element()
-    Zones: Optional["Zones"] = element()
-    ProfileBody: Optional["ProfileBody"] = element()
-    Perimeter: Optional["Perimeter"] = element()
-    BaseProfileBody: Optional["BaseProfileBody"] = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    component_blocks: Optional["ComponentBlocks"] = element()
+    cfd_fans: Optional["CFDFans"] = element()
+    assembly_instances: Optional["AssemblyInstances"] = element()
+    profile_outlines: Optional["ProfileOutlines"] = element()
+    internal_partitions: Optional["InternalPartitions"] = element()
+    void_bodies: Optional["VoidBodies"] = element()
+    zones: Optional["Zones"] = element()
+    profile_body: Optional["ProfileBody"] = element()
+    perimeter: Optional["Perimeter"] = element()
+    Baseprofile_body: Optional["BaseProfileBody"] = element()
     attributes: "KeyAttributes" = element()
 
 
 class InternalPartitions(BaseModel):
-    InternalPartition: List["InternalPartition"] = element(tag="InternalPartition")
+    internal_partition: List["InternalPartition"] = element(tag="InternalPartition")
 
 
 class InternalPartition(BaseModel):
@@ -196,13 +196,13 @@ class InternalPartition(BaseModel):
     height: float = attr()
     area: float = attr()
     floatingPartition: bool = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    StartPoint: "Point3D" = element()
-    EndPoint: "Point3D" = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    start_point: "Point3D" = element()
+    end_point: "Point3D" = element()
 
 
 class Zones(BaseModel):
-    Zone: List["Zone"] = element(tag="Zone")
+    zone: List["Zone"] = element(tag="Zone")
 
 
 class Zone(BaseModel):
@@ -210,42 +210,42 @@ class Zone(BaseModel):
     inheritedZoneHandle: str = attr()
     planExtrusion: str = attr()
     innerSurfaceMode: str = attr()
-    Body: "Body" = element()
-    LightSensorOne: "LightSensorOne" = element()
-    LightSensorTwo: "LightSensorTwo" = element()
-    LabelPosition: "Point3D" = element()
-    Polygon: Optional["Polygon"] = element(default=None)
-    InnerSurfaceBody: Optional["InnerSurfaceBody"] = element()
+    body: "Body" = element()
+    light_sensor_one: "LightSensorOne" = element()
+    light_sensor_two: "LightSensorTwo" = element()
+    label_position: "Point3D" = element()
+    polygon: Optional["Polygon"] = element(default=None)
+    inner_surface_body: Optional["InnerSurfaceBody"] = element()
 
 
 class ProfileBody(BaseModel):
     elementSlope: float = attr()
     roofOverlap: float = attr()
-    Body: "Body" = element()
+    body: "Body" = element()
 
 
 class Perimeter(BaseModel):
-    Polygon: "Polygon" = element()
+    polygon: "Polygon" = element(tag="Polygon")
 
 
 class BaseProfileBody(BaseModel):
-    ProfileBody: "ProfileBody" = element()
+    profile_body: "ProfileBody" = element()
 
 
 class Polygon(BaseModel):
     auxiliaryType: str = attr()
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    Vertices: Optional["Vertices"] = element(default=None)
-    PolygonHoles: Optional["PolygonHoles"] = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: Optional["Vertices"] = element(default=None)
+    polygon_holes: Optional["PolygonHoles"] = element()
 
 
 class PolygonHoles(BaseModel):
-    PolygonHole: List["PolygonHole"] = element(tag="PolygonHole")
+    polygon_hole: List["PolygonHole"] = element(tag="PolygonHole")
 
 
 class PolygonHole(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    Vertices: "Vertices" = element()
+    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    vertices: "Vertices" = element()
 
 
 class LightSensorOne(BaseModel):
@@ -285,7 +285,7 @@ class Planes(BaseModel):
 
 class Plane(BaseModel):
     type: int = attr()
-    polygon: "Polygon" = element()
+    polygon: "Polygon" = element(tag="Polygon")
 
 
 class AssemblyInstances(BaseModel):
@@ -341,7 +341,7 @@ class CFDFan(BaseModel):
 
 class CFDBoundary(BaseModel):
     type: str = attr()
-    polygon: "Polygon" = element()
+    polygon: "Polygon" = element(tag="Polygon")
     cfd_boundary_settings: "CFDBoundarySettings" = element()
     minimum_refinement_region_point: "Point3D" = element()
     maximum_refinement_region_point: "Point3D" = element()
@@ -374,6 +374,6 @@ class CFDBoundarySettings(BaseModel):
     nonOrthoElementYSpacing: float = attr()
     nonOrthoElementXEdgeOffset: float = attr()
     nonOrthoElementYEdgeOffset: float = attr()
-    DiffuserElementDimension: float
-    RefinementRegionDistance: float
-    RefinementRegionLevel: int
+    diffuser_element_dimension: float
+    refinement_region_distance: float
+    refinement_region_level: int
