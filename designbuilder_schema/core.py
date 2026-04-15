@@ -40,23 +40,12 @@ class dsbXML(BaseModel):
 
     @classmethod
     def from_xml(cls, source: str | bytes) -> "dsbXML":
-        """Override to handle PascalCase XML tags to snake_case Python fields"""
+        """Parse XML preserving original casing from XSD schema"""
         from lxml import etree
         if isinstance(source, (str, bytes)):
             root = etree.fromstring(source)
         else:
             root = source
-
-        # Rename PascalCase child elements to lowercase (iterative, non-recursive)
-        # This handles XML like <Site> being mapped to field 'site'
-        stack = [root]
-        while stack:
-            element = stack.pop()
-            # Convert tag names: Site -> site, Tables -> tables, etc.
-            if element.tag and len(element.tag) > 1 and element.tag[0].isupper():
-                element.tag = element.tag[0].lower() + element.tag[1:]
-            # Add children to stack for processing
-            stack.extend(reversed(element))
 
         instance = super().from_xml_tree(root)
         return instance
@@ -108,10 +97,10 @@ class AssemblyLibrary(BaseModel):
 
     Attributes:
         assemblyHandle: Unique identifier for the assembly library
-        assembly: List of assembly definitions
+        Assembly: List of assembly definitions
     """
     assemblyHandle: int = attr()
-    assembly: List["Assembly"] = element(tag="Assembly")
+    Assembly: List["Assembly"] = element(tag="Assembly")
 
 
 class Assembly(BaseModel):
@@ -121,15 +110,15 @@ class Assembly(BaseModel):
         assemblyHandle: Unique identifier for this assembly
         componentBlockHandle: Reference to the component block containing layers
         reference: Reference identifier or name
-        handle_point: Origin point for the assembly placement
-        component_blocks: Collection of component blocks defining construction layers
+        HandlePoint: Origin point for the assembly placement
+        ComponentBlocks: Collection of component blocks defining construction layers
         attributes: Key attributes for the assembly
     """
     assemblyHandle: int = attr()
     componentBlockHandle: int = attr()
     reference: str = attr()
-    handle_point: "Point3D" = element()
-    component_blocks: "ComponentBlocks" = element()
+    HandlePoint: "Point3D" = element()
+    ComponentBlocks: "ComponentBlocks" = element()
     attributes: "KeyAttributes" = element()
 
 
@@ -137,9 +126,9 @@ class ComponentBlocks(BaseModel):
     """Container for component block list.
 
     Attributes:
-        component_block: List of component blocks
+        ComponentBlock: List of component blocks
     """
-    component_block: List["ComponentBlock"] = element(tag="ComponentBlock")
+    ComponentBlock: List["ComponentBlock"] = element(tag="ComponentBlock")
 
 
 class ComponentBlock(BaseModel):
@@ -162,18 +151,18 @@ class Body(BaseModel):
     Attributes:
         volume: Volume of the body in cubic meters
         extrusionHeight: Height of extrusion used to create this body
-        object_ids: Unique object identifiers
-        vertices: List of 3D vertices defining the geometry
-        surfaces: Collection of surfaces forming the body envelope
-        void_perimeter_list: Perimeter polygons of void bodies (openings)
+        ObjectIDs: Unique object identifiers
+        Vertices: List of 3D vertices defining the geometry
+        Surfaces: Collection of surfaces forming the body envelope
+        VoidPerimeterList: Perimeter polygons of void bodies (openings)
         attributes: Key attributes for the body
     """
     volume: float = attr()
     extrusionHeight: float = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    vertices: "Vertices" = element()
-    surfaces: "Surfaces" = element()
-    void_perimeter_list: Optional["VoidPerimeterList"] = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    Vertices: "Vertices" = element()
+    Surfaces: "Surfaces" = element()
+    VoidPerimeterList: Optional["VoidPerimeterList"] = element()
     attributes: Optional["KeyAttributes"] = element()
 
 
@@ -181,9 +170,9 @@ class Surfaces(BaseModel):
     """Container for surface list.
 
     Attributes:
-        surface: List of surfaces
+        Surface: List of surfaces
     """
-    surface: List["Surface"] = element(tag="Surface")
+    Surface: List["Surface"] = element(tag="Surface")
 
 
 class Surface(BaseModel):
@@ -200,11 +189,11 @@ class Surface(BaseModel):
         defaultOpenings: Default opening type for this surface
         adjacentPartitionHandle: Reference to adjacent partition
         thickness: Total thickness of construction
-        object_ids: Unique object identifiers
-        vertex_indices: Indices of vertices forming this surface
-        hole_indices: Indices of holes (openings) in the surface
-        openings: Collection of windows and doors
-        adjacencies: Thermal adjacencies to other surfaces
+        ObjectIDs: Unique object identifiers
+        VertexIndices: Indices of vertices forming this surface
+        HoleIndices: Indices of holes (openings) in the surface
+        Openings: Collection of windows and doors
+        Adjacencies: Thermal adjacencies to other surfaces
         attributes: Key attributes for the surface
     """
     type: str = attr()
@@ -214,11 +203,11 @@ class Surface(BaseModel):
     defaultOpenings: str = attr()
     adjacentPartitionHandle: int = attr()
     thickness: float = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    vertex_indices: str = element()
-    hole_indices: Optional[str] = element(default=None)
-    openings: Optional["Openings"] = element()
-    adjacencies: Optional["Adjacencies"] = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    VertexIndices: str = element()
+    HoleIndices: Optional[str] = element(default=None)
+    Openings: Optional["Openings"] = element()
+    Adjacencies: Optional["Adjacencies"] = element()
     attributes: Optional["KeyAttributes"] = element()
 
 
@@ -226,9 +215,9 @@ class Openings(BaseModel):
     """Container for opening (window/door) list.
 
     Attributes:
-        opening: List of openings
+        Opening: List of openings
     """
-    opening: List["Opening"] = element(tag="Opening")
+    Opening: List["Opening"] = element(tag="Opening")
 
 
 class Opening(BaseModel):
@@ -238,23 +227,23 @@ class Opening(BaseModel):
 
     Attributes:
         type: Opening type (window, door, etc.)
-        polygon: Polygonal outline of the opening
+        Polygon: Polygonal outline of the opening
         attributes: Key attributes for the opening
-        segment_list: CFD mesh segments for this opening
+        CFDSegmentList: CFD mesh segments for this opening
     """
     type: str = attr()
-    polygon: "Polygon" = element()
+    Polygon: "Polygon" = element()
     attributes: Optional["KeyAttributes"] = element()
-    segment_list: Optional["CFDSegmentList"] = element()
+    CFDSegmentList: Optional["CFDSegmentList"] = element()
 
 
 class Adjacencies(BaseModel):
     """Container for adjacency list.
 
     Attributes:
-        adjacency: List of adjacencies
+        Adjacency: List of adjacencies
     """
-    adjacency: List["Adjacency"] = element(tag="Adjacency")
+    Adjacency: List["Adjacency"] = element(tag="Adjacency")
 
 
 class Adjacency(BaseModel):
@@ -265,22 +254,22 @@ class Adjacency(BaseModel):
     Attributes:
         type: Adjacency type identifier
         adjacencyDistance: Distance between adjacent surfaces
-        object_ids: Unique object identifiers
-        adjacency_polygon_list: Overlapping polygon areas between surfaces
+        ObjectIDs: Unique object identifiers
+        AdjacencyPolygonList: Overlapping polygon areas between surfaces
     """
     type: str = attr()
     adjacencyDistance: float = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    adjacency_polygon_list: "AdjacencyPolygonList" = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    AdjacencyPolygonList: "AdjacencyPolygonList" = element()
 
 
 class AdjacencyPolygonList(BaseModel):
     """Container for adjacency polygon list.
 
     Attributes:
-        polygon: List of overlapping polygons defining adjacency areas
+        Polygon: List of overlapping polygons defining adjacency areas
     """
-    polygon: List["Polygon"] = element(tag="Polygon")
+    Polygon: List["Polygon"] = element(tag="Polygon")
 
 
 class Buildings(BaseModel):
@@ -288,10 +277,10 @@ class Buildings(BaseModel):
 
     Attributes:
         numberOfBuildings: Count of buildings in the site
-        building: List of building definitions
+        Building: List of building definitions
     """
     numberOfBuildings: int = attr()
-    building: List["Building"] = element(tag="Building")
+    Building: List["Building"] = element(tag="Building")
 
 
 class Building(BaseModel):
@@ -303,29 +292,29 @@ class Building(BaseModel):
         currentComponentBlockHandle: Handle to current component block
         currentAssemblyInstanceHandle: Handle to current assembly instance
         currentPlaneHandle: Handle to current plane
-        object_ids: Unique object identifiers
-        building_blocks: Structural building blocks (repeating elements)
-        component_blocks: Individual component blocks
-        assembly_instances: Instances of assemblies placed in the building
-        profile_outlines: Building profile outlines for form visualization
-        construction_lines: Construction/reference lines
-        planes: Work planes used in the building definition
-        hvac_network: HVAC heating/cooling system network
-        bookmark_buildings: Navigation bookmarks for the building
+        ObjectIDs: Unique object identifiers
+        BuildingBlocks: Structural building blocks (repeating elements)
+        ComponentBlocks: Individual component blocks
+        AssemblyInstances: Instances of assemblies placed in the building
+        ProfileOutlines: Building profile outlines for form visualization
+        ConstructionLines: Construction/reference lines
+        Planes: Work planes used in the building definition
+        HVACNetwork: HVAC heating/cooling system network
+        BookmarkBuildings: Navigation bookmarks for the building
         attributes: Key attributes for the building
     """
     currentComponentBlockHandle: int = attr()
     currentAssemblyInstanceHandle: int = attr()
     currentPlaneHandle: int = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    building_blocks: Optional["BuildingBlocks"] = element()
-    component_blocks: Optional["ComponentBlocks"] = element()
-    assembly_instances: Optional["AssemblyInstances"] = element()
-    profile_outlines: Optional["ProfileOutlines"] = element()
-    construction_lines: Optional["ConstructionLines"] = element()
-    planes: Optional["Planes"] = element()
-    hvac_network: Optional["HVACNetwork"] = element()
-    bookmark_buildings: Optional["BookmarkBuildings"] = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    BuildingBlocks: Optional["BuildingBlocks"] = element()
+    ComponentBlocks: Optional["ComponentBlocks"] = element()
+    AssemblyInstances: Optional["AssemblyInstances"] = element()
+    ProfileOutlines: Optional["ProfileOutlines"] = element()
+    ConstructionLines: Optional["ConstructionLines"] = element()
+    Planes: Optional["Planes"] = element()
+    HVACNetwork: Optional["HVACNetwork"] = element()
+    BookmarkBuildings: Optional["BookmarkBuildings"] = element()
     attributes: "KeyAttributes" = element()
 
 
@@ -333,9 +322,9 @@ class BuildingBlocks(BaseModel):
     """Container for building block list.
 
     Attributes:
-        building_block: List of building blocks
+        BuildingBlock: List of building blocks
     """
-    building_block: List["BuildingBlock"] = element(tag="BuildingBlock")
+    BuildingBlock: List["BuildingBlock"] = element(tag="BuildingBlock")
 
 
 class BuildingBlock(BaseModel):
@@ -350,17 +339,17 @@ class BuildingBlock(BaseModel):
         roofOverlap: Roof overlap dimension
         roofType: Type of roof (flat, pitched, etc.)
         wallSlope: Angle of wall slope
-        object_ids: Unique object identifiers
-        component_blocks: Structural component layers
-        cfd_fans: CFD fans and ventilation components
-        assembly_instances: Assembly instances within this block
-        profile_outlines: Profile outlines for visualization
-        internal_partitions: Internal walls and dividers
-        void_bodies: Atria and internal voids
-        zones: Thermal zones within this block
-        profile_body: Overall profile body geometry
-        perimeter: Perimeter definition
-        base_profile_body: Base profile for extrusion
+        ObjectIDs: Unique object identifiers
+        ComponentBlocks: Structural component layers
+        CFDFans: CFD fans and ventilation components
+        AssemblyInstances: Assembly instances within this block
+        ProfileOutlines: Profile outlines for visualization
+        InternalPartitions: Internal walls and dividers
+        VoidBodies: Atria and internal voids
+        Zones: Thermal zones within this block
+        ProfileBody: Overall profile body geometry
+        Perimeter: Perimeter definition
+        BaseProfileBody: Base profile for extrusion
         attributes: Key attributes for the block
     """
     type: str = attr()
@@ -369,17 +358,17 @@ class BuildingBlock(BaseModel):
     roofOverlap: float = attr()
     roofType: str = attr()
     wallSlope: float = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    component_blocks: Optional["ComponentBlocks"] = element()
-    cfd_fans: Optional["CFDFans"] = element()
-    assembly_instances: Optional["AssemblyInstances"] = element()
-    profile_outlines: Optional["ProfileOutlines"] = element()
-    internal_partitions: Optional["InternalPartitions"] = element()
-    void_bodies: Optional["VoidBodies"] = element()
-    zones: Optional["Zones"] = element()
-    profile_body: Optional["ProfileBody"] = element()
-    perimeter: Optional["Perimeter"] = element()
-    base_profile_body: Optional["BaseProfileBody"] = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    ComponentBlocks: Optional["ComponentBlocks"] = element()
+    CFDFans: Optional["CFDFans"] = element()
+    AssemblyInstances: Optional["AssemblyInstances"] = element()
+    ProfileOutlines: Optional["ProfileOutlines"] = element()
+    InternalPartitions: Optional["InternalPartitions"] = element()
+    VoidBodies: Optional["VoidBodies"] = element()
+    Zones: Optional["Zones"] = element()
+    ProfileBody: Optional["ProfileBody"] = element()
+    Perimeter: Optional["Perimeter"] = element()
+    BaseProfileBody: Optional["BaseProfileBody"] = element()
     attributes: "KeyAttributes" = element()
 
 
@@ -387,9 +376,9 @@ class InternalPartitions(BaseModel):
     """Container for internal partition list.
 
     Attributes:
-        internal_partition: List of internal partitions
+        InternalPartition: List of internal partitions
     """
-    internal_partition: List["InternalPartition"] = element(tag="InternalPartition")
+    InternalPartition: List["InternalPartition"] = element(tag="InternalPartition")
 
 
 class InternalPartition(BaseModel):
@@ -402,26 +391,26 @@ class InternalPartition(BaseModel):
         height: Height of the partition
         area: Surface area of the partition
         floatingPartition: Whether partition is floating (not touching floor/ceiling)
-        object_ids: Unique object identifiers
-        start_point: Starting point of the partition line
-        end_point: Ending point of the partition line
+        ObjectIDs: Unique object identifiers
+        StartPoint: Starting point of the partition line
+        EndPoint: Ending point of the partition line
     """
     type: str = attr()
     height: float = attr()
     area: float = attr()
     floatingPartition: bool = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    start_point: "Point3D" = element()
-    end_point: "Point3D" = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    StartPoint: "Point3D" = element()
+    EndPoint: "Point3D" = element()
 
 
 class Zones(BaseModel):
     """Container for zone list.
 
     Attributes:
-        zone: List of thermal zones
+        Zone: List of thermal zones
     """
-    zone: List["Zone"] = element(tag="Zone")
+    Zone: List["Zone"] = element(tag="Zone")
 
 
 class Zone(BaseModel):
@@ -435,23 +424,23 @@ class Zone(BaseModel):
         inheritedZoneHandle: Reference to inherited thermal properties
         planExtrusion: Extrusion method from plan geometry
         innerSurfaceMode: Mode for inner surface heat transfer
-        body: 3D geometry of the zone
-        light_sensor_one: Primary daylighting sensor location
-        light_sensor_two: Secondary daylighting sensor location
-        label_position: Position for zone label display
-        polygon: 2D floor plan polygon
-        inner_surface_body: Internal surfaces/partitions in the zone
+        Body: 3D geometry of the zone
+        LightSensorOne: Primary daylighting sensor location
+        LightSensorTwo: Secondary daylighting sensor location
+        LabelPosition: Position for zone label display
+        Polygon: 2D floor plan polygon
+        InnerSurfaceBody: Internal surfaces/partitions in the zone
     """
     parentZoneHandle: str = attr()
     inheritedZoneHandle: str = attr()
     planExtrusion: str = attr()
     innerSurfaceMode: str = attr()
-    body: "Body" = element()
-    light_sensor_one: "LightSensorOne" = element()
-    light_sensor_two: "LightSensorTwo" = element()
-    label_position: "Point3D" = element()
-    polygon: Optional["Polygon"] = element(default=None)
-    inner_surface_body: Optional["InnerSurfaceBody"] = element()
+    Body: "Body" = element()
+    LightSensorOne: "LightSensorOne" = element()
+    LightSensorTwo: "LightSensorTwo" = element()
+    LabelPosition: "Point3D" = element()
+    Polygon: Optional["Polygon"] = element(default=None)
+    InnerSurfaceBody: Optional["InnerSurfaceBody"] = element()
 
 
 class ProfileBody(BaseModel):
@@ -462,29 +451,29 @@ class ProfileBody(BaseModel):
     Attributes:
         elementSlope: Slope angle of elements
         roofOverlap: Roof overlap dimension
-        body: The 3D body geometry
+        Body: The 3D body geometry
     """
     elementSlope: float = attr()
     roofOverlap: float = attr()
-    body: "Body" = element()
+    Body: "Body" = element()
 
 
 class Perimeter(BaseModel):
     """Perimeter boundary definition.
 
     Attributes:
-        polygon: Polygon defining the perimeter
+        Polygon: Polygon defining the perimeter
     """
-    polygon: "Polygon" = element()
+    Polygon: "Polygon" = element()
 
 
 class BaseProfileBody(BaseModel):
     """Base profile for building geometry extrusion.
 
     Attributes:
-        profile_body: The profile body definition
+        ProfileBody: The profile body definition
     """
-    profile_body: "ProfileBody" = element()
+    ProfileBody: "ProfileBody" = element()
 
 
 class Polygon(BaseModel):
@@ -494,23 +483,23 @@ class Polygon(BaseModel):
 
     Attributes:
         auxiliaryType: Type classification for the polygon
-        object_ids: Unique object identifiers
-        vertices: List of 3D vertices forming the polygon
-        polygon_holes: Holes within this polygon (for complex shapes)
+        ObjectIDs: Unique object identifiers
+        Vertices: List of 3D vertices forming the polygon
+        PolygonHoles: Holes within this polygon (for complex shapes)
     """
     auxiliaryType: str = attr()
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    vertices: Optional["Vertices"] = element(default=None)
-    polygon_holes: Optional["PolygonHoles"] = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    Vertices: Optional["Vertices"] = element(default=None)
+    PolygonHoles: Optional["PolygonHoles"] = element()
 
 
 class PolygonHoles(BaseModel):
     """Container for polygon hole list.
 
     Attributes:
-        polygon_hole: List of holes in the polygon
+        PolygonHole: List of holes in the polygon
     """
-    polygon_hole: List["PolygonHole"] = element(tag="PolygonHole")
+    PolygonHole: List["PolygonHole"] = element(tag="PolygonHole")
 
 
 class PolygonHole(BaseModel):
@@ -519,11 +508,11 @@ class PolygonHole(BaseModel):
     Represents cutouts or holes in a polygonal boundary.
 
     Attributes:
-        object_ids: Unique object identifiers
-        vertices: Vertices of the hole polygon
+        ObjectIDs: Unique object identifiers
+        Vertices: Vertices of the hole polygon
     """
-    object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    vertices: "Vertices" = element()
+    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
+    Vertices: "Vertices" = element()
 
 
 class LightSensorOne(BaseModel):
