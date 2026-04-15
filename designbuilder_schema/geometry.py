@@ -8,32 +8,26 @@ from pydantic import Field
 class Point3D(BaseModel):
     value: str
 
-    _coords_cache: Union[tuple[float, float, float], None] = None
-
-    @property
-    def _cached_coords(self) -> tuple[float, float, float]:
-        if self._coords_cache is None:
-            parsed = tuple(float(c) for c in self.value.split(";"))
-            assert len(parsed) == 3, "Expected 3 coordinates"
-            object.__setattr__(self, "_coords_cache", tuple(parsed))
-        assert self._coords_cache is not None
-        return self._coords_cache
+    def _parse_coords(self) -> tuple[float, float, float]:
+        parsed = tuple(float(c) for c in self.value.split(";"))
+        assert len(parsed) == 3, "Expected 3 coordinates"
+        return parsed
 
     @property
     def x(self) -> float:
-        return float(self._cached_coords[0])
+        return self._parse_coords()[0]
 
     @property
     def y(self) -> float:
-        return float(self._cached_coords[1])
+        return self._parse_coords()[1]
 
     @property
     def z(self) -> float:
-        return float(self._cached_coords[2])
+        return self._parse_coords()[2]
 
     @property
     def coords(self) -> List[float]:
-        return list(self._cached_coords)
+        return list(self._parse_coords())
 
     def __setattr__(self, name: str, value: Union[float, List[float]]) -> None:
         if name == "coords":
@@ -47,14 +41,7 @@ class Point3D(BaseModel):
             coords[index] = str(value)
             self.value = ";".join(coords)
         else:
-            # Invalidate cache when value string changes
-            if name == "value":
-                object.__setattr__(self, "_coords_cache", None)
             super().__setattr__(name, value)
-
-
-class VerticesList(list[Point3D]):
-    pass
 
 
 class Vertices(BaseModel):
@@ -77,7 +64,6 @@ class Vertices(BaseModel):
 
 
 class Range(BaseModel):
-
     org: "Point3D" = element()
     end: "Point3D" = element()
 
@@ -90,14 +76,14 @@ class Line(BaseModel):
 
 class ImageRectangle(BaseModel):
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    image_texture_index: int = attr()
-    mask_texture_index: int = attr()
-    selected_image_texture_index: int = attr()
-    inactive_image_texture_index: int = attr()
+    imageTextureIndex: int = attr()
+    maskTextureIndex: int = attr()
+    selectedImageTextureIndex: int = attr()
+    inactiveImageTextureIndex: int = attr()
     textured: str = attr()
     masked: str = attr()
-    selected_image: str = attr()
-    inactive_image: str = attr()
+    selectedImage: str = attr()
+    inactiveImage: str = attr()
     color: str = attr()
     active: str = attr()
     vertices: "Vertices" = element()

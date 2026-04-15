@@ -250,12 +250,12 @@ class PolygonHole(BaseModel):
 
 class LightSensorOne(BaseModel):
     index: int = attr()
-    point_3d: str = element()
+    Point3d: str = element()
 
 
 class LightSensorTwo(BaseModel):
     index: int = attr()
-    point_3d: str = element()
+    Point3d: str = element()
 
 
 class InnerSurfaceBody(BaseModel):
@@ -354,26 +354,26 @@ class CFDSegmentList(BaseModel):
 
 class CFDBoundarySettings(BaseModel):
     temperature: float = attr()
-    flow_rate: float = attr()
-    x_direction_discharge_angle: float = attr()
-    y_direction_discharge_angle: float = attr()
-    multi_way_diffuser_discharge_angle: float = attr()
-    two_way_diffuser_discharge_direction: int = attr()
-    minimum_discharge_velocity: float = attr()
-    actual_discharge_velocity: float = attr()
-    heat_flux: float = attr()
+    flowRate: float = attr()
+    xDirectionDischargeAngle: float = attr()
+    yDirectionDischargeAngle: float = attr()
+    multiWayDiffuserDischargeAngle: float = attr()
+    twoWayDiffuserDischargeDirection: int = attr()
+    minimumDischargeVelocity: float = attr()
+    actualDischargeVelocity: float = attr()
+    heatFlux: float = attr()
     pressure: float = attr()
-    pressure_type: int = attr()
-    moisture_source: float = attr()
-    contaminant_source: float = attr()
-    relative_humidity: float = attr()
-    non_ortho_element_width: float = attr()
-    non_ortho_element_height: float = attr()
-    non_ortho_face_offset: float = attr()
-    non_ortho_element_x_spacing: float = attr()
-    non_ortho_element_y_spacing: float = attr()
-    non_ortho_element_x_edge_offset: float = attr()
-    non_ortho_element_y_edge_offset: float = attr()
+    pressureType: int = attr()
+    moistureSource: float = attr()
+    contaminantSource: float = attr()
+    relativeHumidity: float = attr()
+    nonOrthoElementWidth: float = attr()
+    nonOrthoElementHeight: float = attr()
+    nonOrthoFaceOffset: float = attr()
+    nonOrthoElementXSpacing: float = attr()
+    nonOrthoElementYSpacing: float = attr()
+    nonOrthoElementXEdgeOffset: float = attr()
+    nonOrthoElementYEdgeOffset: float = attr()
     DiffuserElementDimension: float
     RefinementRegionDistance: float
     RefinementRegionLevel: int

@@ -59,9 +59,9 @@ class PlantOperationRange(BaseModel):
 
 
 class DemandSubLoop(BaseModel):
-    loop_type: int = attr()
-    plant_loop_type: int = attr()
-    sub_loop_type: int = attr()
+    loopType: int = attr()
+    plantLoopType: int = attr()
+    subLoopType: int = attr()
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
     hvac_components: "HVACComponents" = element()
     hvac_connections: "HVACConnections" = element()
@@ -69,9 +69,9 @@ class DemandSubLoop(BaseModel):
 
 
 class SupplySubLoop(BaseModel):
-    loop_type: int = attr()
-    plant_loop_type: int = attr()
-    sub_loop_type: int = attr()
+    loopType: int = attr()
+    plantLoopType: int = attr()
+    subLoopType: int = attr()
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
     hvac_components: "HVACComponents" = element()
     hvac_connections: "HVACConnections" = element()
@@ -79,7 +79,7 @@ class SupplySubLoop(BaseModel):
 
 
 class HVACZoneGroup(NoTypeHVACComponent):
-    valid_zone_group: str = attr()
+    validZoneGroup: str = attr()
     width: float = attr()
     height: float = attr()
     origin: "Point3D" = element()
@@ -98,11 +98,11 @@ class HVACConnections(BaseModel):
 
 class HVACConnection(BaseModel):
     object_ids: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)] = element()
-    loop_handle: int = attr()
-    sub_loop_type: int = attr()
-    loop_type: int = attr()
-    plant_loop_type: int = attr()
-    loop_flow_direction: int = attr()
+    loopHandle: int = attr()
+    subLoopType: int = attr()
+    loopType: int = attr()
+    plantLoopType: int = attr()
+    loopFlowDirection: int = attr()
     element_list: "ElementList" = element()
 
 
