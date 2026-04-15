@@ -8,11 +8,6 @@ from designbuilder_schema.hvac.components import NoTypeHVACComponent, HVACCompon
 
 
 class ZoneElementList(BaseModel):
-    """Container for zone HVAC component list with automatic type casting.
-
-    Attributes:
-        hvac_zone_component: List of zone HVAC components
-    """
     hvac_zone_component: List["HVACComponent"] = element(tag="HVACZoneComponent")
 
     @field_validator("hvac_zone_component", mode="before")
@@ -26,42 +21,26 @@ class ZoneElementList(BaseModel):
 
 
 class ExtractGrille(NoTypeHVACComponent):
-    """Air extraction grille in a zone."""
     pass
 
 
 class SupplyDiffuser(NoTypeHVACComponent):
-    """Air supply diffuser in a zone."""
     pass
 
 
 class IntakeLouvre(NoTypeHVACComponent):
-    """Air intake louvre in a zone."""
     pass
 
 
 class MixingBox(NoTypeHVACComponent):
-    """Mixing box for zone air conditioning."""
     pass
 
 
 class CooledBeam(NoTypeHVACComponent):
-    """Cooled ceiling beam for zone conditioning."""
     pass
 
 
 class ZoneExtract(NoTypeHVACComponent):
-    """Zone extract air component.
-
-    Represents exhaust air from a zone.
-
-    Attributes:
-        type: Component type identifier
-        Width: Width of the extraction unit
-        Height: Height of the extraction unit
-        Origin: Location of the unit
-        ExtractGrille: The extraction grille component
-    """
     type: Literal["Zone extract"]
     Width: float
     Height: float
@@ -70,20 +49,6 @@ class ZoneExtract(NoTypeHVACComponent):
 
 
 class ADU(NoTypeHVACComponent):
-    """Base class for air distribution units in zones.
-
-    Represents zone-level air conditioning equipment with supply and intake.
-
-    Attributes:
-        Width: Unit width
-        Height: Unit height
-        MixingBoxWidth: Width of mixing section
-        Origin: Unit location
-        SupplyDiffuser: Supply air diffuser
-        UnitElementList: Internal components
-        IntakeLouvre: Air intake section
-        MixingBox: Mixing section
-    """
     Width: float
     Height: float
     MixingBoxWidth: float
@@ -210,5 +175,3 @@ ZONE_COMPONENT_MAPPING = {
     "Zone radiative convective electric baseboard": ZoneRadiativeConvectiveElectricBaseboard,
     "Zone radiative convective water baseboard": ZoneRadiativeConvectiveWaterBaseboard,
 }
-
-

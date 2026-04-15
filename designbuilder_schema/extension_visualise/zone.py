@@ -1,9 +1,3 @@
-"""
-visualise.py
-====================================
-Extension module that adds visualization capabilities
-"""
-
 from designbuilder_schema.core import Building, BuildingBlock, Zone, Body
 from designbuilder_schema.geometry import Point3D
 from typing import List
@@ -12,7 +6,6 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
 def faces(body: Body) -> List[List[List[float]]]:
-    """List of faces where each face is a list of vertices, each vertex is a list of x,y,z coordinates."""
 
     vertices = [v.coords for v in body.vertices.point_3d]
     faces = []
@@ -29,7 +22,6 @@ def faces(body: Body) -> List[List[List[float]]]:
 
 
 def openings(body: Body) -> List[List[List[float]]]:
-    """List of openings where each opening is a list of vertices, each vertex is a list of x,y,z coordinates."""
     opening_list = []
     for surface in body.surfaces.surface:
         if surface.openings:
@@ -62,7 +54,6 @@ def building_block_geometry(building_block: BuildingBlock):
 
 
 def display_zones(zones_geometry: list):
-    """Display all zone faces and openings with random colours."""
     # Create 3D figure
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection="3d")
@@ -120,16 +111,6 @@ def display_zones(zones_geometry: list):
 
 
 def display_zones_with_defined_colours(zones_geometry: list, colours: list):
-    """Display zone faces and openings with user-defined colours.
-
-    Args:
-        zones_geometry: List of zone geometries, each with 'faces' and 'openings' keys.
-        colours: List of matplotlib color strings corresponding to each zone.
-
-    Example:
-        zones_geometry = [{'faces': [...], 'openings': [...]}, ...]
-        colours = ['red', 'blue', 'green', 'yellow']
-    """
     # Create 3D figure
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection="3d")
@@ -184,7 +165,6 @@ def display_zones_with_defined_colours(zones_geometry: list, colours: list):
 
 
 def building_zones(building: Building):
-    """Show matplotlib plot for all zones in building."""
     zones = []
     if building.building_blocks:
         zones = [

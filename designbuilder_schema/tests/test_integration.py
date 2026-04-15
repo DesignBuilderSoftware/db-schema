@@ -1,12 +1,3 @@
-"""
-Integration tests for designbuilder_schema
-
-Tests full round-trip scenarios:
-- Load XML → Modify → Save → Load again
-- Verify structure preservation
-- Test with real DesignBuilder XML files
-"""
-
 import tempfile
 from pathlib import Path
 import pytest
@@ -16,7 +7,6 @@ from designbuilder_schema.id import set_site_counter, generate_site_handle
 
 
 class TestRoundTrip:
-    """Test loading, modifying, and saving models preserves data integrity"""
 
     @pytest.mark.parametrize(
         "sample_file",
@@ -27,7 +17,6 @@ class TestRoundTrip:
         ],
     )
     def test_load_save_load_produces_equivalent_models(self, sample_file: str):
-        """Load a file, save it, load it again, and verify structure equivalence"""
         sample_path = Path(sample_file)
         if not sample_path.exists():
             pytest.skip(f"Sample file {sample_file} not found")
@@ -60,7 +49,6 @@ class TestRoundTrip:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_load_save_maintains_xml_validity(self):
-        """Verify saved XML can be parsed as valid XML"""
         sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
@@ -85,10 +73,8 @@ class TestRoundTrip:
 
 
 class TestModelModification:
-    """Test modifying loaded models and re-saving"""
 
     def test_modify_and_save_name(self):
-        """Load model, modify name, save, and reload to verify change"""
         sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
@@ -114,7 +100,6 @@ class TestModelModification:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_site_counter_persistence(self):
-        """Test that site handle counter is properly managed across loads"""
         sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
@@ -136,7 +121,6 @@ class TestModelModification:
 
 
 class TestComplexModels:
-    """Test handling of complex nested structures"""
 
     @pytest.mark.parametrize(
         "sample_file",
@@ -147,7 +131,6 @@ class TestComplexModels:
         ],
     )
     def test_load_complex_hvac_models(self, sample_file: str):
-        """Load and verify complex HVAC models don't break"""
         sample_path = Path(sample_file)
         if not sample_path.exists():
             pytest.skip(f"Sample file {sample_file} not found")
@@ -161,7 +144,6 @@ class TestComplexModels:
         assert model.site is not None
 
     def test_round_trip_complex_models(self):
-        """Round-trip a complex model through save/load"""
         sample_files = [
             "designbuilder_schema/samples/models_dhvac/1.xml",
             "designbuilder_schema/samples/models/DetailedHVAC.xml",
@@ -191,10 +173,8 @@ class TestComplexModels:
 
 
 class TestLazyLoading:
-    """Test that lazy loading works correctly"""
 
     def test_lazy_hvac_components_access(self):
-        """Test lazy loading of HVACComponents"""
         # Import module freshly
         import designbuilder_schema
 
@@ -204,7 +184,6 @@ class TestLazyLoading:
         assert hvac_components_class.__name__ == "HVACComponents"
 
     def test_lazy_hvac_network_access(self):
-        """Test lazy loading of HVACNetwork"""
         import designbuilder_schema
 
         # Should be able to access HVACNetwork
@@ -213,7 +192,6 @@ class TestLazyLoading:
         assert hvac_network_class.__name__ == "HVACNetwork"
 
     def test_lazy_loading_error_handling(self):
-        """Test that accessing non-existent attributes raises AttributeError"""
         import designbuilder_schema
 
         with pytest.raises(AttributeError, match="has no attribute 'NonExistent'"):
@@ -221,15 +199,12 @@ class TestLazyLoading:
 
 
 class TestErrorHandling:
-    """Test error handling for invalid inputs"""
 
     def test_load_nonexistent_file_raises_error(self):
-        """Loading a non-existent file should raise an error"""
         with pytest.raises(FileNotFoundError):
             load_model("/nonexistent/path/file.xml")
 
     def test_load_non_xml_file_raises_error(self):
-        """Loading a non-XML file should raise ValueError"""
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:
             tmp.write(b"not xml")
             tmp.flush()
@@ -238,7 +213,6 @@ class TestErrorHandling:
                 load_model(tmp.name)
 
     def test_save_to_non_xml_path_raises_error(self):
-        """Saving to a non-XML path should raise ValueError"""
         sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")

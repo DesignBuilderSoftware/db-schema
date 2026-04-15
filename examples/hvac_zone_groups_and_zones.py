@@ -1,6 +1,5 @@
 from designbuilder_schema.utils import load_model
 
-
 filepath = r".\samples\models_dhvac\HVAC_Zones_Coloured.xml"
 model = load_model(filepath)
 
@@ -16,7 +15,7 @@ for idx, zone_group in enumerate(zone_groups, 1):
     # Get zone group title
     group_title = next(
         (attr.text for attr in zone_group.Attributes.Attribute if attr.name == "Title"),
-        "Unknown"
+        "Unknown",
     )
 
     print(f"\n{idx}. HVAC Zone Group: {group_title}")
@@ -30,10 +29,16 @@ for idx, zone_group in enumerate(zone_groups, 1):
             print(f"   Zone Components ({len(zone_components)}):")
             for component in zone_components:
                 component_title = next(
-                    (attr.text for attr in component.Attributes.Attribute if attr.name == "Title"),
-                    "Unknown"
+                    (
+                        attr.text
+                        for attr in component.Attributes.Attribute
+                        if attr.name == "Title"
+                    ),
+                    "Unknown",
                 )
-                component_type = component.type if hasattr(component, 'type') else "Unknown type"
+                component_type = (
+                    component.type if hasattr(component, "type") else "Unknown type"
+                )
                 print(f"      - {component_title}")
                 print(f"        Type: {component_type}")
         else:

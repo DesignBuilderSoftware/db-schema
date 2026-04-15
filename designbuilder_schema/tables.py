@@ -1,10 +1,3 @@
-
-"""
-tables.py
-====================================
-The tables module of the designbuilder_schema
-"""
-
 from pydantic import field_validator, field_serializer, BaseModel as PydanticBaseModel
 from pydantic_xml import attr, element
 from typing import Any, List, Optional
@@ -12,13 +5,6 @@ from designbuilder_schema.base import BaseModel
 
 
 class TableRow(BaseModel):
-    """Single row of data in a table.
-
-    Represents a row of cell values in a table with array-like access.
-
-    Attributes:
-        cells: List of cell values in this row
-    """
 
     cells: List[str] = element(tag="Cell")
 
@@ -36,18 +22,6 @@ class TableRow(BaseModel):
 
 
 class Table(BaseModel):
-    """A single data table with named fields and rows.
-
-    Represents simulation data such as climate, schedules, or other tabular information.
-    Provides access to rows by index and columns by field name.
-
-    Attributes:
-        name: Table name/identifier
-        numberOfFields: Number of columns in the table
-        category: Optional category classification for the table
-        field_name: Names of each column/field
-        rows: List of data rows
-    """
 
     name: str = attr()
     numberOfFields: int = attr()
@@ -64,13 +38,11 @@ class Table(BaseModel):
         return value
 
     def __getitem__(self, index: int) -> "TableRow":
-        """Get a specific row by index"""
         if self.rows is None or index >= len(self.rows):
             raise IndexError("Table row index out of range")
         return self.rows[index]
 
     def __getattr__(self, name: str) -> List[str]:
-        """Get all values for a specific field by name"""
         try:
             field_index = self.field_name.index(name)
         except ValueError:
@@ -84,7 +56,6 @@ class Table(BaseModel):
         return [row.cells[field_index] for row in self.rows]
 
     def __setattr__(self, name: str, value: Any) -> None:
-        """Set values for a specific field by name"""
         # Let Pydantic handle special attributes
         if name in self.__dict__ or name.startswith("_"):
             super().__setattr__(name, value)
@@ -110,19 +81,10 @@ class Table(BaseModel):
 
 
 class Tables(BaseModel):
-    """Collection of all simulation data tables.
-
-    Contains all tables in the DesignBuilder project including climate data,
-    schedules, and other simulation parameters.
-
-    Attributes:
-        table: List of table definitions
-    """
 
     table: List[Table] = element(tag="Table", default_factory=list)
 
     def get_table_by_name(self, name: str) -> Table:
-        """Get a table by its name"""
         table_dict = {t.name: t for t in self.table}
         if name not in table_dict:
             raise KeyError(f"Table '{name}' not found")
@@ -131,14 +93,6 @@ class Tables(BaseModel):
 
 # Legacy compatibility class - for code that expects TableItem
 class TableItem(PydanticBaseModel):
-    """Legacy helper for accessing table row data like a dictionary.
-
-    Provides backward compatibility for code expecting table data in item format.
-
-    Attributes:
-        field_name: Names of the fields/columns
-        row: Values for this row
-    """
 
     field_name: List[str]
     row: List[Any]

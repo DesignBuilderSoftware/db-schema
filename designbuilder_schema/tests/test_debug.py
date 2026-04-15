@@ -1,8 +1,3 @@
-"""
-test_debug.py - created specifically for continous schema improvement
-models from debug folder that pass the tests can be moved to examples folder
-"""
-
 import os, pytest
 from pathlib import Path
 from designbuilder_schema.utils import load_model

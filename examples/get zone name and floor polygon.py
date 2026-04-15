@@ -9,6 +9,7 @@ dsb = load_model(filepath)
 site = dsb.Site
 first_building = site.Buildings.Building[0]
 
+
 def floor_faces(body: Body) -> List[List[float]]:
     """List of floor faces where, where each face is a list of x,y,z coordiantes."""
 
@@ -26,15 +27,17 @@ def floor_faces(body: Body) -> List[List[float]]:
 
     return faces
 
+
 def body_title(body: Body) -> str:
     for attribute in body.Attributes.Attribute:
         if attribute.key == "Title":
             return attribute.text
 
+
 for block in first_building.BuildingBlocks.BuildingBlock:
     for zone in block.Zones.Zone:
-        #label_position = first_zone.LabelPosition.coords
+        # label_position = first_zone.LabelPosition.coords
         body = zone.Body
         print(body_title(body), floor_faces(body))
 
-# if zone floor is not flat, for example has 2 surfaces or sloped 
+# if zone floor is not flat, for example has 2 surfaces or sloped

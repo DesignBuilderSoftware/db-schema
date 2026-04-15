@@ -26,7 +26,6 @@ from small_honeybee import (
     Point3D as HBPoint3D,
 )
 
-
 db_point0 = DBPoint3D(Point3D="0.0; 0.0; 0.0")
 
 

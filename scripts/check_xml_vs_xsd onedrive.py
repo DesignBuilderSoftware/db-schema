@@ -1,12 +1,14 @@
 from lxml import etree
 from pathlib import Path
 
-schema_file = etree.parse('DesignBuilder.xsd')
+schema_file = etree.parse("DesignBuilder.xsd")
 schema = etree.XMLSchema(schema_file)
 
-path = Path("C:\\Users\\thinkpad\\OneDrive - Designbuilder Software Ltd\\DesignBuilder - Validation\\schema dsbXML xsd\\dsbXML test files")
+path = Path(
+    "C:\\Users\\thinkpad\\OneDrive - Designbuilder Software Ltd\\DesignBuilder - Validation\\schema dsbXML xsd\\dsbXML test files"
+)
 
-for dsb_xml_file in path.glob('*.xml'):
+for dsb_xml_file in path.glob("*.xml"):
     try:
         model = etree.parse(str(dsb_xml_file))
         if schema.validate(model):

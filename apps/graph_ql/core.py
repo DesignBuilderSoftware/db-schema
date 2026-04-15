@@ -7,7 +7,6 @@ from strawberry import auto
 from attributes import NameAttributesType
 from tables import TablesType
 
-
 """@strawberry_type(model=Buildings, all_fields=True)
 class BuildingsType:
     pass"""

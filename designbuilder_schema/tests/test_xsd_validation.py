@@ -24,14 +24,12 @@ xml_filepaths = get_filepaths(str(models_folder), extension=".xml")
 
 @pytest.fixture(scope="module")
 def xsd_schema():
-    """Load the XSD schema once for all tests."""
     schema_doc = etree.parse(str(xsd_path))
     return etree.XMLSchema(schema_doc)
 
 
 @pytest.mark.parametrize("filepath", xml_filepaths)
 def test_xml_validates_against_xsd(filepath, xsd_schema):
-    """Test that XML file validates against the DesignBuilder XSD schema."""
     doc = etree.parse(filepath)
     is_valid = xsd_schema.validate(doc)
 

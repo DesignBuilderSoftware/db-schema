@@ -1,5 +1,3 @@
-"""Tests for the utils module"""
-
 import pytest
 import tempfile
 import os
@@ -17,10 +15,8 @@ samples_models = repo_root / "samples" / "models"
 
 
 class TestModelOperations:
-    """Test model loading and saving operations"""
 
     def test_load_model_from_sample(self):
-        """Test loading a model from sample XML file"""
         sample_path = samples_models / "EmptySite.xml"
         if sample_path.exists():
             model = load_model(str(sample_path))
@@ -32,7 +28,6 @@ class TestModelOperations:
             pytest.skip("Sample file not found")
 
     def test_save_model_json_unsupported(self):
-        """Test that JSON format is no longer supported"""
         sample_path = samples_models / "EmptySite.xml"
         if not sample_path.exists():
             pytest.skip("Sample file not found")
@@ -42,7 +37,6 @@ class TestModelOperations:
             save_model(model, "test.json")
 
     def test_save_model_xml(self):
-        """Test saving a model to XML file"""
         sample_path = samples_models / "EmptySite.xml"
         if not sample_path.exists():
             pytest.skip("Sample file not found")
