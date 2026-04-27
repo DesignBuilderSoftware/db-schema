@@ -1,23 +1,30 @@
 from __future__ import annotations
 
+from typing import Annotated, Literal
+
 from pydantic import Field, field_validator
-from pydantic_xml import attr, element
-from typing import Annotated, List, Literal, Optional
-from designbuilder_schema.base import BaseModel
-from designbuilder_schema.geometry import Point3D
-from designbuilder_schema.hvac.unit_components import UnitElementList
-from designbuilder_schema.hvac.components import NoTypeHVACComponent, HVACComponent
+from pydantic_xml import element
+
+from db_schema.base import BaseModel
+from db_schema.geometry import Point3D
+from db_schema.hvac.components import (
+    HVACComponent,
+    NoTypeHVACComponent,
+)
+from db_schema.hvac.unit_components import UnitElementList
 
 
 class ZoneElementList(BaseModel):
-    hvac_zone_component: List["HVACComponent"] = element(tag="HVACZoneComponent")
+    hvac_zone_component: list[HVACComponent] = element(tag="HVACZoneComponent")
 
     @field_validator("hvac_zone_component", mode="before")
-    def recast_components(cls, components) -> List:
+    def recast_components(cls, components) -> list:
         if not isinstance(components, list):
             components = [components]
         return [
-            ZONE_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
+            ZONE_COMPONENT_MAPPING.get(component["type"], HVACComponent)(
+                **component
+            )
             for component in components
         ]
 
@@ -46,19 +53,19 @@ class ZoneExtract(NoTypeHVACComponent):
     type: Literal["Zone extract"]
     Width: float
     Height: float
-    Origin: "Point3D"
-    ExtractGrille: "ExtractGrille"
+    Origin: Point3D
+    ExtractGrille: ExtractGrille
 
 
 class ADU(NoTypeHVACComponent):
     Width: float
     Height: float
     MixingBoxWidth: float
-    Origin: "Point3D"
-    SupplyDiffuser: "SupplyDiffuser"
-    UnitElementList: Optional["UnitElementList"]
-    IntakeLouvre: Annotated[Optional["IntakeLouvre"], Field(default=None)]
-    MixingBox: Annotated[Optional["MixingBox"], Field(default=None)]
+    Origin: Point3D
+    SupplyDiffuser: SupplyDiffuser
+    UnitElementList: UnitElementList | None
+    IntakeLouvre: Annotated[IntakeLouvre | None, Field(default=None)]
+    MixingBox: Annotated[MixingBox | None, Field(default=None)]
 
 
 class ZoneADUSingleDuctCAVNoReheat(ADU):
@@ -75,12 +82,12 @@ class ZoneADUSingleDuctVAVNoReheat(ADU):
 
 class ZoneADUParallelPIU(ADU):
     type: Literal["Zone ADU parallel PIU"]
-    ExtractGrille: "ExtractGrille"
+    ExtractGrille: ExtractGrille
 
 
 class ZoneADUCooledBeam(ADU):
     type: Literal["Zone ADU cooled beam"]
-    CooledBeam: "CooledBeam"
+    CooledBeam: CooledBeam
 
 
 class ZoneADUFourPipeInduction(ADU):
@@ -99,11 +106,11 @@ class ZoneUnit(NoTypeHVACComponent):
     Width: float
     Height: float
     MixingBoxWidth: float
-    Origin: "Point3D"
-    SupplyDiffuser: "SupplyDiffuser"
-    UnitElementList: Optional["UnitElementList"]
-    IntakeLouvre: Annotated[Optional["IntakeLouvre"], Field(default=None)]
-    MixingBox: Annotated[Optional["MixingBox"], Field(default=None)]
+    Origin: Point3D
+    SupplyDiffuser: SupplyDiffuser
+    UnitElementList: UnitElementList | None
+    IntakeLouvre: Annotated[IntakeLouvre | None, Field(default=None)]
+    MixingBox: Annotated[MixingBox | None, Field(default=None)]
 
 
 class ZoneFanCoilUnit(ZoneUnit):

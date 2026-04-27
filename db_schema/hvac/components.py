@@ -1,35 +1,42 @@
 from __future__ import annotations
 
-from pydantic import field_validator, Field
+from typing import Annotated, Literal
+
+from pydantic import Field, field_validator
 from pydantic_xml import attr, element
-from typing import Optional, Literal, List, Annotated
-from designbuilder_schema.base import BaseModel
-from designbuilder_schema.id import ObjectIDs
-from designbuilder_schema.attributes import NameAttributes, ZoneComponentAttributeList
-from designbuilder_schema.geometry import (
-    Point3D,
+
+from db_schema.attributes import (
+    NameAttributes,
+    ZoneComponentAttributeList,
+)
+from db_schema.base import BaseModel
+from db_schema.geometry import (
     ImageRectangle,
     LineArray,
+    Point3D,
     SegmentList,
 )
+from db_schema.id import ObjectIDs
 
 
 class HVACComponents(BaseModel):
-    hvac_component: List["HVACComponent"] = element(tag="HVACComponent")
+    hvac_component: list[HVACComponent] = element(tag="HVACComponent")
 
     @field_validator("hvac_component", mode="before")
     def recast_components(cls, components):
         if not isinstance(components, list):
             components = [components]
         return [
-            HVAC_COMPONENT_MAPPING.get(component["type"], HVACComponent)(**component)
+            HVAC_COMPONENT_MAPPING.get(component["type"], HVACComponent)(
+                **component
+            )
             for component in components
         ]
 
 
 class NoTypeHVACComponent(BaseModel):
-    image_rectangle: Optional["ImageRectangle"] = element(default=None)
-    connecting_plant_loop_handle: List[int] = element(
+    image_rectangle: ImageRectangle | None = element(default=None)
+    connecting_plant_loop_handle: list[int] = element(
         tag="ConnectingPlantLoopHandle", default_factory=list
     )
     connectingAirLoopHandle: int = attr()
@@ -56,14 +63,14 @@ class NoTypeHVACComponent(BaseModel):
     airInConnected: int = attr()
     airOutConnected: int = attr()
     fanPlacement: int = attr()
-    water_in_connection_coordinate: Optional["Point3D"] = element(default=None)
-    water_out_connection_coordinate: Optional["Point3D"] = element(default=None)
-    air_in_connection_coordinate: Optional["Point3D"] = element(default=None)
-    air_out_connection_coordinate: Optional["Point3D"] = element(default=None)
-    zone_component_attribute_list: Optional["ZoneComponentAttributeList"] = element(
+    water_in_connection_coordinate: Point3D | None = element(default=None)
+    water_out_connection_coordinate: Point3D | None = element(default=None)
+    air_in_connection_coordinate: Point3D | None = element(default=None)
+    air_out_connection_coordinate: Point3D | None = element(default=None)
+    zone_component_attribute_list: ZoneComponentAttributeList | None = element(
         default=None
     )
-    attributes: Optional["NameAttributes"] = element(default=None)
+    attributes: NameAttributes | None = element(default=None)
 
 
 class HVACComponent(NoTypeHVACComponent):
@@ -73,50 +80,50 @@ class HVACComponent(NoTypeHVACComponent):
 class SubLoopNode(NoTypeHVACComponent):
     type: Literal["Sub-loop node"]
     NumberOfFlowConnections: int
-    FlowConnections: "FlowConnections"
-    HVACSubLoopNodeConnection: "HVACSubLoopNodeConnection"
-    Origin: "Point3D"
+    FlowConnections: FlowConnections
+    HVACSubLoopNodeConnection: HVACSubLoopNodeConnection
+    Origin: Point3D
 
 
 class ZoneMixer(NoTypeHVACComponent):
     type: Literal["Zone mixer"]
     LoopFlowDirection: int
-    Origin: "Point3D"
-    HVACConnectorNode: "HVACConnectorNode"
-    BranchConnectionList: "BranchConnectionList"
+    Origin: Point3D
+    HVACConnectorNode: HVACConnectorNode
+    BranchConnectionList: BranchConnectionList
 
 
 class ZoneSplitter(NoTypeHVACComponent):
     type: Literal["Zone splitter"]
     LoopFlowDirection: int
-    Origin: "Point3D"
-    HVACConnectorNode: "HVACConnectorNode"
-    BranchConnectionList: "BranchConnectionList"
+    Origin: Point3D
+    HVACConnectorNode: HVACConnectorNode
+    BranchConnectionList: BranchConnectionList
 
 
 class Splitter(NoTypeHVACComponent):
     type: Literal["Splitter"]
     LoopFlowDirection: int
-    Origin: "Point3D"
-    HVACConnectorNode: "HVACConnectorNode"
-    BranchConnectionList: "BranchConnectionList"
+    Origin: Point3D
+    HVACConnectorNode: HVACConnectorNode
+    BranchConnectionList: BranchConnectionList
 
 
 class Mixer(NoTypeHVACComponent):
     type: Literal["Mixer"]
     LoopFlowDirection: int
-    Origin: "Point3D"
-    HVACConnectorNode: "HVACConnectorNode"
-    BranchConnectionList: "BranchConnectionList"
+    Origin: Point3D
+    HVACConnectorNode: HVACConnectorNode
+    BranchConnectionList: BranchConnectionList
 
 
 class SetpointManager(NoTypeHVACComponent):
     type: Literal["Setpoint manager"]
-    Origin: "Point3D"
-    ControlPoint: "Point3D"
-    UpStreamNode: "Point3D"
-    DownStreamNode: "Point3D"
-    SegmentList: "SegmentList"
+    Origin: Point3D
+    ControlPoint: Point3D
+    UpStreamNode: Point3D
+    DownStreamNode: Point3D
+    SegmentList: SegmentList
 
 
 class AirHandlingUnit(NoTypeHVACComponent):
@@ -126,16 +133,16 @@ class AirHandlingUnit(NoTypeHVACComponent):
     FanType: int
     DOASAirInConnected: int
     DOASAirOutConnected: int
-    Origin: "Point3D"
-    OutdoorAirSystem: "OutdoorAirSystem"
-    IntakeDamper: "IntakeDamper"
-    ExhaustDamper: "ExhaustDamper"
-    DOASIntakeDamper: "DOASIntakeDamper"
-    DOASExhaustDamper: "DOASExhaustDamper"
-    MixingDamper: "MixingDamper"
-    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
-    IntakeUnitComponentList: "IntakeUnitComponentList"
-    LineArray: "LineArray"
+    Origin: Point3D
+    OutdoorAirSystem: OutdoorAirSystem
+    IntakeDamper: IntakeDamper
+    ExhaustDamper: ExhaustDamper
+    DOASIntakeDamper: DOASIntakeDamper
+    DOASExhaustDamper: DOASExhaustDamper
+    MixingDamper: MixingDamper
+    ExhaustUnitComponentList: ExhaustUnitComponentList | None
+    IntakeUnitComponentList: IntakeUnitComponentList
+    LineArray: LineArray
 
 
 class Pump(NoTypeHVACComponent):
@@ -155,9 +162,9 @@ class CoolingTower(NoTypeHVACComponent):
 
 class Chiller(NoTypeHVACComponent):
     type: Literal["Chiller"]
-    WaterCooledCondenser: "WaterCooledCondenser"
-    ChillerHRHeatExchanger: "ChillerHRHeatExchanger"
-    AbsorptionChillerUnit: "AbsorptionChillerUnit"
+    WaterCooledCondenser: WaterCooledCondenser
+    ChillerHRHeatExchanger: ChillerHRHeatExchanger
+    AbsorptionChillerUnit: AbsorptionChillerUnit
 
 
 class WaterCooledCondenser(NoTypeHVACComponent):
@@ -169,7 +176,9 @@ class ChillerHRHeatExchanger(NoTypeHVACComponent):
 
 
 class AbsorptionChillerUnit(NoTypeHVACComponent):
-    AbsorptionChillerGeneratorHeatExchanger: "AbsorptionChillerGeneratorHeatExchanger"
+    AbsorptionChillerGeneratorHeatExchanger: (
+        AbsorptionChillerGeneratorHeatExchanger
+    )
 
 
 class AbsorptionChillerGeneratorHeatExchanger(NoTypeHVACComponent):
@@ -178,45 +187,46 @@ class AbsorptionChillerGeneratorHeatExchanger(NoTypeHVACComponent):
 
 class FlowConnections(BaseModel):
     HVACSubLoopNodeConnection: Annotated[
-        List["HVACSubLoopNodeConnection"], element(tag="HVACSubLoopNodeConnection")
+        list[HVACSubLoopNodeConnection],
+        element(tag="HVACSubLoopNodeConnection"),
     ]
 
 
 class ExhaustUnitComponentList(BaseModel):
     AirHandlingUnitHVACComponent: Annotated[
-        List["AirHandlingUnitHVACComponent"],
+        list[AirHandlingUnitHVACComponent],
         element(tag="AirHandlingUnitHVACComponent"),
     ]
 
 
 class IntakeUnitComponentList(BaseModel):
     AirHandlingUnitHVACComponent: Annotated[
-        List["AirHandlingUnitHVACComponent"],
+        list[AirHandlingUnitHVACComponent],
         element(tag="AirHandlingUnitHVACComponent"),
     ]
 
 
 class HVACConnectorNode(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
+    ObjectIDs: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)]
     Name: str
     Active: int
 
 
 class BranchConnectionList(BaseModel):
-    HVACConnectorNode: list["HVACConnectorNode"]
+    HVACConnectorNode: list[HVACConnectorNode]
 
 
 class HVACSubLoopNodeConnection(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
+    ObjectIDs: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)]
     Connected: int
-    Coordinate: "Point3D"
-    Attributes: "NameAttributes"
+    Coordinate: Point3D
+    Attributes: NameAttributes
 
 
 class OutdoorAirSystem(NoTypeHVACComponent):
     HeatRecovery: int
     Recirculation: int
-    HeatRecoveryDevice: "HeatRecoveryDevice"
+    HeatRecoveryDevice: HeatRecoveryDevice
     # OutdoorAirSystemComponentList:
 
 
@@ -295,16 +305,16 @@ class UnitarySystem(NoTypeHVACComponent):
     FanType: int
     DOASAirInConnected: int
     DOASAirOutConnected: int
-    Origin: "Point3D"
-    OutdoorAirSystem: "OutdoorAirSystem"
-    IntakeDamper: "IntakeDamper"
-    ExhaustDamper: "ExhaustDamper"
-    DOASIntakeDamper: "DOASIntakeDamper"
-    DOASExhaustDamper: "DOASExhaustDamper"
-    MixingDamper: "MixingDamper"
-    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
-    IntakeUnitComponentList: "IntakeUnitComponentList"
-    LineArray: "LineArray"
+    Origin: Point3D
+    OutdoorAirSystem: OutdoorAirSystem
+    IntakeDamper: IntakeDamper
+    ExhaustDamper: ExhaustDamper
+    DOASIntakeDamper: DOASIntakeDamper
+    DOASExhaustDamper: DOASExhaustDamper
+    MixingDamper: MixingDamper
+    ExhaustUnitComponentList: ExhaustUnitComponentList | None
+    IntakeUnitComponentList: IntakeUnitComponentList
+    LineArray: LineArray
 
 
 class UnitaryHeatPumpAirToAir(NoTypeHVACComponent):
@@ -314,16 +324,16 @@ class UnitaryHeatPumpAirToAir(NoTypeHVACComponent):
     FanType: int
     DOASAirInConnected: int
     DOASAirOutConnected: int
-    Origin: "Point3D"
-    OutdoorAirSystem: "OutdoorAirSystem"
-    IntakeDamper: "IntakeDamper"
-    ExhaustDamper: "ExhaustDamper"
-    DOASIntakeDamper: "DOASIntakeDamper"
-    DOASExhaustDamper: "DOASExhaustDamper"
-    MixingDamper: "MixingDamper"
-    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
-    IntakeUnitComponentList: "IntakeUnitComponentList"
-    LineArray: "LineArray"
+    Origin: Point3D
+    OutdoorAirSystem: OutdoorAirSystem
+    IntakeDamper: IntakeDamper
+    ExhaustDamper: ExhaustDamper
+    DOASIntakeDamper: DOASIntakeDamper
+    DOASExhaustDamper: DOASExhaustDamper
+    MixingDamper: MixingDamper
+    ExhaustUnitComponentList: ExhaustUnitComponentList | None
+    IntakeUnitComponentList: IntakeUnitComponentList
+    LineArray: LineArray
 
 
 class TemperingValve(NoTypeHVACComponent):
@@ -345,16 +355,16 @@ class UnitaryHeatPumpWaterToAir(NoTypeHVACComponent):
     FanType: int
     DOASAirInConnected: int
     DOASAirOutConnected: int
-    Origin: "Point3D"
-    OutdoorAirSystem: "OutdoorAirSystem"
-    IntakeDamper: "IntakeDamper"
-    ExhaustDamper: "ExhaustDamper"
-    DOASIntakeDamper: "DOASIntakeDamper"
-    DOASExhaustDamper: "DOASExhaustDamper"
-    MixingDamper: "MixingDamper"
-    ExhaustUnitComponentList: Optional["ExhaustUnitComponentList"]
-    IntakeUnitComponentList: "IntakeUnitComponentList"
-    LineArray: "LineArray"
+    Origin: Point3D
+    OutdoorAirSystem: OutdoorAirSystem
+    IntakeDamper: IntakeDamper
+    ExhaustDamper: ExhaustDamper
+    DOASIntakeDamper: DOASIntakeDamper
+    DOASExhaustDamper: DOASExhaustDamper
+    MixingDamper: MixingDamper
+    ExhaustUnitComponentList: ExhaustUnitComponentList | None
+    IntakeUnitComponentList: IntakeUnitComponentList
+    LineArray: LineArray
 
 
 class WaterCoolingCoil(NoTypeHVACComponent):

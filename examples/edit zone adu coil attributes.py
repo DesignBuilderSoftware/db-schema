@@ -1,6 +1,6 @@
-from designbuilder_schema.utils import load_model, save_model
-from designbuilder_schema.hvac.components import GenericHeatingCoil
 import time
+
+from db_schema.utils import load_model, save_model
 
 start_time = time.time()  # TIME
 filepath = r".\samples\models\Large10x10x10x8.xml"

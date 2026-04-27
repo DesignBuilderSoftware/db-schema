@@ -1,7 +1,7 @@
-import inspect
 import importlib
+import inspect
 from pathlib import Path
-from typing import Type, List
+
 from pydantic import BaseModel
 
 
@@ -10,16 +10,20 @@ def generate_strawberry_types(module_path: str, output_path: str) -> None:
     Generate Strawberry GraphQL types from Pydantic models in a given module.
 
     Args:
-        module_path: Import path to the module containing Pydantic models (e.g., 'designbuilder_schema.attributes')
+        module_path: Import path to the module containing Pydantic models (e.g., 'db_schema.attributes')
         output_path: File path where the generated code will be saved
     """
     # Import the module containing Pydantic models
     module = importlib.import_module(module_path)
 
     # Get all Pydantic models from the module
-    pydantic_models: List[Type[BaseModel]] = []
+    pydantic_models: list[type[BaseModel]] = []
     for name, obj in inspect.getmembers(module):
-        if inspect.isclass(obj) and issubclass(obj, BaseModel) and obj != BaseModel:
+        if (
+            inspect.isclass(obj)
+            and issubclass(obj, BaseModel)
+            and obj != BaseModel
+        ):
             pydantic_models.append(obj)
 
     # Generate the output code
@@ -46,14 +50,14 @@ def generate_strawberry_types(module_path: str, output_path: str) -> None:
 
 def gen_attributes():
     generate_strawberry_types(
-        module_path="designbuilder_schema.attributes",
+        module_path="db_schema.attributes",
         output_path="graph_ql/attributes.py",
     )
 
 
 def gen_tables():
     generate_strawberry_types(
-        module_path="designbuilder_schema.tables",
+        module_path="db_schema.tables",
         output_path="graph_ql/tables.py",
     )
 

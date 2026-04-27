@@ -5,7 +5,7 @@
 # name and U-values of all assigned constructions
 # surface area, (object ID handle), construction name
 
-from designbuilder_schema.utils import load_model
+from db_schema.utils import load_model
 
 filepath = r".\samples\models\Shoebox10x10.xml"
 model = load_model(filepath)
@@ -13,7 +13,9 @@ model = load_model(filepath)
 building = model.Site.Buildings.Building[0]
 
 zones = [
-    zone for block in building.BuildingBlocks.BuildingBlock for zone in block.Zones.Zone
+    zone
+    for block in building.BuildingBlocks.BuildingBlock
+    for zone in block.Zones.Zone
 ]
 
 surfaces = [zone.Body.Surfaces.Surface for zone in zones]

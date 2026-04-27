@@ -1,5 +1,6 @@
-from lxml import etree
 from pathlib import Path
+
+from lxml import etree
 
 schema_file = etree.parse("DesignBuilder.xsd")
 schema = etree.XMLSchema(schema_file)

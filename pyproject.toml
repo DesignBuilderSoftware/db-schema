@@ -19,7 +19,7 @@ Homepage = "https://github.com/tokarzewski/designbuilder_schema"
 "Bug Tracker" = "https://github.com/tokarzewski/designbuilder_schema/issues"
 
 [tool.setuptools]
-packages = ["designbuilder_schema", "designbuilder_schema.hvac"]
+packages = ["db_schema", "db_schema.hvac"]
 
 [project.optional-dependencies]
 dev = ["pytest", "black", "mypy", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
@@ -33,10 +33,10 @@ build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["designbuilder_schema/tests"]
+testpaths = ["db_schema/tests"]
 
 [tool.coverage.run]
-source = ["designbuilder_schema"]
+source = ["db_schema"]
 
 [tool.flake8]
 max-line-length = 88

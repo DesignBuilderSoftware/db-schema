@@ -1,6 +1,7 @@
-from strawberry.experimental.pydantic import type as strawberry_type
-from designbuilder_schema.tables import *
 from strawberry import auto
+from strawberry.experimental.pydantic import type as strawberry_type
+
+from db_schema.tables import *
 
 
 @strawberry_type(model=Table)

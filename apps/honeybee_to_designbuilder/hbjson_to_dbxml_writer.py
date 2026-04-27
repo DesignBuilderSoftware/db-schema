@@ -6,25 +6,28 @@ Convert Honeybee model to DesignBuilder model
 
 import datetime
 
-from designbuilder_schema.core import *
-from designbuilder_schema.attributes import (
-    NameAttribute,
-    NameAttributes,
-    KeyAttributes,
-    KeyAttribute,
-)
-from designbuilder_schema.geometry import Point3D as DBPoint3D, Vertices
-from designbuilder_schema.utils import save_model
-
 from small_honeybee import (
-    load_and_validate,
-    Model,
-    Room,
-    Face,
     Aperture,
     Door,
+    Face,
+    Model,
+    Room,
+    load_and_validate,
+)
+from small_honeybee import (
     Point3D as HBPoint3D,
 )
+
+from db_schema.attributes import (
+    KeyAttribute,
+    KeyAttributes,
+    NameAttribute,
+    NameAttributes,
+)
+from db_schema.core import *
+from db_schema.geometry import Point3D as DBPoint3D
+from db_schema.geometry import Vertices
+from db_schema.utils import save_model
 
 db_point0 = DBPoint3D(Point3D="0.0; 0.0; 0.0")
 
@@ -44,7 +47,9 @@ def convert_aperture_to_opening(aperture: Aperture) -> Opening:
         PolygonHoles=None,
     )
 
-    return Opening(type="Window", Polygon=polygon, Attributes=None, SegmentList=None)
+    return Opening(
+        type="Window", Polygon=polygon, Attributes=None, SegmentList=None
+    )
 
 
 def convert_door_to_opening(door: Door) -> Opening:
@@ -73,7 +78,8 @@ def convert_face_to_surface(face: Face, vertices: list[str]) -> Surface:
     }
 
     boundary_indices = [
-        vertices.index(convert_point3d(p).Point3D) for p in face.geometry.boundary
+        vertices.index(convert_point3d(p).Point3D)
+        for p in face.geometry.boundary
     ]
     vertex_indices = "; ".join(str(i) for i in boundary_indices)
 
@@ -95,7 +101,9 @@ def convert_face_to_surface(face: Face, vertices: list[str]) -> Surface:
     # Add openings if any exist
     openings = []
     if hasattr(face, "apertures") and face.apertures:
-        openings.extend(convert_aperture_to_opening(ap) for ap in face.apertures)
+        openings.extend(
+            convert_aperture_to_opening(ap) for ap in face.apertures
+        )
 
     """if hasattr(face, 'doors') and face.doors:
         openings.extend(convert_door_to_opening(door) for door in face.doors)
@@ -128,7 +136,9 @@ def convert_room_to_building_block(room: Room) -> BuildingBlock:
         Vertices=Vertices(Point3D=vertices),
         Surfaces={"Surface": surfaces},
         VoidPerimeterList=None,
-        Attributes=KeyAttributes(Attribute=[KeyAttribute(key="Title", text="Zone 1")]),
+        Attributes=KeyAttributes(
+            Attribute=[KeyAttribute(key="Title", text="Zone 1")]
+        ),
     )
 
     profile_body = ProfileBody(elementSlope=30.0, roofOverlap=0.0, Body=body)
@@ -163,7 +173,9 @@ def convert_room_to_building_block(room: Room) -> BuildingBlock:
         ProfileBody=profile_body,
         Perimeter=None,
         BaseProfileBody=BaseProfileBody(ProfileBody=profile_body),
-        Attributes=KeyAttributes(Attribute=[KeyAttribute(key="Title", text="Block 1")]),
+        Attributes=KeyAttributes(
+            Attribute=[KeyAttribute(key="Title", text="Block 1")]
+        ),
     )
 
 
@@ -175,7 +187,9 @@ def hb_to_dsb(hb_model: Model) -> DSB:
         hb_model.convert_to_units('Meters')"""
 
     # Create building blocks from rooms
-    building_blocks = [convert_room_to_building_block(room) for room in hb_model.rooms]
+    building_blocks = [
+        convert_room_to_building_block(room) for room in hb_model.rooms
+    ]
 
     # Create building
     building = Building(

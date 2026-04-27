@@ -1,5 +1,5 @@
-from pydantic_xml import BaseXmlModel
 from pydantic import ConfigDict
+from pydantic_xml import BaseXmlModel
 
 
 class BaseModel(BaseXmlModel):

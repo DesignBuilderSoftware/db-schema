@@ -1,5 +1,6 @@
 from strawberry.experimental.pydantic import type as strawberry_type
-from designbuilder_schema.id import ObjectIDs
+
+from db_schema.id import ObjectIDs
 
 
 @strawberry_type(model=ObjectIDs)

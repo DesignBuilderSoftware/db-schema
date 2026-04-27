@@ -1,4 +1,4 @@
-from designbuilder_schema.utils import load_model
+from db_schema.utils import load_model
 
 
 def report_set(hc):

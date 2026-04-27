@@ -1,5 +1,5 @@
-from designbuilder_schema.extension_visualise.zone import *
-from designbuilder_schema.utils import load_model
+from db_schema.extension_visualise.zone import *
+from db_schema.utils import load_model
 
 model = load_model(r"samples/models/Tutorial Model.xml")
 if model.site and model.site.buildings:

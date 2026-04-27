@@ -1,7 +1,6 @@
-from designbuilder_schema.utils import load_model
-from designbuilder_schema.core import Body
-from designbuilder_schema.geometry import Point3D
-from typing import List
+from db_schema.core import Body
+from db_schema.geometry import Point3D
+from db_schema.utils import load_model
 
 filepath = r"samples\models\model from Tiago.xml"
 dsb = load_model(filepath)
@@ -10,7 +9,7 @@ site = dsb.Site
 first_building = site.Buildings.Building[0]
 
 
-def floor_faces(body: Body) -> List[List[float]]:
+def floor_faces(body: Body) -> list[list[float]]:
     """List of floor faces where, where each face is a list of x,y,z coordiantes."""
 
     vertices = [Point3D(Point3D=v).coords for v in body.Vertices]

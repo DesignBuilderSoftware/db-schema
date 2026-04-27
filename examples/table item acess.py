@@ -1,5 +1,5 @@
-from designbuilder_schema.utils import load_model
-from designbuilder_schema.tables import *
+from db_schema.tables import *
+from db_schema.utils import load_model
 
 filepath = r"samples\models\Shoebox10x10.xml"
 

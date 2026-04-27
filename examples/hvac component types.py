@@ -1,5 +1,5 @@
-from designbuilder_schema.utils import load_model
-from designbuilder_schema.hvac.components import HVACComponent
+from db_schema.hvac.components import HVACComponent
+from db_schema.utils import load_model
 
 
 def report_set(hc: HVACComponent):

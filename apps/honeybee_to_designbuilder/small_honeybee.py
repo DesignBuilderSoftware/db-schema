@@ -1,12 +1,15 @@
+from __future__ import annotations
+
+from typing import Any
+
 from pydantic import BaseModel, field_validator
-from typing import List, Union, Optional, Dict, Any
 
 
 class Point3D(BaseModel):
-    coordinates: List[float]
+    coordinates: list[float]
 
     @field_validator("coordinates")
-    def validate_coords(cls, v: List[float]) -> List[float]:
+    def validate_coords(cls, v: list[float]) -> list[float]:
         if len(v) != 3:
             raise ValueError("Point3D must have exactly 3 coordinates")
         return [float(x) for x in v]
@@ -26,8 +29,8 @@ class Point3D(BaseModel):
 
 class Face3D(BaseModel):
     type: str
-    boundary: List[Point3D]
-    holes: Optional[List[List[Point3D]]] = None
+    boundary: list[Point3D]
+    holes: list[list[Point3D]] | None = None
 
     @field_validator("boundary", mode="before")
     def validate_boundary(cls, v):
@@ -38,16 +41,18 @@ class Face3D(BaseModel):
     @field_validator("holes", mode="before")
     def validate_holes(cls, v):
         if isinstance(v, list):
-            return [[Point3D(coordinates=coords) for coords in hole] for hole in v]
+            return [
+                [Point3D(coordinates=coords) for coords in hole] for hole in v
+            ]
         return v
 
 
 class BoundaryCondition(BaseModel):
     type: str
-    boundary_condition_objects: Optional[List[str]] = None
-    sun_exposure: Optional[bool] = None
-    wind_exposure: Optional[bool] = None
-    view_factor: Optional[Dict[str, Any]] = None
+    boundary_condition_objects: list[str] | None = None
+    sun_exposure: bool | None = None
+    wind_exposure: bool | None = None
+    view_factor: dict[str, Any] | None = None
 
 
 class EnergyMaterial(BaseModel):
@@ -90,7 +95,7 @@ class EnergyWindowMaterialGlazing(BaseModel):
 
 class Construction(BaseModel):
     type: str
-    materials: List[str]
+    materials: list[str]
     identifier: str
 
 
@@ -111,11 +116,11 @@ class AirBoundaryConstructionAbridged(BaseModel):
 
 class ConstructionSetAbridged(BaseModel):
     type: str
-    wall_set: Dict[str, Any]
-    floor_set: Dict[str, Any]
-    roof_ceiling_set: Dict[str, Any]
-    aperture_set: Dict[str, Any]
-    door_set: Dict[str, Any]
+    wall_set: dict[str, Any]
+    floor_set: dict[str, Any]
+    roof_ceiling_set: dict[str, Any]
+    aperture_set: dict[str, Any]
+    door_set: dict[str, Any]
     shade_construction: str
     air_boundary_construction: str
     identifier: str
@@ -123,66 +128,66 @@ class ConstructionSetAbridged(BaseModel):
 
 class Properties(BaseModel):
     type: str
-    energy: Optional[Dict[str, Any]] = None
-    radiance: Optional[Dict[str, Any]] = None
+    energy: dict[str, Any] | None = None
+    radiance: dict[str, Any] | None = None
 
 
 class Aperture(BaseModel):
     type: str
-    geometry: "Face3D"
-    boundary_condition: "BoundaryCondition"
-    properties: "Properties"
+    geometry: Face3D
+    boundary_condition: BoundaryCondition
+    properties: Properties
     identifier: str
-    user_data: Optional[Dict[str, Any]] = None
+    user_data: dict[str, Any] | None = None
 
 
 class Door(BaseModel):
     type: str
-    geometry: "Face3D"
-    boundary_condition: "BoundaryCondition"
-    properties: "Properties"
+    geometry: Face3D
+    boundary_condition: BoundaryCondition
+    properties: Properties
     identifier: str
 
 
 class Face(BaseModel):
     type: str
     face_type: str
-    geometry: "Face3D"
-    boundary_condition: "BoundaryCondition"
-    apertures: Optional[List["Aperture"]] = None
-    doors: Optional[List["Door"]] = None
+    geometry: Face3D
+    boundary_condition: BoundaryCondition
+    apertures: list[Aperture] | None = None
+    doors: list[Door] | None = None
     identifier: str
 
 
 class Room(BaseModel):
     type: str
-    faces: List["Face"]
-    properties: "Properties"
+    faces: list[Face]
+    properties: Properties
     identifier: str
     display_name: str
-    user_data: Optional[Dict[str, Any]] = None
+    user_data: dict[str, Any] | None = None
 
 
 class Shade(BaseModel):
     type: str
-    geometry: "Face3D"
-    properties: "Properties"
+    geometry: Face3D
+    properties: Properties
     is_detached: bool
     identifier: str
 
 
 class ModelProperties(BaseModel):
     type: str
-    energy: Dict[str, Any]
-    radiance: Dict[str, Any]
+    energy: dict[str, Any]
+    radiance: dict[str, Any]
 
 
 class Model(BaseModel):
     units: str
     type: str
     version: str
-    properties: "ModelProperties"
-    rooms: List["Room"]
+    properties: ModelProperties
+    rooms: list[Room]
     # orphaned_faces: List[Union["Face", str]]
     # orphaned_shades: List[Union["Shade", str]]
     # orphaned_apertures: List[Union["Aperture", str]]
@@ -198,7 +203,7 @@ def load_and_validate(file_path: str) -> Model:
     import json
 
     try:
-        with open(file_path, "r") as f:
+        with open(file_path) as f:
             data = json.load(f)
         return Model(**data)
     except json.JSONDecodeError as e:

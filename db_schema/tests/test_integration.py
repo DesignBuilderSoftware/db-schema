@@ -1,19 +1,19 @@
 import tempfile
 from pathlib import Path
+
 import pytest
-from designbuilder_schema import load_model, save_model, dsbXML
-from designbuilder_schema.core import Site, Zone, Building, BuildingBlock
-from designbuilder_schema.id import set_site_counter, generate_site_handle
+
+from db_schema import load_model, save_model
+from db_schema.id import set_site_counter
 
 
 class TestRoundTrip:
-
     @pytest.mark.parametrize(
         "sample_file",
         [
-            "designbuilder_schema/samples/models/EmptySite.xml",
-            "designbuilder_schema/samples/models/Tutorial Model.xml",
-            "designbuilder_schema/samples/models/DetailedHVAC.xml",
+            "db_schema/samples/models/EmptySite.xml",
+            "db_schema/samples/models/Tutorial Model.xml",
+            "db_schema/samples/models/DetailedHVAC.xml",
         ],
     )
     def test_load_save_load_produces_equivalent_models(self, sample_file: str):
@@ -36,8 +36,12 @@ class TestRoundTrip:
 
             # Verify key properties are preserved
             assert model1.name == model2.name, "Name should be preserved"
-            assert model1.version == model2.version, "Version should be preserved"
-            assert model1.objects == model2.objects, "Objects should be preserved"
+            assert model1.version == model2.version, (
+                "Version should be preserved"
+            )
+            assert model1.objects == model2.objects, (
+                "Objects should be preserved"
+            )
 
             # Verify site structure if present
             if model1.site and model2.site:
@@ -49,7 +53,7 @@ class TestRoundTrip:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_load_save_maintains_xml_validity(self):
-        sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
+        sample_path = Path("db_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -73,9 +77,8 @@ class TestRoundTrip:
 
 
 class TestModelModification:
-
     def test_modify_and_save_name(self):
-        sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
+        sample_path = Path("db_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -100,7 +103,7 @@ class TestModelModification:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_site_counter_persistence(self):
-        sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
+        sample_path = Path("db_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -121,13 +124,12 @@ class TestModelModification:
 
 
 class TestComplexModels:
-
     @pytest.mark.parametrize(
         "sample_file",
         [
-            "designbuilder_schema/samples/models_dhvac/1.xml",
-            "designbuilder_schema/samples/models_dhvac/10.xml",
-            "designbuilder_schema/samples/models_dhvac/DetailedHVAC.xml",
+            "db_schema/samples/models_dhvac/1.xml",
+            "db_schema/samples/models_dhvac/10.xml",
+            "db_schema/samples/models_dhvac/DetailedHVAC.xml",
         ],
     )
     def test_load_complex_hvac_models(self, sample_file: str):
@@ -145,8 +147,8 @@ class TestComplexModels:
 
     def test_round_trip_complex_models(self):
         sample_files = [
-            "designbuilder_schema/samples/models_dhvac/1.xml",
-            "designbuilder_schema/samples/models/DetailedHVAC.xml",
+            "db_schema/samples/models_dhvac/1.xml",
+            "db_schema/samples/models/DetailedHVAC.xml",
         ]
 
         for sample_file in sample_files:
@@ -156,7 +158,9 @@ class TestComplexModels:
 
             model1 = load_model(sample_path)
 
-            with tempfile.NamedTemporaryFile(suffix=".xml", delete=False) as tmp:
+            with tempfile.NamedTemporaryFile(
+                suffix=".xml", delete=False
+            ) as tmp:
                 tmp_path = tmp.name
 
             try:
@@ -173,33 +177,33 @@ class TestComplexModels:
 
 
 class TestLazyLoading:
-
     def test_lazy_hvac_components_access(self):
         # Import module freshly
-        import designbuilder_schema
+        import db_schema
 
         # Should be able to access HVACComponents
-        hvac_components_class = designbuilder_schema.HVACComponents
+        hvac_components_class = db_schema.HVACComponents
         assert hvac_components_class is not None
         assert hvac_components_class.__name__ == "HVACComponents"
 
     def test_lazy_hvac_network_access(self):
-        import designbuilder_schema
+        import db_schema
 
         # Should be able to access HVACNetwork
-        hvac_network_class = designbuilder_schema.HVACNetwork
+        hvac_network_class = db_schema.HVACNetwork
         assert hvac_network_class is not None
         assert hvac_network_class.__name__ == "HVACNetwork"
 
     def test_lazy_loading_error_handling(self):
-        import designbuilder_schema
+        import db_schema
 
-        with pytest.raises(AttributeError, match="has no attribute 'NonExistent'"):
-            getattr(designbuilder_schema, "NonExistent")
+        with pytest.raises(
+            AttributeError, match="has no attribute 'NonExistent'"
+        ):
+            getattr(db_schema, "NonExistent")
 
 
 class TestErrorHandling:
-
     def test_load_nonexistent_file_raises_error(self):
         with pytest.raises(FileNotFoundError):
             load_model("/nonexistent/path/file.xml")
@@ -213,7 +217,7 @@ class TestErrorHandling:
                 load_model(tmp.name)
 
     def test_save_to_non_xml_path_raises_error(self):
-        sample_path = Path("designbuilder_schema/samples/models/EmptySite.xml")
+        sample_path = Path("db_schema/samples/models/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 

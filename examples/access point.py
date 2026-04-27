@@ -1,13 +1,13 @@
-from designbuilder_schema.utils import load_model
+from db_schema.utils import load_model
 
-filepath = r"samples\models\Shoebox10x10.xml"
+filepath = r"samples\models\Shoebox261.xml"
 model = load_model(filepath)
 
-site = model.Site
-first_building = site.Buildings.Building[0]
-first_building_blocks = first_building.BuildingBlocks.BuildingBlock[0]
-first_zone = first_building_blocks.Zones.Zone[0]
-vertices = first_zone.Body.Vertices
+site = model.site
+first_building = site.buildings.building[0]
+first_building_blocks = first_building.building_blocks.building_block[0]
+first_zone = first_building_blocks.zones.zone[0]
+vertices = first_zone.body.vertices
 
 first_point = vertices[0]
 print(first_point)

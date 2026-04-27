@@ -1,19 +1,20 @@
 from __future__ import annotations
 
-from pydantic import field_validator
+from typing import Literal
+
 from pydantic_xml import element
-from typing import List, Literal
-from designbuilder_schema.base import BaseModel
-from designbuilder_schema.hvac.components import (
-    NoTypeHVACComponent,
-    HVACComponent,
+
+from db_schema.base import BaseModel
+from db_schema.hvac.components import (
     GenericHeatingCoil,
+    HVACComponent,
+    NoTypeHVACComponent,
     WaterCoolingCoil,
 )
 
 
 class UnitElementList(BaseModel):
-    hvac_component: List[HVACComponent] = element(tag="HVACComponent")
+    hvac_component: list[HVACComponent] = element(tag="HVACComponent")
 
 
 class SupplyFan(NoTypeHVACComponent):

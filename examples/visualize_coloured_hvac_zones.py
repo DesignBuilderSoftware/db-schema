@@ -1,9 +1,10 @@
-from designbuilder_schema.utils import load_model
-from designbuilder_schema.extension_visualise.zone import (
-    zone_geometry,
-    display_zones_with_defined_colours,
-)
 import matplotlib.colors as mcolors
+
+from db_schema.extension_visualise.zone import (
+    display_zones_with_defined_colours,
+    zone_geometry,
+)
+from db_schema.utils import load_model
 
 filepath = r".\samples\models_dhvac\HVAC_Zones_Coloured.xml"
 model = load_model(filepath)
@@ -20,7 +21,9 @@ for block in building.BuildingBlocks.BuildingBlock:
 zone_groups = building.HVACNetwork.HVACZoneGroups.HVACZoneGroup
 
 # Create a color palette for zone groups
-colors = list(mcolors.TABLEAU_COLORS.values()) + list(mcolors.CSS4_COLORS.values())
+colors = list(mcolors.TABLEAU_COLORS.values()) + list(
+    mcolors.CSS4_COLORS.values()
+)
 
 # Map zone groups to colors and collect zones
 zones_with_colours = []
@@ -28,7 +31,11 @@ zones_with_colours = []
 for idx, zone_group in enumerate(zone_groups):
     # Get zone group title
     group_title = next(
-        (attr.text for attr in zone_group.Attributes.Attribute if attr.name == "Title"),
+        (
+            attr.text
+            for attr in zone_group.Attributes.Attribute
+            if attr.name == "Title"
+        ),
         "Unknown",
     )
 
@@ -46,7 +53,11 @@ for idx, zone_group in enumerate(zone_groups):
                     zone = zone_handle_to_zone[handle]
                     geometry = zone_geometry(zone)
                     zones_with_colours.append(
-                        {"geometry": geometry, "colour": color, "group": group_title}
+                        {
+                            "geometry": geometry,
+                            "colour": color,
+                            "group": group_title,
+                        }
                     )
 
 print(f"Found {len(zone_groups)} HVAC Zone Groups")

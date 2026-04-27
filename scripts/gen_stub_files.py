@@ -1,12 +1,15 @@
 import subprocess
-from designbuilder_schema.tables import Table
-from designbuilder_schema.utils import load_model
+
+from db_schema.tables import Table
+from db_schema.utils import load_model
 
 # Run stubgen first
-subprocess.run(["stubgen", "./designbuilder_schema/tables.py"], check=True)
+subprocess.run(["stubgen", "./db_schema/tables.py"], check=True)
 
 # Load and process the model
-filepath = r"C:\GitHub\designbuilder_schema\samples\models\Shoebox10x10-All.xml"
+filepath = (
+    r"C:\GitHub\db_schema\samples\models\Shoebox10x10-All.xml"
+)
 
 db_xml = load_model(filepath)
 tables = db_xml.Site.Tables
@@ -28,8 +31,8 @@ def generate_stub(table: Table) -> str:
     return stub
 
 
-with open("designbuilder_schema/tables.pyi", "w") as f1:
-    with open("out/designbuilder_schema/tables.pyi") as f2:
+with open("db_schema/tables.pyi", "w") as f1:
+    with open("out/db_schema/tables.pyi") as f2:
         f1.write(f2.read())
         f1.write("\n")
 
