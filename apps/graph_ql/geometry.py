@@ -1,13 +1,17 @@
 """
 geometry.py
 ====================================
-The geometry module of the designbuilder_schema
+The geometry module of the db_schema
 """
 
-from designbuilder_schema.base import BaseModel
-from designbuilder_schema.id import ObjectIDs
-from typing import List, Union, Annotated
+from __future__ import annotations
+
+from typing import Annotated
+
 from pydantic import Field
+
+from db_schema.base import BaseModel
+from db_schema.id import ObjectIDs
 
 
 class Point3D(BaseModel):
@@ -26,10 +30,10 @@ class Point3D(BaseModel):
         return float(self.Point3D.split(";")[2])
 
     @property
-    def coords(self) -> List[float]:
+    def coords(self) -> list[float]:
         return [float(coord) for coord in self.Point3D.split(";")]
 
-    def __setattr__(self, name: str, value: Union[float, List[float]]) -> None:
+    def __setattr__(self, name: str, value: float | list[float]) -> None:
         if name == "coords":
             if isinstance(value, list) and len(value) == 3:
                 self.Point3D = ";".join(map(str, value))
@@ -45,19 +49,21 @@ class Point3D(BaseModel):
 
 
 class Vertices(BaseModel):
-    Point3D: List["str"]
+    Point3D: list[str]
 
-    def __getitem__(self, index: int) -> "Point3D":
+    def __getitem__(self, index: int) -> Point3D:
         return Point3D(Point3D=self.Point3D[index])
 
-    def __setitem__(self, index: int, value: Union[str, "Point3D"]) -> None:
+    def __setitem__(self, index: int, value: str | Point3D) -> None:
         try:
             if isinstance(value, Point3D):
                 self.Point3D[index] = value.Point3D
             elif isinstance(value, str):
                 self.Point3D[index] = value
         except IndexError as e:
-            raise ValueError(f"Invalid index {index} for Vertices.Point3D") from e
+            raise ValueError(
+                f"Invalid index {index} for Vertices.Point3D"
+            ) from e
 
     def __iter__(self):
         return iter(self.Point3D)
@@ -68,18 +74,18 @@ class Range(BaseModel):
     Org - top left corner.
     End -  bottom right corner."""
 
-    Org: "Point3D"
-    End: "Point3D"
+    Org: Point3D
+    End: Point3D
 
 
 class Line(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
-    Begin: "Point3D"
-    End: "Point3D"
+    ObjectIDs: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)]
+    Begin: Point3D
+    End: Point3D
 
 
 class ImageRectangle(BaseModel):
-    ObjectIDs: Annotated["ObjectIDs", Field(default_factory=ObjectIDs)]
+    ObjectIDs: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)]
     ImageTextureIndex: int
     MaskTextureIndex: int
     SelectedImageTextureIndex: int
@@ -90,13 +96,13 @@ class ImageRectangle(BaseModel):
     InactiveImage: str
     Color: str
     Active: str
-    Vertices: "Vertices"
-    Range: "Range"
+    Vertices: Vertices
+    Range: Range
 
 
 class SegmentList(BaseModel):
-    LineArray: "LineArray"
+    LineArray: LineArray
 
 
 class LineArray(BaseModel):
-    Line: Union["Line", list["Line"]]
+    Line: Line | list[Line]

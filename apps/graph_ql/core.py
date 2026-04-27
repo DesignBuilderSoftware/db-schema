@@ -1,11 +1,10 @@
-from strawberry.experimental.pydantic import type as strawberry_type
-from designbuilder_schema.attributes import *
-from designbuilder_schema.core import DSB, Site
-from typing import Union, Optional, List, Annotated
-from strawberry import auto
-
 from attributes import NameAttributesType
+from strawberry import auto
+from strawberry.experimental.pydantic import type as strawberry_type
 from tables import TablesType
+
+from db_schema.attributes import *
+from db_schema.core import DSB, Site
 
 """@strawberry_type(model=Buildings, all_fields=True)
 class BuildingsType:
@@ -17,7 +16,7 @@ class SiteType:
     count: auto
     handle: auto
     Attributes: NameAttributesType
-    Tables: Optional[TablesType]
+    Tables: TablesType | None
     # AssemblyLibrary: Optional["AssemblyLibrary"]
     # Buildings: Optional["Buildings"]
 
@@ -28,17 +27,17 @@ class DSBType:
     date: auto
     version: auto
     objects: auto
-    Site: Optional[SiteType]
+    Site: SiteType | None
 
 
 """
 
 from pydantic import Field
-from designbuilder_schema.hvac.network import HVACNetwork
-from designbuilder_schema.base import BaseModel
-from designbuilder_schema.id import ObjectIDs
-from designbuilder_schema.geometry import Point3D, Vertices, Line
-from designbuilder_schema.attributes import KeyAttributes
+from db_schema.hvac.network import HVACNetwork
+from db_schema.base import BaseModel
+from db_schema.id import ObjectIDs
+from db_schema.geometry import Point3D, Vertices, Line
+from db_schema.attributes import KeyAttributes
 
 
 class AssemblyLibrary(BaseModel):

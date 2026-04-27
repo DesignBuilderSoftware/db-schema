@@ -1,5 +1,6 @@
 from strawberry.experimental.pydantic import type as strawberry_type
-from designbuilder_schema.attributes import *
+
+from db_schema.attributes import *
 
 
 @strawberry_type(model=NameAttribute)

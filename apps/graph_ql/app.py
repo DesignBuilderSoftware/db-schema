@@ -1,12 +1,13 @@
-import fastapi, strawberry
+import fastapi
+import strawberry
 import strawberry.fastapi
 from core import DSBType
-from designbuilder_schema.utils import load_model
+
+from db_schema.utils import load_model
 
 
 @strawberry.type
 class Query:
-
     @strawberry.field
     def dsb(self, filepath: str) -> DSBType:
         _dsb = load_model(filepath)
