@@ -230,8 +230,8 @@ class InternalPartition(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
         element(tag="ObjectIDs")
     )
-    start_point: Point3D = element(tag="StartPoint")
-    end_point: Point3D = element(tag="EndPoint")
+    start_point: Point3D | None = element(tag="StartPoint", default=None)
+    end_point: Point3D | None = element(tag="EndPoint", default=None)
 
 
 class Zones(BaseModel):
@@ -246,7 +246,7 @@ class Zone(BaseModel):
     body: Body = element(tag="Body")
     light_sensor_one: LightSensorOne = element(tag="LightSensorOne")
     light_sensor_two: LightSensorTwo = element(tag="LightSensorTwo")
-    label_position: Point3D = element(tag="LabelPosition")
+    label_position: Point3D | None = element(tag="LabelPosition", default=None)
     polygon: Polygon | None = element(tag="Polygon", default=None)
     inner_surface_body: InnerSurfaceBody | None = element(tag="InnerSurfaceBody", default=None)
 

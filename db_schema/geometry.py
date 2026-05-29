@@ -16,6 +16,7 @@ class Point3D(BaseModel):
     @field_validator("value", mode="before")
     @classmethod
     def _coerce_empty(cls, v):
+        """Treat empty or whitespace-only text as the origin sentinel."""
         if not v or not str(v).strip():
             return "0;0;0"
         return v
@@ -41,6 +42,11 @@ class Point3D(BaseModel):
     @property
     def coords(self) -> list[float]:
         return list(self._parse_coords())
+
+    @property
+    def is_zero(self) -> bool:
+        """True when all coordinates are zero — the sentinel for 'no position'."""
+        return self.value == "0;0;0" or all(c == 0.0 for c in self._parse_coords())
 
     def __setattr__(self, name: str, value: float | list[float]) -> None:
         if name == "coords":
@@ -113,7 +119,7 @@ class ImageRectangle(BaseModel):
     color: str = element(tag="Color")
     active: str = element(tag="Active")
     vertices: Vertices = element(tag="Vertices")
-    range: Range = element(tag="Range")
+    range: Range | None = element(tag="Range", default=None)
 
 
 class SegmentList(BaseModel):
