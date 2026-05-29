@@ -30,7 +30,7 @@ class BranchConnectionList(BaseModel):
 class HVACSubLoopNodeConnection(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(tag="ObjectIDs")
     connected: int = element(tag="Connected", default=0)
-    coordinate: Point3D = element(tag="Coordinate")
+    coordinate: Point3D | None = element(tag="Coordinate", default=None)
     attributes: NameAttributes = element(tag="Attributes")
 
 
