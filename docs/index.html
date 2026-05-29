@@ -340,28 +340,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Start
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -373,10 +351,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentation
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
       
     </span>
   </a>
@@ -531,28 +520,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Start
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -564,10 +531,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentation
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
       
     </span>
   </a>
@@ -592,33 +570,33 @@
 
 
 <h1 id="designbuilder-schema">DesignBuilder Schema<a class="headerlink" href="#designbuilder-schema" title="Permanent link">&para;</a></h1>
-<p>Comprehensive Python library for DesignBuilder XML schemas with full type checking, validation, and automatic API documentation.</p>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Complete Type Coverage</strong>: All DesignBuilder model classes with full type hints</li>
-<li><strong>Pydantic v2 Integration</strong>: Modern validation and serialization with BaseModel</li>
-<li><strong>XML Support</strong>: Bidirectional XML/JSON serialization via pydantic-xml</li>
-<li><strong>Memory Optimized</strong>: Slots-enabled models for efficient memory usage (40-50% reduction)</li>
-<li><strong>Comprehensive Docstrings</strong>: Google-style docstrings for all classes</li>
-<li><strong>Auto-Generated Docs</strong>: Full API reference with mkdocstrings</li>
-</ul>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">designbuilder_schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
-
-<span class="c1"># Load and parse DesignBuilder XML files</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;path/to/your/model.xml&quot;</span><span class="p">)</span>
-
-<span class="c1"># Access model data</span>
-<span class="k">for</span> <span class="n">building</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">buildings</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building: </span><span class="si">{</span><span class="n">building</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="n">building</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Zone: </span><span class="si">{</span><span class="n">zone</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
+<p>Python package for reading, editing, and writing DesignBuilder XML simulation files using Pydantic v2 and pydantic-xml.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>designbuilder-schema
 </code></pre></div>
-<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
-<p>Full API documentation available with details on all model classes.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">db_schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span><span class="p">,</span> <span class="n">save_model</span>
+
+<span class="c1"># Load a DesignBuilder XML file</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;path/to/model.xml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Inspect geometry</span>
+<span class="k">for</span> <span class="n">building</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">buildings</span><span class="o">.</span><span class="n">building</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">building</span><span class="o">.</span><span class="n">building_blocks</span><span class="o">.</span><span class="n">building_block</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="n">block</span><span class="o">.</span><span class="n">zones</span><span class="o">.</span><span class="n">zone</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">zone</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">point_3d</span><span class="p">)</span>
+
+<span class="c1"># Save back to XML</span>
+<span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;output.xml&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Type-safe XML parsing via Pydantic v2 and pydantic-xml</li>
+<li>Full DesignBuilder schema support: geometry, surfaces, openings, HVAC</li>
+<li>Round-trip load → modify → save fidelity</li>
+<li>Thread-safe handle generation</li>
+<li>LRU caching for repeated loads</li>
+</ul>
 
 
 

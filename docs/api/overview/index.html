@@ -424,10 +424,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#model-organization" class="md-nav__link">
+  <a href="#utilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Model Organization
+        Utilities
       
     </span>
   </a>
@@ -435,13 +435,784 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#db_schema.utils" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Features
+        utils
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.load_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.save_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.clear_model_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clear_model_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        geometry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Point3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        x
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        y
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        z
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.coords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        coords
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.is_zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.__setattr__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __setattr__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vertices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.point_3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        point_3d
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__iter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __iter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__getitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __getitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__setitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __setitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HandlePoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HandlePoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint.point_3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        point_3d
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint.__iter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __iter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Range
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Range">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range.org" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        org
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range.end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        end
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.object_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object_ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        begin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        end
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ImageRectangle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ImageRectangle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.object_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object_ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.imageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        imageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.maskTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        maskTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.selectedImageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectedImageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.inactiveImageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inactiveImageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.textured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        textured
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.masked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        masked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.selectedImage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectedImage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.inactiveImage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inactiveImage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        color
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        active
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vertices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        range
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.numberOfFields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        numberOfFields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        category
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.field_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        field_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.row" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        row
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables.table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables.get_table_by_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_table_by_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        id
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="id">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ObjectIDs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectIDs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.buildingHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildingHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.buildingBlockHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildingBlockHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.zoneHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zoneHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.surfaceIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        surfaceIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.openingIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        openingIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.model_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model_config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -516,10 +1287,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#model-organization" class="md-nav__link">
+  <a href="#utilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Model Organization
+        Utilities
       
     </span>
   </a>
@@ -527,13 +1298,784 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#db_schema.utils" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Features
+        utils
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.load_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.save_model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.utils.clear_model_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clear_model_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        geometry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Point3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        x
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        y
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        z
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.coords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        coords
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.is_zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Point3D.__setattr__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __setattr__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vertices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.point_3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        point_3d
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__iter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __iter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__getitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __getitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Vertices.__setitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __setitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HandlePoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HandlePoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint.point_3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        point_3d
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.HandlePoint.__iter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __iter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Range
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Range">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range.org" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        org
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Range.end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        end
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.object_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object_ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        begin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.Line.end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        end
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ImageRectangle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ImageRectangle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.object_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object_ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.imageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        imageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.maskTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        maskTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.selectedImageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectedImageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.inactiveImageTextureIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inactiveImageTextureIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.textured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        textured
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.masked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        masked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.selectedImage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectedImage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.inactiveImage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inactiveImage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        color
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        active
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vertices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.geometry.ImageRectangle.range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        range
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.numberOfFields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        numberOfFields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        category
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.field_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        field_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Table.row" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        row
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables.table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.tables.Tables.get_table_by_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_table_by_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db_schema.id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        id
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="id">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ObjectIDs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectIDs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.buildingHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildingHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.buildingBlockHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildingBlockHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.zoneHandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zoneHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.surfaceIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        surfaceIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.openingIndex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        openingIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db_schema.id.ObjectIDs.model_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model_config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -555,31 +2097,1985 @@
 
 
 <h1 id="api-overview">API Overview<a class="headerlink" href="#api-overview" title="Permanent link">&para;</a></h1>
-<p>Complete API reference for all DesignBuilder Schema Pydantic models.</p>
-<p>The DesignBuilder Schema library provides a comprehensive set of type-safe models for working with DesignBuilder files. All models are built on Pydantic v2 and support both XML and JSON serialization.</p>
-<h2 id="model-organization">Model Organization<a class="headerlink" href="#model-organization" title="Permanent link">&para;</a></h2>
-<p>Models are organized into logical modules:</p>
-<ul>
-<li><strong>core.py</strong> - Core building models: Site, Building, Zone, Surface</li>
-<li><strong>geometry.py</strong> - 3D geometry: Point3D, Line, Vertices</li>
-<li><strong>attributes.py</strong> - Named and key-value attributes</li>
-<li><strong>tables.py</strong> - Simulation tables and schedules</li>
-<li><strong>hvac/</strong> - Complete HVAC system models:</li>
-<li>network.py - HVAC loops and connections</li>
-<li>components.py - Equipment: boilers, chillers, pumps</li>
-<li>unit_components.py - Unitary systems</li>
-<li>zone_components.py - Zone-level equipment</li>
-<li><strong>id.py</strong> - Object identification system</li>
-</ul>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Type-Safe</strong>: Full type hints for IDE autocompletion</li>
-<li><strong>Validated</strong>: Pydantic validation on all inputs</li>
-<li><strong>Documented</strong>: Comprehensive docstrings with examples</li>
-<li><strong>Optimized</strong>: Slots-enabled for memory efficiency</li>
-<li><strong>Serializable</strong>: XML and JSON support via pydantic-xml</li>
-</ul>
-<p>See the <a href="../models/">Models</a> page for complete class documentation.</p>
+<h2 id="utilities">Utilities<a class="headerlink" href="#utilities" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="db_schema.utils" class="doc doc-heading">
+            <code>db_schema.utils</code>
+
+
+<a href="#db_schema.utils" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="db_schema.utils.load_model" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+<a href="#db_schema.utils.load_model" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="n">use_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">filepath</span>
+
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">&quot;.xml&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="si">}</span><span class="s2">. Only .xml files are supported.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">dsbXML</span> <span class="o">=</span> <span class="n">_get_dsbXML</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+        <span class="n">dsb</span> <span class="o">=</span> <span class="n">_cached_load_model_internal</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">resolve</span><span class="p">()))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">dsb</span> <span class="o">=</span> <span class="n">dsbXML</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">dsb</span><span class="o">.</span><span class="n">site</span><span class="p">:</span>
+        <span class="n">set_site_counter</span><span class="p">(</span><span class="n">dsb</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dsb</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="db_schema.utils.save_model" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
+
+<a href="#db_schema.utils.save_model" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">filepath</span>
+
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">&quot;.xml&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="si">}</span><span class="s2">. Only .xml files are supported.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">xml_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_xml</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xml_output</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml_output</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml_output</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="db_schema.utils.clear_model_cache" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">clear_model_cache</span><span class="p">()</span></code>
+
+<a href="#db_schema.utils.clear_model_cache" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clear_model_cache</span><span class="p">():</span>
+    <span class="n">_cached_load_model_internal</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="geometry">Geometry<a class="headerlink" href="#geometry" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="db_schema.geometry" class="doc doc-heading">
+            <code>db_schema.geometry</code>
+
+
+<a href="#db_schema.geometry" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.Point3D" class="doc doc-heading">
+            <code>Point3D</code>
+
+
+<a href="#db_schema.geometry.Point3D" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Point3D</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0;0;0&quot;</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_empty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Treat empty or whitespace-only text as the origin sentinel.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s2">&quot;0;0;0&quot;</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected 3 coordinates, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parsed</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_coords</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_coords</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_coords</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_coords</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True when all coordinates are zero — the sentinel for &#39;no position&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;0;0;0&quot;</span> <span class="ow">or</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_coords</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;coords&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Coordinates must be a list of 3 numbers&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+            <span class="n">coords</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.value" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;0;0;0&#39;</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.value" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.x" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">x</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.x" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.y" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">y</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.y" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.z" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">z</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.z" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.coords" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">coords</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.coords" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Point3D.is_zero" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">is_zero</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Point3D.is_zero" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>True when all coordinates are zero — the sentinel for 'no position'.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.geometry.Point3D.__setattr__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
+
+<a href="#db_schema.geometry.Point3D.__setattr__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\geometry.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;coords&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Coordinates must be a list of 3 numbers&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}[</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+        <span class="n">coords</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.Vertices" class="doc doc-heading">
+            <code>Vertices</code>
+
+
+<a href="#db_schema.geometry.Vertices" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Vertices</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">point_3d</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Point3D</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Point3D&quot;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Point3D</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point3D</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Point3D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> for Vertices.point_3d&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Vertices.point_3d" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">point_3d</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Point3D&#39;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Vertices.point_3d" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.geometry.Vertices.__iter__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__iter__</span><span class="p">()</span></code>
+
+<a href="#db_schema.geometry.Vertices.__iter__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\geometry.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Point3D</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.geometry.Vertices.__getitem__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></code>
+
+<a href="#db_schema.geometry.Vertices.__getitem__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\geometry.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
+<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point3D</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.geometry.Vertices.__setitem__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__setitem__</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
+
+<a href="#db_schema.geometry.Vertices.__setitem__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\geometry.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Point3D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> for Vertices.point_3d&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.HandlePoint" class="doc doc-heading">
+            <code>HandlePoint</code>
+
+
+<a href="#db_schema.geometry.HandlePoint" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">HandlePoint</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">point_3d</span><span class="p">:</span> <span class="n">Point3D</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Point3D&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Point3D</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.HandlePoint.point_3d" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">point_3d</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Point3D&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.HandlePoint.point_3d" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.geometry.HandlePoint.__iter__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__iter__</span><span class="p">()</span></code>
+
+<a href="#db_schema.geometry.HandlePoint.__iter__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\geometry.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Point3D</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">iter</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">point_3d</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.Range" class="doc doc-heading">
+            <code>Range</code>
+
+
+<a href="#db_schema.geometry.Range" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Range</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">org</span><span class="p">:</span> <span class="n">Point3D</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Org&quot;</span><span class="p">)</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">Point3D</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;End&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Range.org" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">org</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Org&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Range.org" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Range.end" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">end</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;End&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Range.end" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.Line" class="doc doc-heading">
+            <code>Line</code>
+
+
+<a href="#db_schema.geometry.Line" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Line</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">object_ids</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">ObjectIDs</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ObjectIDs</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;ObjectIDs&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">begin</span><span class="p">:</span> <span class="n">Point3D</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Begin&quot;</span><span class="p">)</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">Point3D</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;End&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Line.object_ids" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">object_ids</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ObjectIDs&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Line.object_ids" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Line.begin" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">begin</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Begin&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Line.begin" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.Line.end" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">end</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;End&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.Line.end" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.geometry.ImageRectangle" class="doc doc-heading">
+            <code>ImageRectangle</code>
+
+
+<a href="#db_schema.geometry.ImageRectangle" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\geometry.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageRectangle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">object_ids</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">ObjectIDs</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ObjectIDs</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;ObjectIDs&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">imageTextureIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;ImageTextureIndex&quot;</span><span class="p">)</span>
+    <span class="n">maskTextureIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;MaskTextureIndex&quot;</span><span class="p">)</span>
+    <span class="n">selectedImageTextureIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;SelectedImageTextureIndex&quot;</span><span class="p">)</span>
+    <span class="n">inactiveImageTextureIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;InactiveImageTextureIndex&quot;</span><span class="p">)</span>
+    <span class="n">textured</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Textured&quot;</span><span class="p">)</span>
+    <span class="n">masked</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Masked&quot;</span><span class="p">)</span>
+    <span class="n">selectedImage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;SelectedImage&quot;</span><span class="p">)</span>
+    <span class="n">inactiveImage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;InactiveImage&quot;</span><span class="p">)</span>
+    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Color&quot;</span><span class="p">)</span>
+    <span class="n">active</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Active&quot;</span><span class="p">)</span>
+    <span class="n">vertices</span><span class="p">:</span> <span class="n">Vertices</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Vertices&quot;</span><span class="p">)</span>
+    <span class="nb">range</span><span class="p">:</span> <span class="n">Range</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Range&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.object_ids" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">object_ids</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ObjectIDs&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.object_ids" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.imageTextureIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">imageTextureIndex</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ImageTextureIndex&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.imageTextureIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.maskTextureIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">maskTextureIndex</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;MaskTextureIndex&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.maskTextureIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.selectedImageTextureIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">selectedImageTextureIndex</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;SelectedImageTextureIndex&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.selectedImageTextureIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.inactiveImageTextureIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">inactiveImageTextureIndex</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;InactiveImageTextureIndex&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.inactiveImageTextureIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.textured" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">textured</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Textured&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.textured" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.masked" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">masked</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Masked&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.masked" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.selectedImage" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">selectedImage</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;SelectedImage&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.selectedImage" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.inactiveImage" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">inactiveImage</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;InactiveImage&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.inactiveImage" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.color" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">color</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.color" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.active" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">active</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Active&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.active" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.vertices" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">vertices</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Vertices&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.vertices" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.geometry.ImageRectangle.range" class="doc doc-heading">
+            <code class="highlight language-python"><span class="nb">range</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Range&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.geometry.ImageRectangle.range" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="db_schema.tables" class="doc doc-heading">
+            <code>db_schema.tables</code>
+
+
+<a href="#db_schema.tables" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.tables.Table" class="doc doc-heading">
+            <code>Table</code>
+
+
+<a href="#db_schema.tables.Table" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\tables.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Table</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="p">()</span>
+    <span class="n">numberOfFields</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">()</span>
+    <span class="n">category</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">field_name</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;FieldName&quot;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Row&quot;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Table.name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Table.name" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Table.numberOfFields" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">numberOfFields</span> <span class="o">=</span> <span class="n">attr</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Table.numberOfFields" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Table.category" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">category</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Table.category" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Table.field_name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">field_name</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;FieldName&#39;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Table.field_name" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Table.row" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">row</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Row&#39;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Table.row" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.tables.Tables" class="doc doc-heading">
+            <code>Tables</code>
+
+
+<a href="#db_schema.tables.Tables" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\tables.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Tables</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">table</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Table</span><span class="p">]</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;Table&quot;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_table_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+        <span class="n">table_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table_dict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">table_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.tables.Tables.table" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">table</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;Table&#39;</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.tables.Tables.table" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="db_schema.tables.Tables.get_table_by_name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_table_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></code>
+
+<a href="#db_schema.tables.Tables.get_table_by_name" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>db_schema\tables.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_table_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="n">table_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table_dict</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="identifiers">Identifiers<a class="headerlink" href="#identifiers" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="db_schema.id" class="doc doc-heading">
+            <code>db_schema.id</code>
+
+
+<a href="#db_schema.id" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="db_schema.id.ObjectIDs" class="doc doc-heading">
+            <code>ObjectIDs</code>
+
+
+<a href="#db_schema.id.ObjectIDs" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="db_schema.base.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>db_schema\id.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ObjectIDs</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">handle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">generate_site_handle</span><span class="p">)</span>
+    <span class="n">buildingHandle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">buildingBlockHandle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">zoneHandle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">surfaceIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">openingIndex</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span>
+        <span class="n">populate_by_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.handle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">handle</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">generate_site_handle</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.handle" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.buildingHandle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">buildingHandle</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.buildingHandle" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.buildingBlockHandle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">buildingBlockHandle</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.buildingBlockHandle" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.zoneHandle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">zoneHandle</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.zoneHandle" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.surfaceIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">surfaceIndex</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.surfaceIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.openingIndex" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">openingIndex</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.openingIndex" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="db_schema.id.ObjectIDs.model_config" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">populate_by_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#db_schema.id.ObjectIDs.model_config" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 
