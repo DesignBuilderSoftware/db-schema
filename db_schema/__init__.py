@@ -1,68 +1,92 @@
-from db_schema.utils import load_model, save_model
+from db_schema.utils import load_model as load_model, save_model as save_model
 
 # Cache for lazy-loaded core classes
 _core_classes_cache = {}
 _core_module_loaded = False
+_core_module_loading = False  # re-entrancy guard
 
 
 def _load_core_module():
     """Load and cache core module classes after all dependencies are available"""
-    global _core_module_loaded
-    if _core_module_loaded:
+    global _core_module_loaded, _core_module_loading
+    if _core_module_loaded or _core_module_loading:
         return
 
-    import inspect
+    _core_module_loading = True
+    try:
+        import importlib
+        import inspect
 
-    from pydantic_xml import BaseXmlModel
+        from pydantic_xml import BaseXmlModel
 
-    from db_schema import attributes, core, geometry, tables
+        core = importlib.import_module("db_schema.core")
+        geometry = importlib.import_module("db_schema.geometry")
+        attributes = importlib.import_module("db_schema.attributes")
+        tables = importlib.import_module("db_schema.tables")
+        hvac_components = importlib.import_module("db_schema.hvac.components")
+        hvac_network = importlib.import_module("db_schema.hvac.network")
+        hvac_unit = importlib.import_module("db_schema.hvac.unit_components")
+        hvac_zone = importlib.import_module("db_schema.hvac.zone_components")
 
-    # Cache all public classes from core
-    for name, obj in inspect.getmembers(core):
-        if (
-            inspect.isclass(obj)
-            and obj.__module__ == "db_schema.core"
-        ):
-            _core_classes_cache[name] = obj
-
-    # Rebuild all models to resolve forward references
-    for module in [core, geometry, attributes, tables]:
-        for name, obj in inspect.getmembers(module):
+        # Cache all public classes from core
+        for name, obj in inspect.getmembers(core):
             if (
                 inspect.isclass(obj)
-                and issubclass(obj, BaseXmlModel)
-                and obj is not BaseXmlModel
-                and obj.__module__.startswith("db_schema")
+                and obj.__module__ == "db_schema.core"
             ):
-                try:
-                    obj.model_rebuild()
-                except Exception:
-                    pass
+                _core_classes_cache[name] = obj
 
-    _core_module_loaded = True
+        import sys
+
+        # Pydantic uses the SUBCLASS's module namespace when resolving forward
+        # refs during model_rebuild(), even for inherited fields. Every module
+        # that defines a NoTypeHVACComponent subclass must have all types that
+        # NoTypeHVACComponent references (OutdoorAirSystem, ZoneElementList, …).
+        all_hvac_types: dict = {}
+        for _mod in [hvac_components, hvac_unit, hvac_zone, hvac_network]:
+            for _name in dir(_mod):
+                _obj = getattr(_mod, _name)
+                if isinstance(_obj, type):
+                    all_hvac_types[_name] = _obj
+
+        for _mod_name in [
+            "db_schema.hvac.components",
+            "db_schema.hvac.unit_components",
+            "db_schema.hvac.zone_components",
+            "db_schema.hvac.network",
+            "db_schema.core",
+        ]:
+            _ns = sys.modules[_mod_name].__dict__
+            for _name, _obj in all_hvac_types.items():
+                _ns.setdefault(_name, _obj)
+
+        # Rebuild all models in dependency order to resolve forward references
+        for module in [geometry, attributes, tables,
+                       hvac_components, hvac_unit, hvac_zone, hvac_network,
+                       core]:
+            for name, obj in inspect.getmembers(module):
+                if (
+                    inspect.isclass(obj)
+                    and issubclass(obj, BaseXmlModel)
+                    and obj is not BaseXmlModel
+                    and obj.__module__.startswith("db_schema")
+                ):
+                    try:
+                        obj.model_rebuild()
+                    except Exception as e:
+                        import warnings
+                        warnings.warn(f"model_rebuild failed for {obj.__name__}: {e}", stacklevel=2)
+
+        _core_module_loaded = True
+    finally:
+        _core_module_loading = False
 
 
 # Lazy loading: defer importing core until first access
 def __getattr__(name: str):
-    # First try core module (lazy load)
-    if name in (
-        "dsbXML",
-        "Site",
-        "Building",
-        "BuildingBlock",
-        "Zone",
-        "Body",
-        "Surface",
-        "Assembly",
-        "AssemblyLibrary",
-        "ComponentBlocks",
-        "ComponentBlock",
-        "Surfaces",
-        "Openings",
-        "Opening",
-        "Adjacencies",
-        "Adjacency",
-    ):
+    # Try core module (lazy load) — check cache after loading rather than
+    # maintaining a manual whitelist of class names.
+    if not name.startswith("_"):
         _load_core_module()
         if name in _core_classes_cache:
             return _core_classes_cache[name]
@@ -74,14 +98,10 @@ def __getattr__(name: str):
 
     # HVAC modules (original lazy loading)
     if name == "HVACComponents":
-        from db_schema.hvac.components import (
-            HVACComponents,  # noqa: F401
-        )
-
+        from db_schema.hvac.components import HVACComponents  # noqa: F401
         return HVACComponents
     elif name == "HVACNetwork":
         from db_schema.hvac.network import HVACNetwork  # noqa: F401
-
         return HVACNetwork
 
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

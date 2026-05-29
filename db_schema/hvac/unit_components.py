@@ -14,7 +14,7 @@ from db_schema.hvac.components import (
 
 
 class UnitElementList(BaseModel):
-    hvac_component: list[HVACComponent] = element(tag="HVACComponent")
+    hvac_component: list[HVACComponent] = element(tag="HVACComponent", default_factory=list)
 
 
 class SupplyFan(NoTypeHVACComponent):
