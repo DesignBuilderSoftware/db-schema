@@ -12,14 +12,13 @@ from db_schema.hvac.components import (
     HVACComponents,
     NoTypeHVACComponent,
 )
-from db_schema.hvac.zone_components import ZoneElementList
 from db_schema.id import ObjectIDs
 
 
 class HVACNetwork(BaseModel):
     ObjectHandle: int | None = element(tag="ObjectHandle", default=None)
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     hvac_loops: HVACLoops | None = element(tag="HVACLoops", default=None)
     hvac_zone_groups: HVACZoneGroups | None = element(tag="HVACZoneGroups", default=None)
@@ -38,8 +37,8 @@ class HVACLoop(BaseModel):
     loopType: int = attr()
     plantLoopType: int = attr()
     numberOfFlowNodes: int = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     origin: Point3D = element(tag="Origin")
     plant_operation_schemes: PlantOperationSchemes | None = element(
@@ -57,9 +56,7 @@ class PlantOperationSchemes(BaseModel):
 
 
 class PlantOperationScheme(BaseModel):
-    plant_operation_ranges: list[PlantOperationRanges] = element(
-        tag="PlantOperationRanges"
-    )
+    plant_operation_ranges: list[PlantOperationRanges] = element(tag="PlantOperationRanges")
     attributes: NameAttributes = element(tag="Attributes")
 
 
@@ -75,8 +72,8 @@ class DemandSubLoop(BaseModel):
     loopType: int = element(tag="LoopType")
     plantLoopType: int = element(tag="PlantLoopType")
     subLoopType: int = element(tag="SubLoopType")
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     hvac_components: HVACComponents = element(tag="HVACComponents")
     hvac_connections: HVACConnections = element(tag="HVACConnections")
@@ -87,8 +84,8 @@ class SupplySubLoop(BaseModel):
     loopType: int = element(tag="LoopType")
     plantLoopType: int = element(tag="PlantLoopType")
     subLoopType: int = element(tag="SubLoopType")
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     hvac_components: HVACComponents = element(tag="HVACComponents")
     hvac_connections: HVACConnections = element(tag="HVACConnections")
@@ -111,8 +108,8 @@ class HVACConnections(BaseModel):
 
 
 class HVACConnection(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     loopHandle: int = element(tag="LoopHandle")
     subLoopType: int = element(tag="SubLoopType")
@@ -123,9 +120,7 @@ class HVACConnection(BaseModel):
 
 
 class ElementList(BaseModel):
-    hvac_connection_element: list[HVACConnectionElement] = element(
-        tag="HVACConnectionElement"
-    )
+    hvac_connection_element: list[HVACConnectionElement] = element(tag="HVACConnectionElement")
 
 
 class HVACConnectionElement(BaseModel):

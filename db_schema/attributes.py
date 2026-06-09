@@ -16,15 +16,11 @@ class KeyAttribute(BaseModel):
 
 
 class NameAttributes(BaseModel):
-    attribute: list[NameAttribute] = element(
-        tag="Attribute", default_factory=list
-    )
+    attribute: list[NameAttribute] = element(tag="Attribute", default_factory=list)
 
 
 class KeyAttributes(BaseModel):
-    attribute: list[KeyAttribute] = element(
-        tag="Attribute", default_factory=list
-    )
+    attribute: list[KeyAttribute] = element(tag="Attribute", default_factory=list)
 
 
 class HVACAttributeList(BaseModel):

@@ -15,6 +15,7 @@ def hvac_model():
     if not detailed_hvac.exists():
         pytest.skip("DetailedHVAC.xml sample not found")
     from db_schema.utils import load_model
+
     return load_model(str(detailed_hvac))
 
 
@@ -36,6 +37,7 @@ def supply_components(first_loop):
 # ---------------------------------------------------------------------------
 # Network structure
 # ---------------------------------------------------------------------------
+
 
 def test_hvac_network_loads(hvac_model):
     net = hvac_model.site.buildings.building[0].hvac_network
@@ -59,6 +61,7 @@ def test_supply_sub_loop_has_components(supply_components):
 # ---------------------------------------------------------------------------
 # Component type discrimination
 # ---------------------------------------------------------------------------
+
 
 def test_all_components_have_type(demand_components, supply_components):
     for comp in list(demand_components) + list(supply_components):
@@ -87,6 +90,7 @@ def test_components_have_image_rectangles(demand_components):
 # Component scalar fields (formerly bare, now properly mapped)
 # ---------------------------------------------------------------------------
 
+
 def test_component_loop_type_is_int(demand_components):
     for comp in demand_components:
         assert isinstance(comp.loopType, int)
@@ -107,6 +111,7 @@ def test_component_water_in_connection_is_int(demand_components):
 # Zone groups
 # ---------------------------------------------------------------------------
 
+
 def test_hvac_zone_groups_present(hvac_model):
     zgs = hvac_model.site.buildings.building[0].hvac_network.hvac_zone_groups
     assert zgs is not None
@@ -123,10 +128,12 @@ def test_zone_group_has_zone_element_list(hvac_model):
 # dhvac sample models
 # ---------------------------------------------------------------------------
 
+
 def test_dhvac_sample_loads():
     if not dhvac_sample.exists():
         pytest.skip("dhvac/1.xml not found")
     from db_schema.utils import load_model
+
     m = load_model(str(dhvac_sample))
     assert m is not None
     assert m.site is not None
@@ -136,6 +143,7 @@ def test_dhvac_hvac_network_has_loops():
     if not dhvac_sample.exists():
         pytest.skip("dhvac/1.xml not found")
     from db_schema.utils import load_model
+
     m = load_model(str(dhvac_sample))
     net = m.site.buildings.building[0].hvac_network
     if net and net.hvac_loops:

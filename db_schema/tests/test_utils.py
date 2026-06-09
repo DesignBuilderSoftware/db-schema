@@ -43,9 +43,7 @@ class TestModelOperations:
             pytest.skip("Sample file not found")
 
         model = load_model(str(sample_path))
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".xml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".xml", delete=False) as f:
             temp_file = f.name
 
         try:

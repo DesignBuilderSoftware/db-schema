@@ -36,9 +36,6 @@ def test_xml_validates_against_xsd(filepath, xsd_schema):
 
     if not is_valid:
         errors = "\n".join(
-            f"  Line {error.line}: {error.message}"
-            for error in xsd_schema.error_log
+            f"  Line {error.line}: {error.message}" for error in xsd_schema.error_log
         )
-        pytest.fail(
-            f"XML validation failed for {Path(filepath).name}:\n{errors}"
-        )
+        pytest.fail(f"XML validation failed for {Path(filepath).name}:\n{errors}")
