@@ -26,11 +26,11 @@ class HVACNetwork(BaseModel):
 
 
 class HVACLoops(BaseModel):
-    hvac_loop: list[HVACLoop] = element(tag="HVACLoop")
+    hvac_loop: list[HVACLoop] = element(tag="HVACLoop", default_factory=list)
 
 
 class HVACZoneGroups(BaseModel):
-    hvac_zone_group: list[HVACZoneGroup] = element(tag="HVACZoneGroup")
+    hvac_zone_group: list[HVACZoneGroup] = element(tag="HVACZoneGroup", default_factory=list)
 
 
 class HVACLoop(BaseModel):
@@ -103,7 +103,7 @@ class HVACZoneGroup(NoTypeHVACComponent):
 
 
 class BuildingZoneHandle(BaseModel):
-    building_zone_handle: list[str] = element(tag="BuildingZoneHandle")
+    building_zone_handle: list[str] = element(tag="BuildingZoneHandle", default_factory=list)
 
 
 class HVACConnections(BaseModel):
