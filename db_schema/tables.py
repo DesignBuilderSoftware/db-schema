@@ -9,7 +9,7 @@ class Table(BaseModel):
     name: str = attr()
     numberOfFields: int = attr()
     category: list[str] = element(tag="Category", default_factory=list)
-    field_name: list[str] = element(tag="FieldName")
+    field_name: list[str] = element(tag="FieldName", default_factory=list)
     row: list[str] = element(tag="Row", default_factory=list)
 
 

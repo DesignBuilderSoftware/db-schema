@@ -30,7 +30,7 @@ class KeyAttributes(BaseModel):
 class HVACAttributeList(BaseModel):
     buildingZoneHandle: str = attr()
     attributes: NameAttributes = element(
-        default_factory=lambda: NameAttributes()
+        tag="Attributes", default_factory=lambda: NameAttributes()
     )
 
 

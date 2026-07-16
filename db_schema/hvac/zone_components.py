@@ -1,34 +1,33 @@
 from __future__ import annotations
 
-from typing import Annotated, Literal
+from typing import Literal
 
-from pydantic import Field, field_validator
-from pydantic_xml import element
+from pydantic import field_validator
+from pydantic_xml import attr, element
 
 from db_schema.base import BaseModel
-from db_schema.geometry import Point3D
-from db_schema.hvac.components import (
-    HVACComponent,
-    NoTypeHVACComponent,
-)
-from db_schema.hvac.unit_components import UnitElementList
+from db_schema.hvac.components import HVACComponent, NoTypeHVACComponent
 
 
 class ZoneElementList(BaseModel):
-    hvac_zone_component: list[HVACComponent] = element(tag="HVACZoneComponent")
+    hvac_zone_component: list[HVACComponent] = element(tag="HVACZoneComponent", default_factory=list)
 
     @field_validator("hvac_zone_component", mode="before")
+    @classmethod
     def recast_components(cls, components) -> list:
         if not isinstance(components, list):
             components = [components]
-        return [
-            ZONE_COMPONENT_MAPPING.get(component["type"], HVACComponent)(
-                **component
-            )
-            for component in components
-        ]
+        result = []
+        for component in components:
+            if isinstance(component, dict):
+                comp_type = component.get("type", "")
+                result.append(ZONE_COMPONENT_MAPPING.get(comp_type, HVACComponent)(**component))
+            else:
+                result.append(component)
+        return result
 
 
+# Sub-components — all fields inherited from NoTypeHVACComponent
 class ExtractGrille(NoTypeHVACComponent):
     pass
 
@@ -49,116 +48,118 @@ class CooledBeam(NoTypeHVACComponent):
     pass
 
 
+# Zone component types — Width/Height/MixingBoxWidth/Origin/SupplyDiffuser/
+# UnitElementList/ExtractGrille/CooledBeam are all in NoTypeHVACComponent.
 class ZoneExtract(NoTypeHVACComponent):
-    type: Literal["Zone extract"]
-    Width: float
-    Height: float
-    Origin: Point3D
-    ExtractGrille: ExtractGrille
+    type: Literal["Zone extract"] = attr(default="Zone extract")
 
 
 class ADU(NoTypeHVACComponent):
-    Width: float
-    Height: float
-    MixingBoxWidth: float
-    Origin: Point3D
-    SupplyDiffuser: SupplyDiffuser
-    UnitElementList: UnitElementList | None
-    IntakeLouvre: Annotated[IntakeLouvre | None, Field(default=None)]
-    MixingBox: Annotated[MixingBox | None, Field(default=None)]
+    pass
 
 
 class ZoneADUSingleDuctCAVNoReheat(ADU):
-    type: Literal["Zone ADU single duct CAV no reheat"]
+    type: Literal["Zone ADU single duct CAV no reheat"] = attr(
+        default="Zone ADU single duct CAV no reheat"
+    )
 
 
 class ZoneADUSingleDuctVAVReheat(ADU):
-    type: Literal["Zone ADU single duct VAV reheat"]
+    type: Literal["Zone ADU single duct VAV reheat"] = attr(
+        default="Zone ADU single duct VAV reheat"
+    )
 
 
 class ZoneADUSingleDuctVAVNoReheat(ADU):
-    type: Literal["Zone ADU single duct VAV no reheat"]
+    type: Literal["Zone ADU single duct VAV no reheat"] = attr(
+        default="Zone ADU single duct VAV no reheat"
+    )
 
 
 class ZoneADUParallelPIU(ADU):
-    type: Literal["Zone ADU parallel PIU"]
-    ExtractGrille: ExtractGrille
+    type: Literal["Zone ADU parallel PIU"] = attr(default="Zone ADU parallel PIU")
 
 
 class ZoneADUCooledBeam(ADU):
-    type: Literal["Zone ADU cooled beam"]
-    CooledBeam: CooledBeam
+    type: Literal["Zone ADU cooled beam"] = attr(default="Zone ADU cooled beam")
 
 
 class ZoneADUFourPipeInduction(ADU):
-    type: Literal["Zone ADU four-pipe induction"]
+    type: Literal["Zone ADU four-pipe induction"] = attr(default="Zone ADU four-pipe induction")
 
 
 class ZoneADUSeriesPIU(ADU):
-    type: Literal["Zone ADU series PIU"]
+    type: Literal["Zone ADU series PIU"] = attr(default="Zone ADU series PIU")
 
 
 class ZoneADUDualDuctVAV(ADU):
-    type: Literal["Zone ADU dual duct VAV"]
+    type: Literal["Zone ADU dual duct VAV"] = attr(default="Zone ADU dual duct VAV")
 
 
 class ZoneUnit(NoTypeHVACComponent):
-    Width: float
-    Height: float
-    MixingBoxWidth: float
-    Origin: Point3D
-    SupplyDiffuser: SupplyDiffuser
-    UnitElementList: UnitElementList | None
-    IntakeLouvre: Annotated[IntakeLouvre | None, Field(default=None)]
-    MixingBox: Annotated[MixingBox | None, Field(default=None)]
+    pass
 
 
 class ZoneFanCoilUnit(ZoneUnit):
-    type: Literal["Zone fan-coil unit"]
+    type: Literal["Zone fan-coil unit"] = attr(default="Zone fan-coil unit")
 
 
 class ZoneTerminalPackagedHeatPump(ZoneUnit):
-    type: Literal["Zone terminal packaged heat pump"]
+    type: Literal["Zone terminal packaged heat pump"] = attr(
+        default="Zone terminal packaged heat pump"
+    )
 
 
 class ZoneWaterToAirHeatPump(ZoneUnit):
-    type: Literal["Zone water-to-air heat pump"]
+    type: Literal["Zone water-to-air heat pump"] = attr(default="Zone water-to-air heat pump")
 
 
 class ZoneVariableRefrigerantFlowUnit(ZoneUnit):
-    type: Literal["Zone variable refrigerant flow unit"]
+    type: Literal["Zone variable refrigerant flow unit"] = attr(
+        default="Zone variable refrigerant flow unit"
+    )
 
 
 class ZoneHighTemperatureRadiantHeating(NoTypeHVACComponent):
-    type: Literal["Zone high temperature radiant heating"]
+    type: Literal["Zone high temperature radiant heating"] = attr(
+        default="Zone high temperature radiant heating"
+    )
 
 
 class ZoneHeatedFloor(NoTypeHVACComponent):
-    type: Literal["Zone heated floor"]
+    type: Literal["Zone heated floor"] = attr(default="Zone heated floor")
 
 
 class ZoneChilledCeiling(NoTypeHVACComponent):
-    type: Literal["Zone chilled ceiling"]
+    type: Literal["Zone chilled ceiling"] = attr(default="Zone chilled ceiling")
 
 
 class ZoneRadiantSurface(NoTypeHVACComponent):
-    type: Literal["Zone radiant surface"]
+    type: Literal["Zone radiant surface"] = attr(default="Zone radiant surface")
 
 
 class ZoneConvectiveElectricBaseboard(NoTypeHVACComponent):
-    type: Literal["Zone convective electric baseboard"]
+    type: Literal["Zone convective electric baseboard"] = attr(
+        default="Zone convective electric baseboard"
+    )
 
 
 class ZoneConvectiveWaterBaseboard(NoTypeHVACComponent):
-    type: Literal["Zone convective water baseboard"]
+    type: Literal["Zone convective water baseboard"] = attr(
+        default="Zone convective water baseboard"
+    )
 
 
 class ZoneRadiativeConvectiveElectricBaseboard(NoTypeHVACComponent):
-    type: Literal["Zone radiative convective electric baseboard"]
+    type: Literal["Zone radiative convective electric baseboard"] = attr(
+        default="Zone radiative convective electric baseboard"
+    )
 
 
 class ZoneRadiativeConvectiveWaterBaseboard(NoTypeHVACComponent):
-    type: Literal["Zone radiative convective water baseboard"]
+    type: Literal["Zone radiative convective water baseboard"] = attr(
+        default="Zone radiative convective water baseboard"
+    )
 
 
 ZONE_COMPONENT_MAPPING = {
