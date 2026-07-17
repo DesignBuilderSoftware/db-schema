@@ -7,7 +7,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import NameAttributes
 from db_schema.base import BaseModel
-from db_schema.geometry import Line, Point3D, SegmentList
+from db_schema.geometry import Line, SegmentList, WrappedPoint3D
 from db_schema.hvac.components import (
     HVACComponents,
     NoTypeHVACComponent,
@@ -41,7 +41,7 @@ class HVACLoop(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
         element(tag="ObjectIDs")
     )
-    origin: Point3D = element(tag="Origin")
+    origin: WrappedPoint3D = element(tag="Origin")
     plant_operation_schemes: PlantOperationSchemes | None = element(
         tag="PlantOperationSchemes", default=None
     )
