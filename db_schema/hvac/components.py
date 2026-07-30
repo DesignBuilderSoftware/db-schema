@@ -7,7 +7,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import NameAttributes, ZoneComponentAttributeList
 from db_schema.base import BaseModel
-from db_schema.geometry import ImageRectangle, LineArray, Point3D, SegmentList
+from db_schema.geometry import ImageRectangle, LineArray, Point3D, SegmentList, WrappedPoint3D
 from db_schema.id import ObjectIDs
 
 # Several annotations below reference classes that are injected into this
@@ -41,7 +41,7 @@ class HVACSubLoopNodeConnection(BaseModel):
         tag="ObjectIDs"
     )
     connected: int = element(tag="Connected", default=0)
-    coordinate: Point3D | None = element(tag="Coordinate", default=None)
+    coordinate: WrappedPoint3D | None = element(tag="Coordinate", default=None)
     attributes: NameAttributes = element(tag="Attributes")
 
 
@@ -104,18 +104,10 @@ class NoTypeHVACComponent(BaseModel):
     fanPlacement: int = element(tag="FanPlacement", default=0)
 
     # Connection coordinates
-    water_in_connection_coordinate: Point3D | None = element(
-        tag="WaterInConnectionCoordinate", default=None
-    )
-    water_out_connection_coordinate: Point3D | None = element(
-        tag="WaterOutConnectionCoordinate", default=None
-    )
-    air_in_connection_coordinate: Point3D | None = element(
-        tag="AirInConnectionCoordinate", default=None
-    )
-    air_out_connection_coordinate: Point3D | None = element(
-        tag="AirOutConnectionCoordinate", default=None
-    )
+    water_in_connection_coordinate: WrappedPoint3D | None = element(tag="WaterInConnectionCoordinate", default=None)
+    water_out_connection_coordinate: WrappedPoint3D | None = element(tag="WaterOutConnectionCoordinate", default=None)
+    air_in_connection_coordinate: WrappedPoint3D | None = element(tag="AirInConnectionCoordinate", default=None)
+    air_out_connection_coordinate: WrappedPoint3D | None = element(tag="AirOutConnectionCoordinate", default=None)
 
     # Attributes
     zone_component_attribute_list: ZoneComponentAttributeList | None = element(
@@ -132,7 +124,7 @@ class NoTypeHVACComponent(BaseModel):
     # -----------------------------------------------------------------------
 
     # Geometry / positioning (AHU, Splitter/Mixer, zone units, zone groups)
-    origin: Point3D | None = element(tag="Origin", default=None)
+    origin: WrappedPoint3D | None = element(tag="Origin", default=None)
     width: float | None = element(tag="Width", default=None)
     height: float | None = element(tag="Height", default=None)
     mixing_box_width: float | None = element(tag="MixingBoxWidth", default=None)
@@ -156,9 +148,9 @@ class NoTypeHVACComponent(BaseModel):
     )
 
     # Setpoint manager
-    control_point: Point3D | None = element(tag="ControlPoint", default=None)
-    upstream_node: Point3D | None = element(tag="UpStreamNode", default=None)
-    downstream_node: Point3D | None = element(tag="DownStreamNode", default=None)
+    control_point: WrappedPoint3D | None = element(tag="ControlPoint", default=None)
+    upstream_node: WrappedPoint3D | None = element(tag="UpStreamNode", default=None)
+    downstream_node: WrappedPoint3D | None = element(tag="DownStreamNode", default=None)
     segment_list: SegmentList | None = element(tag="SegmentList", default=None)
 
     # AHU / Unitary system

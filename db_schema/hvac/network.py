@@ -7,7 +7,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import NameAttributes
 from db_schema.base import BaseModel
-from db_schema.geometry import Line, Point3D, SegmentList
+from db_schema.geometry import Line, SegmentList, WrappedPoint3D
 from db_schema.hvac.components import (
     HVACComponents,
     NoTypeHVACComponent,
@@ -25,11 +25,11 @@ class HVACNetwork(BaseModel):
 
 
 class HVACLoops(BaseModel):
-    hvac_loop: list[HVACLoop] = element(tag="HVACLoop")
+    hvac_loop: list[HVACLoop] = element(tag="HVACLoop", default_factory=list)
 
 
 class HVACZoneGroups(BaseModel):
-    hvac_zone_group: list[HVACZoneGroup] = element(tag="HVACZoneGroup")
+    hvac_zone_group: list[HVACZoneGroup] = element(tag="HVACZoneGroup", default_factory=list)
 
 
 class HVACLoop(BaseModel):
@@ -40,7 +40,7 @@ class HVACLoop(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
-    origin: Point3D = element(tag="Origin")
+    origin: WrappedPoint3D = element(tag="Origin")
     plant_operation_schemes: PlantOperationSchemes | None = element(
         tag="PlantOperationSchemes", default=None
     )
@@ -100,7 +100,7 @@ class HVACZoneGroup(NoTypeHVACComponent):
 
 
 class BuildingZoneHandle(BaseModel):
-    building_zone_handle: list[str] = element(tag="BuildingZoneHandle")
+    building_zone_handle: list[str] = element(tag="BuildingZoneHandle", default_factory=list)
 
 
 class HVACConnections(BaseModel):

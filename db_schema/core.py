@@ -8,7 +8,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import KeyAttributes, NameAttributes
 from db_schema.base import BaseModel
-from db_schema.geometry import HandlePoint, Line, Point3D, Vertices
+from db_schema.geometry import HandlePoint, Line, Point3D, Vertices, WrappedPoint3D
 from db_schema.hvac.network import HVACNetwork
 from db_schema.id import ObjectIDs, current_site_handle
 from db_schema.tables import Tables
@@ -229,8 +229,8 @@ class InternalPartition(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
-    start_point: Point3D | None = element(tag="StartPoint", default=None)
-    end_point: Point3D | None = element(tag="EndPoint", default=None)
+    start_point: WrappedPoint3D | None = element(tag="StartPoint", default=None)
+    end_point: WrappedPoint3D | None = element(tag="EndPoint", default=None)
 
 
 class Zones(BaseModel):
@@ -245,7 +245,7 @@ class Zone(BaseModel):
     body: Body = element(tag="Body")
     light_sensor_one: LightSensorOne = element(tag="LightSensorOne")
     light_sensor_two: LightSensorTwo = element(tag="LightSensorTwo")
-    label_position: Point3D | None = element(tag="LabelPosition", default=None)
+    label_position: WrappedPoint3D | None = element(tag="LabelPosition", default=None)
     polygon: Polygon | None = element(tag="Polygon", default=None)
     inner_surface_body: InnerSurfaceBody | None = element(tag="InnerSurfaceBody", default=None)
 
@@ -385,8 +385,8 @@ class CFDBoundary(BaseModel):
     type: str = attr()
     polygon: Polygon = element(tag="Polygon")
     cfd_boundary_settings: CFDBoundarySettings = element(tag="CFDBoundarySettings")
-    minimum_refinement_region_point: Point3D = element(tag="MinimumRefinementRegionPoint")
-    maximum_refinement_region_point: Point3D = element(tag="MaximumRefinementRegionPoint")
+    minimum_refinement_region_point: WrappedPoint3D = element(tag="MinimumRefinementRegionPoint")
+    maximum_refinement_region_point: WrappedPoint3D = element(tag="MaximumRefinementRegionPoint")
     cfd_boundary_component_list: None = element(tag="CFDBoundaryComponentList", default=None)
 
 

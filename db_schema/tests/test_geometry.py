@@ -1,4 +1,4 @@
-from db_schema.geometry import Line, Point3D, Range, Vertices
+from db_schema.geometry import Line, Point3D, Range, Vertices, WrappedPoint3D
 from db_schema.id import ObjectIDs
 
 
@@ -39,6 +39,51 @@ class TestPoint3D:
         assert ";" in point.value
         parts = point.value.split(";")
         assert len(parts) == 3
+
+
+class TestWrappedPoint3D:
+    """Regression coverage for the nested <Tag><Point3D>...</Point3D></Tag>
+    parsing bug: fields like Line.begin/end and Origin previously typed as
+    plain Point3D always parsed to the zero default, because pydantic-xml
+    looks for coordinate text directly on the wrapper element rather than
+    recursing into the nested <Point3D> child.
+    """
+
+    def test_wrapped_point3d_exposes_point3d_interface(self):
+        wrapped = WrappedPoint3D(point_3d=Point3D(value="1.0;2.0;3.0"))
+        assert wrapped.x == 1.0
+        assert wrapped.y == 2.0
+        assert wrapped.z == 3.0
+        assert wrapped.coords == [1.0, 2.0, 3.0]
+        assert wrapped.is_zero is False
+
+    def test_wrapped_point3d_is_zero(self):
+        wrapped = WrappedPoint3D(point_3d=Point3D(value="0;0;0"))
+        assert wrapped.is_zero is True
+
+    def test_line_parses_nested_point3d_from_xml(self):
+        xml = (
+            b"<Line>"
+            b'<ObjectIDs handle="1" buildingHandle="-1" buildingBlockHandle="-1" '
+            b'zoneHandle="-1" surfaceIndex="-1" openingIndex="-1"></ObjectIDs>'
+            b"<Begin><Point3D>1.0;2.0;3.0</Point3D></Begin>"
+            b"<End><Point3D>4.0;5.0;6.0</Point3D></End>"
+            b"</Line>"
+        )
+        line = Line.from_xml(xml)
+        assert line.begin.coords == [1.0, 2.0, 3.0]
+        assert line.end.coords == [4.0, 5.0, 6.0]
+
+    def test_range_parses_nested_point3d_from_xml(self):
+        xml = (
+            b"<Range>"
+            b"<Org><Point3D>0.0;0.0;0.0</Point3D></Org>"
+            b"<End><Point3D>100.0;100.0;0.0</Point3D></End>"
+            b"</Range>"
+        )
+        range_obj = Range.from_xml(xml)
+        assert range_obj.org.coords == [0.0, 0.0, 0.0]
+        assert range_obj.end.coords == [100.0, 100.0, 0.0]
 
 
 class TestVertices:
@@ -100,15 +145,15 @@ class TestVertices:
 
 class TestLine:
     def test_line_creation(self):
-        begin = Point3D(value="0.0;0.0;0.0")
-        end = Point3D(value="10.0;10.0;10.0")
+        begin = WrappedPoint3D(point_3d=Point3D(value="0.0;0.0;0.0"))
+        end = WrappedPoint3D(point_3d=Point3D(value="10.0;10.0;10.0"))
         line = Line(object_ids=ObjectIDs(), begin=begin, end=end)
-        assert line.begin.value == "0.0;0.0;0.0"
-        assert line.end.value == "10.0;10.0;10.0"
+        assert line.begin.coords == [0.0, 0.0, 0.0]
+        assert line.end.coords == [10.0, 10.0, 10.0]
 
     def test_line_has_object_ids(self):
-        begin = Point3D(value="0.0;0.0;0.0")
-        end = Point3D(value="10.0;10.0;10.0")
+        begin = WrappedPoint3D(point_3d=Point3D(value="0.0;0.0;0.0"))
+        end = WrappedPoint3D(point_3d=Point3D(value="10.0;10.0;10.0"))
         line = Line(object_ids=ObjectIDs(), begin=begin, end=end)
         assert isinstance(line.object_ids, ObjectIDs)
         assert line.object_ids.handle >= 0  # Auto-generated handle
@@ -116,8 +161,8 @@ class TestLine:
 
 class TestRange:
     def test_range_creation(self):
-        org = Point3D(value="0.0;0.0;0.0")
-        end = Point3D(value="100.0;100.0;0.0")
+        org = WrappedPoint3D(point_3d=Point3D(value="0.0;0.0;0.0"))
+        end = WrappedPoint3D(point_3d=Point3D(value="100.0;100.0;0.0"))
         range_obj = Range(org=org, end=end)
-        assert range_obj.org.value == "0.0;0.0;0.0"
-        assert range_obj.end.value == "100.0;100.0;0.0"
+        assert range_obj.org.coords == [0.0, 0.0, 0.0]
+        assert range_obj.end.coords == [100.0, 100.0, 0.0]

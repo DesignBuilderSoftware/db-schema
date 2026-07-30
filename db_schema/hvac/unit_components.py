@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic_xml import element
+from pydantic_xml import attr, element
 
 from db_schema.base import BaseModel
 from db_schema.hvac.components import (
@@ -18,41 +18,23 @@ class UnitElementList(BaseModel):
 
 
 class SupplyFan(NoTypeHVACComponent):
-    type: Literal["Supply fan"]
-
-
+    type: Literal["Supply fan"] = attr()
 class ZoneADULouvre(NoTypeHVACComponent):
-    type: Literal["Zone ADU louvre"]
-
-
+    type: Literal["Zone ADU louvre"] = attr()
 class ZoneADUPIUIntakeLouvre(NoTypeHVACComponent):
-    type: Literal["Zone ADU PIU intake louvre"]
-
-
+    type: Literal["Zone ADU PIU intake louvre"] = attr()
 class VariableRefrigerantFlowCoolingDXCoil(NoTypeHVACComponent):
-    type: Literal["Variable refrigerant flow cooling DX coil"]
-
-
+    type: Literal["Variable refrigerant flow cooling DX coil"] = attr()
 class VariableRefrigerantFlowHeatingDXCoil(NoTypeHVACComponent):
-    type: Literal["Variable refrigerant flow heating DX coil"]
-
-
+    type: Literal["Variable refrigerant flow heating DX coil"] = attr()
 class DXCoolingCoil(NoTypeHVACComponent):
-    type: Literal["DX cooling coil"]
-
-
+    type: Literal["DX cooling coil"] = attr()
 class DXHeatingCoil(NoTypeHVACComponent):
-    type: Literal["DX heating coil"]
-
-
+    type: Literal["DX heating coil"] = attr()
 class WaterToAirHeatPumpCoolingCoil(NoTypeHVACComponent):
-    type: Literal["Water-to-air heat pump cooling coil"]
-
-
+    type: Literal["Water-to-air heat pump cooling coil"] = attr()
 class WaterToAirHeatPumpHeatingCoil(NoTypeHVACComponent):
-    type: Literal["Water-to-air heat pump heating coil"]
-
-
+    type: Literal["Water-to-air heat pump heating coil"] = attr()
 UNIT_COMPONENT_MAPPING = {
     "Supply fan": SupplyFan,
     "Zone ADU louvre": ZoneADULouvre,

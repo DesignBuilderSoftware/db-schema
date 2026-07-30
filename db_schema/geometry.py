@@ -89,17 +89,53 @@ class HandlePoint(BaseModel):
         return iter([self.point_3d])
 
 
+class WrappedPoint3D(BaseModel):
+    """A Point3D nested one level deeper under its own <Point3D> child tag.
+
+    Most single-coordinate fields in the DesignBuilder XML (Origin,
+    Coordinate, Begin, End, ControlPoint, ...) are not the coordinate text
+    themselves but a wrapper element containing a single <Point3D> child,
+    e.g. <Origin><Point3D>1;2;3</Point3D></Origin>. Typing these fields as
+    plain Point3D silently parses to the "0;0;0" default, since pydantic-xml
+    looks for the coordinate text directly on the wrapper element rather
+    than recursing into the nested tag. Exposes the same x/y/z/coords/
+    is_zero interface as Point3D so existing call sites are unaffected.
+    """
+
+    point_3d: Point3D = element(tag="Point3D", default_factory=Point3D)
+
+    @property
+    def x(self) -> float:
+        return self.point_3d.x
+
+    @property
+    def y(self) -> float:
+        return self.point_3d.y
+
+    @property
+    def z(self) -> float:
+        return self.point_3d.z
+
+    @property
+    def coords(self) -> list[float]:
+        return self.point_3d.coords
+
+    @property
+    def is_zero(self) -> bool:
+        return self.point_3d.is_zero
+
+
 class Range(BaseModel):
-    org: Point3D = element(tag="Org")
-    end: Point3D = element(tag="End")
+    org: WrappedPoint3D = element(tag="Org")
+    end: WrappedPoint3D = element(tag="End")
 
 
 class Line(BaseModel):
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
-    begin: Point3D = element(tag="Begin")
-    end: Point3D = element(tag="End")
+    begin: WrappedPoint3D = element(tag="Begin")
+    end: WrappedPoint3D = element(tag="End")
 
 
 class ImageRectangle(BaseModel):
