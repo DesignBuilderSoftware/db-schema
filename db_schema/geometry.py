@@ -4,7 +4,7 @@ from collections.abc import Iterator
 from typing import Annotated
 
 from pydantic import Field, field_validator
-from pydantic_xml import attr, element
+from pydantic_xml import element
 
 from db_schema.base import BaseModel
 from db_schema.id import ObjectIDs
@@ -79,9 +79,7 @@ class Vertices(BaseModel):
             elif isinstance(value, str):
                 self.point_3d[index] = Point3D(value=value)
         except IndexError as e:
-            raise ValueError(
-                f"Invalid index {index} for Vertices.point_3d"
-            ) from e
+            raise ValueError(f"Invalid index {index} for Vertices.point_3d") from e
 
 
 class HandlePoint(BaseModel):
@@ -133,16 +131,16 @@ class Range(BaseModel):
 
 
 class Line(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     begin: WrappedPoint3D = element(tag="Begin")
     end: WrappedPoint3D = element(tag="End")
 
 
 class ImageRectangle(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     imageTextureIndex: int = element(tag="ImageTextureIndex")
     maskTextureIndex: int = element(tag="MaskTextureIndex")

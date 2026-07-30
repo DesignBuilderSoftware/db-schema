@@ -36,12 +36,8 @@ class TestRoundTrip:
 
             # Verify key properties are preserved
             assert model1.name == model2.name, "Name should be preserved"
-            assert model1.version == model2.version, (
-                "Version should be preserved"
-            )
-            assert model1.objects == model2.objects, (
-                "Objects should be preserved"
-            )
+            assert model1.version == model2.version, "Version should be preserved"
+            assert model1.objects == model2.objects, "Objects should be preserved"
 
             # Verify site structure if present
             if model1.site and model2.site:
@@ -158,9 +154,7 @@ class TestComplexModels:
 
             model1 = load_model(sample_path)
 
-            with tempfile.NamedTemporaryFile(
-                suffix=".xml", delete=False
-            ) as tmp:
+            with tempfile.NamedTemporaryFile(suffix=".xml", delete=False) as tmp:
                 tmp_path = tmp.name
 
             try:
@@ -197,9 +191,7 @@ class TestLazyLoading:
     def test_lazy_loading_error_handling(self):
         import db_schema
 
-        with pytest.raises(
-            AttributeError, match="has no attribute 'NonExistent'"
-        ):
+        with pytest.raises(AttributeError, match="has no attribute 'NonExistent'"):
             getattr(db_schema, "NonExistent")
 
 

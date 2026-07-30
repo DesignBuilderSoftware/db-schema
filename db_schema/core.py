@@ -24,7 +24,7 @@ class dsbXML(BaseModel):
     site: Site | None = element(tag="Site", default=None)
 
     @classmethod
-    def from_xml(cls, source: str | bytes) -> dsbXML:
+    def from_xml(cls, source: str | bytes) -> dsbXML:  # pylint: disable=arguments-differ
         from lxml import etree
 
         if isinstance(source, (str, bytes)):
@@ -42,17 +42,10 @@ class dsbXML(BaseModel):
         if isinstance(xml_output, bytes):
             root = etree.fromstring(xml_output)
             root.tag = "dsbXML"
-            return bytes(
-                etree.tostring(root, xml_declaration=True, encoding="UTF-8")
-            )
-        else:
-            root = etree.fromstring(xml_output.encode())
-            root.tag = "dsbXML"
-            return str(
-                etree.tostring(
-                    root, xml_declaration=True, encoding="UTF-8"
-                ).decode("UTF-8")
-            )
+            return bytes(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
+        root = etree.fromstring(xml_output.encode())
+        root.tag = "dsbXML"
+        return str(etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8"))
 
 
 class Site(BaseModel):
@@ -62,9 +55,7 @@ class Site(BaseModel):
         tag="Attributes", default_factory=lambda: NameAttributes()
     )
     tables: Tables | None = element(tag="Tables", default=None)
-    assembly_library: AssemblyLibrary | None = element(
-        tag="AssemblyLibrary", default=None
-    )
+    assembly_library: AssemblyLibrary | None = element(tag="AssemblyLibrary", default=None)
     buildings: Buildings | None = element(tag="Buildings", default=None)
 
     @field_serializer("handle")
@@ -98,8 +89,8 @@ class ComponentBlock(BaseModel):
 class Body(BaseModel):
     volume: float = attr()
     extrusionHeight: float = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     vertices: Vertices = element(tag="Vertices")
     surfaces: Surfaces = element(tag="Surfaces")
@@ -121,8 +112,8 @@ class Surface(BaseModel):
     defaultopenings: str | None = attr(default=None)
     adjacentPartitionHandle: int = attr()
     thickness: float = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     vertex_indices: str | None = element(tag="VertexIndices", default=None)
     hole_indices: str | None = element(tag="HoleIndices", default=None)
@@ -149,12 +140,10 @@ class Adjacencies(BaseModel):
 class Adjacency(BaseModel):
     type: str = attr()
     adjacencyDistance: float = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
-    adjacency_polygon_list: AdjacencyPolygonList = element(
-        tag="AdjacencyPolygonList"
-    )
+    adjacency_polygon_list: AdjacencyPolygonList = element(tag="AdjacencyPolygonList")
 
 
 class AdjacencyPolygonList(BaseModel):
@@ -175,17 +164,23 @@ class Building(BaseModel):
     currentComponentBlockHandle: int = attr()
     currentAssemblyInstanceHandle: int = attr()
     currentPlaneHandle: int = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     building_blocks: BuildingBlocks | None = element(tag="BuildingBlocks", default=None)
     component_blocks: ComponentBlocks | None = element(tag="ComponentBlocks", default=None)
-    assembly_instances: AssemblyInstances | None = element(tag="AssemblyInstances", default=None)
+    assembly_instances: AssemblyInstances | None = element(
+        tag="AssemblyInstances", default=None
+    )
     profile_outlines: ProfileOutlines | None = element(tag="ProfileOutlines", default=None)
-    construction_lines: ConstructionLines | None = element(tag="ConstructionLines", default=None)
+    construction_lines: ConstructionLines | None = element(
+        tag="ConstructionLines", default=None
+    )
     planes: Planes | None = element(tag="Planes", default=None)
     hvac_network: HVACNetwork | None = element(tag="HVACNetwork", default=None)
-    bookmark_buildings: BookmarkBuildings | None = element(tag="BookmarkBuildings", default=None)
+    bookmark_buildings: BookmarkBuildings | None = element(
+        tag="BookmarkBuildings", default=None
+    )
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
 
 
@@ -200,14 +195,18 @@ class BuildingBlock(BaseModel):
     roofOverlap: float = attr()
     roofType: str = attr()
     wallSlope: float = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     component_blocks: ComponentBlocks | None = element(tag="ComponentBlocks", default=None)
     cfd_fans: CFDFans | None = element(tag="CFDFans", default=None)
-    assembly_instances: AssemblyInstances | None = element(tag="AssemblyInstances", default=None)
+    assembly_instances: AssemblyInstances | None = element(
+        tag="AssemblyInstances", default=None
+    )
     profile_outlines: ProfileOutlines | None = element(tag="ProfileOutlines", default=None)
-    internal_partitions: InternalPartitions | None = element(tag="InternalPartitions", default=None)
+    internal_partitions: InternalPartitions | None = element(
+        tag="InternalPartitions", default=None
+    )
     void_bodies: VoidBodies | None = element(tag="VoidBodies", default=None)
     zones: Zones | None = element(tag="Zones", default=None)
     profile_body: ProfileBody | None = element(tag="ProfileBody", default=None)
@@ -227,8 +226,8 @@ class InternalPartition(BaseModel):
     height: float = attr()
     area: float = attr()
     floatingPartition: bool = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     start_point: WrappedPoint3D | None = element(tag="StartPoint", default=None)
     end_point: WrappedPoint3D | None = element(tag="EndPoint", default=None)
@@ -267,8 +266,8 @@ class BaseProfileBody(BaseModel):
 
 class Polygon(BaseModel):
     auxiliaryType: str = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     vertices: Vertices | None = element(tag="Vertices", default=None)
     polygon_holes: PolygonHoles | None = element(tag="PolygonHoles", default=None)
@@ -279,8 +278,8 @@ class PolygonHoles(BaseModel):
 
 
 class PolygonHole(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     vertices: Vertices = element(tag="Vertices")
 
@@ -304,7 +303,9 @@ class BookmarkBuildings(BaseModel):
 
 
 class ConstructionLines(BaseModel):
-    construction_line: list[ConstructionLine] = element(tag="ConstructionLine", default_factory=list)
+    construction_line: list[ConstructionLine] = element(
+        tag="ConstructionLine", default_factory=list
+    )
 
 
 class ConstructionLine(BaseModel):
@@ -326,15 +327,17 @@ class Plane(BaseModel):
 
 
 class AssemblyInstances(BaseModel):
-    assembly_instance: list[AssemblyInstance] = element(tag="AssemblyInstance", default_factory=list)
+    assembly_instance: list[AssemblyInstance] = element(
+        tag="AssemblyInstance", default_factory=list
+    )
 
 
 class AssemblyInstance(BaseModel):
     assemblyHandle: int = attr()
     reflected: int = attr()
     active: int = attr()
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = (
-        element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
     )
     assembly_instance_transformation_matrix: AssemblyInstanceTransformationMatrix = element(
         tag="AssemblyInstanceTransformationMatrix"

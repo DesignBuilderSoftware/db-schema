@@ -10,7 +10,9 @@ from db_schema.hvac.components import HVACComponent, NoTypeHVACComponent
 
 
 class ZoneElementList(BaseModel):
-    hvac_zone_component: list[HVACComponent] = element(tag="HVACZoneComponent", default_factory=list)
+    hvac_zone_component: list[HVACComponent] = element(
+        tag="HVACZoneComponent", default_factory=list
+    )
 
     @field_validator("hvac_zone_component", mode="before")
     @classmethod

@@ -1,4 +1,5 @@
-from db_schema.utils import load_model as load_model, save_model as save_model
+from db_schema.utils import load_model as load_model
+from db_schema.utils import save_model as save_model
 
 # Cache for lazy-loaded core classes
 _core_classes_cache = {}
@@ -6,7 +7,7 @@ _core_module_loaded = False
 _core_module_loading = False  # re-entrancy guard
 
 
-def _load_core_module():
+def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-many-branches
     """Load and cache core module classes after all dependencies are available"""
     global _core_module_loaded, _core_module_loading
     if _core_module_loaded or _core_module_loading:
@@ -30,10 +31,7 @@ def _load_core_module():
 
         # Cache all public classes from core
         for name, obj in inspect.getmembers(core):
-            if (
-                inspect.isclass(obj)
-                and obj.__module__ == "db_schema.core"
-            ):
+            if inspect.isclass(obj) and obj.__module__ == "db_schema.core":
                 _core_classes_cache[name] = obj
 
         import sys
@@ -61,9 +59,16 @@ def _load_core_module():
                 _ns.setdefault(_name, _obj)
 
         # Rebuild all models in dependency order to resolve forward references
-        for module in [geometry, attributes, tables,
-                       hvac_components, hvac_unit, hvac_zone, hvac_network,
-                       core]:
+        for module in [
+            geometry,
+            attributes,
+            tables,
+            hvac_components,
+            hvac_unit,
+            hvac_zone,
+            hvac_network,
+            core,
+        ]:
             for name, obj in inspect.getmembers(module):
                 if (
                     inspect.isclass(obj)
@@ -73,9 +78,12 @@ def _load_core_module():
                 ):
                     try:
                         obj.model_rebuild()
-                    except Exception as e:
+                    except Exception as e:  # pylint: disable=broad-exception-caught
                         import warnings
-                        warnings.warn(f"model_rebuild failed for {obj.__name__}: {e}", stacklevel=2)
+
+                        warnings.warn(
+                            f"model_rebuild failed for {obj.__name__}: {e}", stacklevel=2
+                        )
 
         _core_module_loaded = True
     finally:
@@ -99,9 +107,11 @@ def __getattr__(name: str):
     # HVAC modules (original lazy loading)
     if name == "HVACComponents":
         from db_schema.hvac.components import HVACComponents  # noqa: F401
+
         return HVACComponents
-    elif name == "HVACNetwork":
+    if name == "HVACNetwork":
         from db_schema.hvac.network import HVACNetwork  # noqa: F401
+
         return HVACNetwork
 
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

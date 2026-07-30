@@ -10,6 +10,10 @@ from db_schema.base import BaseModel
 from db_schema.geometry import ImageRectangle, LineArray, Point3D, SegmentList, WrappedPoint3D
 from db_schema.id import ObjectIDs
 
+# Several annotations below reference classes that are injected into this
+# module's namespace at model_rebuild() time via __init__.py (to avoid circular
+# imports), so static analysis cannot resolve those forward references.
+# pylint: disable=undefined-variable
 
 # ---------------------------------------------------------------------------
 # Helper / sub-component classes (defined before NoTypeHVACComponent so they
@@ -17,18 +21,25 @@ from db_schema.id import ObjectIDs
 # model_rebuild() time via _load_core_module in __init__.py)
 # ---------------------------------------------------------------------------
 
+
 class HVACConnectorNode(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
+    )
     name: str = element(tag="Name", default="")
     active: int = element(tag="Active", default=0)
 
 
 class BranchConnectionList(BaseModel):
-    hvac_connector_node: list[HVACConnectorNode] = element(tag="HVACConnectorNode", default_factory=list)
+    hvac_connector_node: list[HVACConnectorNode] = element(
+        tag="HVACConnectorNode", default_factory=list
+    )
 
 
 class HVACSubLoopNodeConnection(BaseModel):
-    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(tag="ObjectIDs")
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
+    )
     connected: int = element(tag="Connected", default=0)
     coordinate: WrappedPoint3D | None = element(tag="Coordinate", default=None)
     attributes: NameAttributes = element(tag="Attributes")
@@ -57,6 +68,7 @@ class IntakeUnitComponentList(BaseModel):
 # serializer (built once, always correct) picks them up regardless of which
 # subclass is actually being instantiated.
 # ---------------------------------------------------------------------------
+
 
 class NoTypeHVACComponent(BaseModel):
     # Shared image / positioning
@@ -119,11 +131,17 @@ class NoTypeHVACComponent(BaseModel):
 
     # Splitter / Mixer / Zone splitter / Zone mixer
     loop_flow_direction: int | None = element(tag="LoopFlowDirection", default=None)
-    hvac_connector_node: HVACConnectorNode | None = element(tag="HVACConnectorNode", default=None)
-    branch_connection_list: BranchConnectionList | None = element(tag="BranchConnectionList", default=None)
+    hvac_connector_node: HVACConnectorNode | None = element(
+        tag="HVACConnectorNode", default=None
+    )
+    branch_connection_list: BranchConnectionList | None = element(
+        tag="BranchConnectionList", default=None
+    )
 
     # Sub-loop node
-    number_of_flow_connections: int | None = element(tag="NumberOfFlowConnections", default=None)
+    number_of_flow_connections: int | None = element(
+        tag="NumberOfFlowConnections", default=None
+    )
     flow_connections: FlowConnections | None = element(tag="FlowConnections", default=None)
     hvac_sub_loop_node_connection: HVACSubLoopNodeConnection | None = element(
         tag="HVACSubLoopNodeConnection", default=None
@@ -143,7 +161,9 @@ class NoTypeHVACComponent(BaseModel):
     intake_damper: IntakeDamper | None = element(tag="IntakeDamper", default=None)
     exhaust_damper: ExhaustDamper | None = element(tag="ExhaustDamper", default=None)
     doas_intake_damper: DOASIntakeDamper | None = element(tag="DOASIntakeDamper", default=None)
-    doas_exhaust_damper: DOASExhaustDamper | None = element(tag="DOASExhaustDamper", default=None)
+    doas_exhaust_damper: DOASExhaustDamper | None = element(
+        tag="DOASExhaustDamper", default=None
+    )
     mixing_damper: MixingDamper | None = element(tag="MixingDamper", default=None)
     exhaust_unit_component_list: ExhaustUnitComponentList | None = element(
         tag="ExhaustUnitComponentList", default=None
@@ -154,20 +174,24 @@ class NoTypeHVACComponent(BaseModel):
     line_array: LineArray | None = element(tag="LineArray", default=None)
 
     # Chiller
-    water_cooled_condenser: WaterCooledCondenser | None = element(tag="WaterCooledCondenser", default=None)
+    water_cooled_condenser: WaterCooledCondenser | None = element(
+        tag="WaterCooledCondenser", default=None
+    )
     chiller_hr_heat_exchanger: ChillerHRHeatExchanger | None = element(
         tag="ChillerHRHeatExchanger", default=None
     )
     absorption_chiller_unit: AbsorptionChillerUnit | None = element(
         tag="AbsorptionChillerUnit", default=None
     )
-    absorption_chiller_generator_heat_exchanger: AbsorptionChillerGeneratorHeatExchanger | None = element(
-        tag="AbsorptionChillerGeneratorHeatExchanger", default=None
-    )
+    absorption_chiller_generator_heat_exchanger: (
+        AbsorptionChillerGeneratorHeatExchanger | None
+    ) = element(tag="AbsorptionChillerGeneratorHeatExchanger", default=None)
 
     # HVACZoneGroup (injected via __init__.py before model_rebuild)
     valid_zone_group: str | None = element(tag="ValidZoneGroup", default=None)
-    zone_group_attributes: NameAttributes | None = element(tag="ZoneGroupAttributes", default=None)
+    zone_group_attributes: NameAttributes | None = element(
+        tag="ZoneGroupAttributes", default=None
+    )
     # Zone group (types injected at model_rebuild time — see __init__.py)
     zone_element_list: ZoneElementList | None = element(tag="ZoneElementList", default=None)
     building_zone_handle_list: BuildingZoneHandle | None = element(
@@ -186,6 +210,7 @@ class NoTypeHVACComponent(BaseModel):
 # ---------------------------------------------------------------------------
 # HVACComponent and type-specific subclasses
 # ---------------------------------------------------------------------------
+
 
 class HVACComponent(NoTypeHVACComponent):
     pass
@@ -254,7 +279,9 @@ class AbsorptionChillerGeneratorHeatExchanger(NoTypeHVACComponent):
 class OutdoorAirSystem(NoTypeHVACComponent):
     heat_recovery: int = element(tag="HeatRecovery", default=0)
     recirculation: int = element(tag="Recirculation", default=0)
-    heat_recovery_device: HeatRecoveryDevice | None = element(tag="HeatRecoveryDevice", default=None)
+    heat_recovery_device: HeatRecoveryDevice | None = element(
+        tag="HeatRecoveryDevice", default=None
+    )
 
 
 class IntakeDamper(NoTypeHVACComponent):
@@ -318,7 +345,9 @@ class DomesticWaterConnections(NoTypeHVACComponent):
 
 
 class FluidToFluidHeatExchanger(NoTypeHVACComponent):
-    type: Literal["Fluid-to-fluid heat exchanger"] = attr(default="Fluid-to-fluid heat exchanger")
+    type: Literal["Fluid-to-fluid heat exchanger"] = attr(
+        default="Fluid-to-fluid heat exchanger"
+    )
 
 
 class GroundHeatExchanger(NoTypeHVACComponent):
@@ -346,7 +375,9 @@ class WaterHeaterHeatPump(NoTypeHVACComponent):
 
 
 class UnitaryHeatPumpWaterToAir(NoTypeHVACComponent):
-    type: Literal["Unitary heat pump water-to-air"] = attr(default="Unitary heat pump water-to-air")
+    type: Literal["Unitary heat pump water-to-air"] = attr(
+        default="Unitary heat pump water-to-air"
+    )
 
 
 class WaterCoolingCoil(NoTypeHVACComponent):
