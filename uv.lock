@@ -241,7 +241,7 @@ wheels = [
 
 [[package]]
 name = "designbuilder-schema"
-version = "1.0.2"
+version = "1.0.4"
 source = { editable = "." }
 dependencies = [
     { name = "lxml" },
