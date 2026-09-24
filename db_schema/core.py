@@ -28,7 +28,11 @@ class dsbXML(BaseModel):
         from lxml import etree
 
         if isinstance(source, (str, bytes)):
-            root = etree.fromstring(source)
+            # huge_tree: large models can contain a single text node over
+            # libxml2's default 10 MB limit, which it otherwise refuses with
+            # "xmlSAX2Characters: huge text node". DesignBuilder's own files
+            # are trusted input, so lifting the limit is acceptable here.
+            root = etree.fromstring(source, parser=etree.XMLParser(huge_tree=True))
         else:
             root = source
 
@@ -65,7 +69,9 @@ class Site(BaseModel):
 
 class AssemblyLibrary(BaseModel):
     assemblyHandle: int = attr()
-    assembly: list[Assembly] = element(tag="Assembly")
+    # DesignBuilder writes <AssemblyLibrary assemblyHandle="0"/> with no
+    # <Assembly> children when a model has no assemblies.
+    assembly: list[Assembly] = element(tag="Assembly", default_factory=list)
 
 
 class Assembly(BaseModel):
