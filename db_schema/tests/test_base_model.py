@@ -12,9 +12,7 @@ base = pytest.importorskip("db_schema.base", reason="db_schema.base failed to im
 attributes = pytest.importorskip(
     "db_schema.attributes", reason="db_schema.attributes failed to import"
 )
-tables_mod = pytest.importorskip(
-    "db_schema.tables", reason="db_schema.tables failed to import"
-)
+tables_mod = pytest.importorskip("db_schema.tables", reason="db_schema.tables failed to import")
 
 BaseModel = base.BaseModel
 NameAttribute = attributes.NameAttribute
@@ -22,9 +20,7 @@ Table = tables_mod.Table
 
 
 def test_str_strip_whitespace_on_text_content():
-    a = NameAttribute.from_xml(
-        b'<NameAttribute name="  padded  ">  0.7  </NameAttribute>'
-    )
+    a = NameAttribute.from_xml(b'<NameAttribute name="  padded  ">  0.7  </NameAttribute>')
     assert a.name == "padded"
     assert a.value == "0.7"
 
