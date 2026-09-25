@@ -1,5 +1,5 @@
 [project]
-name = "db-schema"
+name = "dsbxml"
 version = "1.0.4"
 description = "Python package for DesignBuilder XML files with read / edit / write functionality."
 requires-python = ">=3.10"

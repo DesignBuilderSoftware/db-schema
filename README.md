@@ -9,10 +9,10 @@ Python package for reading, editing, and writing DesignBuilder XML files using P
 ## Install
 
 ```bash
-pip install db-schema
+pip install dsbxml
 ```
 
-The distribution is named `db-schema`; the import name is `db_schema`.
+The PyPI package is named `dsbxml`; the import name is `db_schema`.
 
 ## Quick Start
 

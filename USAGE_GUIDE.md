@@ -1,10 +1,10 @@
 # DesignBuilder Schema - Usage Guide
 
-A comprehensive guide to using the `db-schema` library for loading, modifying, and saving DesignBuilder XML models.
+A comprehensive guide to using the `db_schema` library for loading, modifying, and saving DesignBuilder XML models.
 
 ## Overview
 
-The `db-schema` library provides Pydantic-based models for DesignBuilder simulation files. It enables you to:
+The `db_schema` library provides Pydantic-based models for DesignBuilder simulation files. It enables you to:
 
 - **Load** DesignBuilder XML files into Python objects
 - **Modify** building models programmatically
@@ -14,7 +14,7 @@ The `db-schema` library provides Pydantic-based models for DesignBuilder simulat
 ## Installation
 
 ```bash
-pip install db-schema
+pip install dsbxml
 ```
 
 ## Quick Start

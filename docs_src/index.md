@@ -5,7 +5,7 @@ Python package for reading, editing, and writing DesignBuilder XML simulation fi
 ## Installation
 
 ```bash
-pip install db-schema
+pip install dsbxml
 ```
 
 ## Quick start
