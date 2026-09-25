@@ -2,7 +2,7 @@
 
 ## Utilities
 
-::: db_schema.utils
+::: dsbxml.utils
     options:
       members:
         - load_model
@@ -11,7 +11,7 @@
 
 ## Geometry
 
-::: db_schema.geometry
+::: dsbxml.geometry
     options:
       members:
         - Point3D
@@ -23,7 +23,7 @@
 
 ## Tables
 
-::: db_schema.tables
+::: dsbxml.tables
     options:
       members:
         - Table
@@ -31,7 +31,7 @@
 
 ## Identifiers
 
-::: db_schema.id
+::: dsbxml.id
     options:
       members:
         - ObjectIDs

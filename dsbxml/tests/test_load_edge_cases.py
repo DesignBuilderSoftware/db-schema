@@ -4,7 +4,7 @@ Found by db-testing's dsbXML corpus: models with no assemblies, and models
 whose EDD dump attribute is one text node over libxml2's 10 MB limit.
 """
 
-from db_schema.utils import load_model
+from dsbxml.utils import load_model
 
 HEAD = (
     '<dsbXML name="t" date="2026-01-01" version="8.0" objects="all"><Site count="0" handle="1">'

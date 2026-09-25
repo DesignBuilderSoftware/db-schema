@@ -1,5 +1,5 @@
-from db_schema.hvac.components import HVACComponent
-from db_schema.utils import load_model
+from dsbxml.hvac.components import HVACComponent
+from dsbxml.utils import load_model
 
 
 def report_set(hc: HVACComponent):

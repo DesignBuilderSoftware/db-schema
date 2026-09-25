@@ -1,4 +1,4 @@
-"""Tests for db_schema.base.BaseModel configuration behaviour.
+"""Tests for dsbxml.base.BaseModel configuration behaviour.
 
 BaseModel promises: unordered element search, whitespace stripping,
 assignment validation and population by field name. These are exercised
@@ -8,11 +8,11 @@ through small concrete models from the package.
 import pytest
 from pydantic import ValidationError
 
-base = pytest.importorskip("db_schema.base", reason="db_schema.base failed to import")
+base = pytest.importorskip("dsbxml.base", reason="dsbxml.base failed to import")
 attributes = pytest.importorskip(
-    "db_schema.attributes", reason="db_schema.attributes failed to import"
+    "dsbxml.attributes", reason="dsbxml.attributes failed to import"
 )
-tables_mod = pytest.importorskip("db_schema.tables", reason="db_schema.tables failed to import")
+tables_mod = pytest.importorskip("dsbxml.tables", reason="dsbxml.tables failed to import")
 
 BaseModel = base.BaseModel
 NameAttribute = attributes.NameAttribute

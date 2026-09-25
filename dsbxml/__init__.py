@@ -1,5 +1,5 @@
-from db_schema.utils import load_model as load_model
-from db_schema.utils import save_model as save_model
+from dsbxml.utils import load_model as load_model
+from dsbxml.utils import save_model as save_model
 
 # Cache for lazy-loaded core classes
 _core_classes_cache = {}
@@ -20,18 +20,18 @@ def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-ma
 
         from pydantic_xml import BaseXmlModel
 
-        core = importlib.import_module("db_schema.core")
-        geometry = importlib.import_module("db_schema.geometry")
-        attributes = importlib.import_module("db_schema.attributes")
-        tables = importlib.import_module("db_schema.tables")
-        hvac_components = importlib.import_module("db_schema.hvac.components")
-        hvac_network = importlib.import_module("db_schema.hvac.network")
-        hvac_unit = importlib.import_module("db_schema.hvac.unit_components")
-        hvac_zone = importlib.import_module("db_schema.hvac.zone_components")
+        core = importlib.import_module("dsbxml.core")
+        geometry = importlib.import_module("dsbxml.geometry")
+        attributes = importlib.import_module("dsbxml.attributes")
+        tables = importlib.import_module("dsbxml.tables")
+        hvac_components = importlib.import_module("dsbxml.hvac.components")
+        hvac_network = importlib.import_module("dsbxml.hvac.network")
+        hvac_unit = importlib.import_module("dsbxml.hvac.unit_components")
+        hvac_zone = importlib.import_module("dsbxml.hvac.zone_components")
 
         # Cache all public classes from core
         for name, obj in inspect.getmembers(core):
-            if inspect.isclass(obj) and obj.__module__ == "db_schema.core":
+            if inspect.isclass(obj) and obj.__module__ == "dsbxml.core":
                 _core_classes_cache[name] = obj
 
         import sys
@@ -48,11 +48,11 @@ def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-ma
                     all_hvac_types[_name] = _obj
 
         for _mod_name in [
-            "db_schema.hvac.components",
-            "db_schema.hvac.unit_components",
-            "db_schema.hvac.zone_components",
-            "db_schema.hvac.network",
-            "db_schema.core",
+            "dsbxml.hvac.components",
+            "dsbxml.hvac.unit_components",
+            "dsbxml.hvac.zone_components",
+            "dsbxml.hvac.network",
+            "dsbxml.core",
         ]:
             _ns = sys.modules[_mod_name].__dict__
             for _name, _obj in all_hvac_types.items():
@@ -74,7 +74,7 @@ def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-ma
                     inspect.isclass(obj)
                     and issubclass(obj, BaseXmlModel)
                     and obj is not BaseXmlModel
-                    and obj.__module__.startswith("db_schema")
+                    and obj.__module__.startswith("dsbxml")
                 ):
                     try:
                         obj.model_rebuild()
@@ -106,11 +106,11 @@ def __getattr__(name: str):
 
     # HVAC modules (original lazy loading)
     if name == "HVACComponents":
-        from db_schema.hvac.components import HVACComponents  # noqa: F401
+        from dsbxml.hvac.components import HVACComponents  # noqa: F401
 
         return HVACComponents
     if name == "HVACNetwork":
-        from db_schema.hvac.network import HVACNetwork  # noqa: F401
+        from dsbxml.hvac.network import HVACNetwork  # noqa: F401
 
         return HVACNetwork
 

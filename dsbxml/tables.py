@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic_xml import attr, element
 
-from db_schema.base import BaseModel
+from dsbxml.base import BaseModel
 
 
 class Table(BaseModel):

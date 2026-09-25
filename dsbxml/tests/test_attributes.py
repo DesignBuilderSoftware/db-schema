@@ -1,4 +1,4 @@
-"""Tests for db_schema.attributes XML models.
+"""Tests for dsbxml.attributes XML models.
 
 Uses pytest.importorskip so the suite still runs (as skips) if the module
 is broken mid-refactor.
@@ -7,8 +7,8 @@ is broken mid-refactor.
 import pytest
 
 attributes = pytest.importorskip(
-    "db_schema.attributes",
-    reason="db_schema.attributes failed to import",
+    "dsbxml.attributes",
+    reason="dsbxml.attributes failed to import",
 )
 
 NameAttribute = attributes.NameAttribute

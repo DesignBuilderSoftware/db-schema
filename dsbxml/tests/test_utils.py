@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from db_schema.core import dsbXML
-from db_schema.utils import (
+from dsbxml.core import dsbXML
+from dsbxml.utils import (
     load_model,
     save_model,
 )

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from db_schema.utils import load_model
+from dsbxml.utils import load_model
 
 
 def get_filepaths(directory, extension=".xml"):

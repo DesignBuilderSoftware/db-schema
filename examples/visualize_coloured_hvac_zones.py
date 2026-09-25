@@ -1,10 +1,10 @@
 import matplotlib.colors as mcolors
 
-from db_schema.extension_visualise.zone import (
+from dsbxml.extension_visualise.zone import (
     display_zones_with_defined_colours,
     zone_geometry,
 )
-from db_schema.utils import load_model
+from dsbxml.utils import load_model
 
 filepath = r".\samples\models_dhvac\HVAC_Zones_Coloured.xml"
 model = load_model(filepath)

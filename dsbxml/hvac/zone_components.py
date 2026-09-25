@@ -5,8 +5,8 @@ from typing import Literal
 from pydantic import field_validator
 from pydantic_xml import attr, element
 
-from db_schema.base import BaseModel
-from db_schema.hvac.components import HVACComponent, NoTypeHVACComponent
+from dsbxml.base import BaseModel
+from dsbxml.hvac.components import HVACComponent, NoTypeHVACComponent
 
 
 class ZoneElementList(BaseModel):

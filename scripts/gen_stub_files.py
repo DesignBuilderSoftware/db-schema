@@ -1,14 +1,14 @@
 import subprocess
 
-from db_schema.tables import Table
-from db_schema.utils import load_model
+from dsbxml.tables import Table
+from dsbxml.utils import load_model
 
 # Run stubgen first
-subprocess.run(["stubgen", "./db_schema/tables.py"], check=True)
+subprocess.run(["stubgen", "./dsbxml/tables.py"], check=True)
 
 # Load and process the model
 filepath = (
-    r"C:\GitHub\db_schema\samples\models\Shoebox10x10-All.xml"
+    r"C:\GitHub\dsbxml\samples\models\Shoebox10x10-All.xml"
 )
 
 db_xml = load_model(filepath)
@@ -31,8 +31,8 @@ def generate_stub(table: Table) -> str:
     return stub
 
 
-with open("db_schema/tables.pyi", "w") as f1:
-    with open("out/db_schema/tables.pyi") as f2:
+with open("dsbxml/tables.pyi", "w") as f1:
+    with open("out/dsbxml/tables.pyi") as f2:
         f1.write(f2.read())
         f1.write("\n")
 

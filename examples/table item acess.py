@@ -1,5 +1,5 @@
-from db_schema.tables import *
-from db_schema.utils import load_model
+from dsbxml.tables import *
+from dsbxml.utils import load_model
 
 filepath = r"samples\models\Shoebox10x10.xml"
 

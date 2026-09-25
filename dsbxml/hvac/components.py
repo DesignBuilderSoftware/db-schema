@@ -5,10 +5,10 @@ from typing import Annotated, Literal
 from pydantic import Field, field_validator
 from pydantic_xml import attr, element
 
-from db_schema.attributes import NameAttributes, ZoneComponentAttributeList
-from db_schema.base import BaseModel
-from db_schema.geometry import ImageRectangle, LineArray, SegmentList, WrappedPoint3D
-from db_schema.id import ObjectIDs
+from dsbxml.attributes import NameAttributes, ZoneComponentAttributeList
+from dsbxml.base import BaseModel
+from dsbxml.geometry import ImageRectangle, LineArray, SegmentList, WrappedPoint3D
+from dsbxml.id import ObjectIDs
 
 # Several annotations below reference classes that are injected into this
 # module's namespace at model_rebuild() time via __init__.py (to avoid circular
