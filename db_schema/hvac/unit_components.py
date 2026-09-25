@@ -19,22 +19,40 @@ class UnitElementList(BaseModel):
 
 class SupplyFan(NoTypeHVACComponent):
     type: Literal["Supply fan"] = attr()
+
+
 class ZoneADULouvre(NoTypeHVACComponent):
     type: Literal["Zone ADU louvre"] = attr()
+
+
 class ZoneADUPIUIntakeLouvre(NoTypeHVACComponent):
     type: Literal["Zone ADU PIU intake louvre"] = attr()
+
+
 class VariableRefrigerantFlowCoolingDXCoil(NoTypeHVACComponent):
     type: Literal["Variable refrigerant flow cooling DX coil"] = attr()
+
+
 class VariableRefrigerantFlowHeatingDXCoil(NoTypeHVACComponent):
     type: Literal["Variable refrigerant flow heating DX coil"] = attr()
+
+
 class DXCoolingCoil(NoTypeHVACComponent):
     type: Literal["DX cooling coil"] = attr()
+
+
 class DXHeatingCoil(NoTypeHVACComponent):
     type: Literal["DX heating coil"] = attr()
+
+
 class WaterToAirHeatPumpCoolingCoil(NoTypeHVACComponent):
     type: Literal["Water-to-air heat pump cooling coil"] = attr()
+
+
 class WaterToAirHeatPumpHeatingCoil(NoTypeHVACComponent):
     type: Literal["Water-to-air heat pump heating coil"] = attr()
+
+
 UNIT_COMPONENT_MAPPING = {
     "Supply fan": SupplyFan,
     "Zone ADU louvre": ZoneADULouvre,

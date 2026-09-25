@@ -21,9 +21,7 @@ ZoneComponentAttributeList = attributes.ZoneComponentAttributeList
 
 class TestNameAttribute:
     def test_parse_name_and_text_value(self):
-        a = NameAttribute.from_xml(
-            b'<NameAttribute name="Fan efficiency">0.7</NameAttribute>'
-        )
+        a = NameAttribute.from_xml(b'<NameAttribute name="Fan efficiency">0.7</NameAttribute>')
         assert a.name == "Fan efficiency"
         assert a.value == "0.7"
 
@@ -67,9 +65,7 @@ class TestAttributeCollections:
 
     def test_key_attributes_parses_attribute_tags(self):
         kas = KeyAttributes.from_xml(
-            b"<KeyAttributes>"
-            b'<Attribute key="k1">v1</Attribute>'
-            b"</KeyAttributes>"
+            b'<KeyAttributes><Attribute key="k1">v1</Attribute></KeyAttributes>'
         )
         assert len(kas.attribute) == 1
         assert kas.attribute[0].key == "k1"

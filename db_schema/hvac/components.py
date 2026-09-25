@@ -7,7 +7,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import NameAttributes, ZoneComponentAttributeList
 from db_schema.base import BaseModel
-from db_schema.geometry import ImageRectangle, LineArray, Point3D, SegmentList, WrappedPoint3D
+from db_schema.geometry import ImageRectangle, LineArray, SegmentList, WrappedPoint3D
 from db_schema.id import ObjectIDs
 
 # Several annotations below reference classes that are injected into this
@@ -104,10 +104,18 @@ class NoTypeHVACComponent(BaseModel):
     fanPlacement: int = element(tag="FanPlacement", default=0)
 
     # Connection coordinates
-    water_in_connection_coordinate: WrappedPoint3D | None = element(tag="WaterInConnectionCoordinate", default=None)
-    water_out_connection_coordinate: WrappedPoint3D | None = element(tag="WaterOutConnectionCoordinate", default=None)
-    air_in_connection_coordinate: WrappedPoint3D | None = element(tag="AirInConnectionCoordinate", default=None)
-    air_out_connection_coordinate: WrappedPoint3D | None = element(tag="AirOutConnectionCoordinate", default=None)
+    water_in_connection_coordinate: WrappedPoint3D | None = element(
+        tag="WaterInConnectionCoordinate", default=None
+    )
+    water_out_connection_coordinate: WrappedPoint3D | None = element(
+        tag="WaterOutConnectionCoordinate", default=None
+    )
+    air_in_connection_coordinate: WrappedPoint3D | None = element(
+        tag="AirInConnectionCoordinate", default=None
+    )
+    air_out_connection_coordinate: WrappedPoint3D | None = element(
+        tag="AirOutConnectionCoordinate", default=None
+    )
 
     # Attributes
     zone_component_attribute_list: ZoneComponentAttributeList | None = element(

@@ -8,7 +8,7 @@ from pydantic_xml import attr, element
 
 from db_schema.attributes import KeyAttributes, NameAttributes
 from db_schema.base import BaseModel
-from db_schema.geometry import HandlePoint, Line, Point3D, Vertices, WrappedPoint3D
+from db_schema.geometry import HandlePoint, Line, Vertices, WrappedPoint3D
 from db_schema.hvac.network import HVACNetwork
 from db_schema.id import ObjectIDs, current_site_handle
 from db_schema.tables import Tables
@@ -391,8 +391,12 @@ class CFDBoundary(BaseModel):
     type: str = attr()
     polygon: Polygon = element(tag="Polygon")
     cfd_boundary_settings: CFDBoundarySettings = element(tag="CFDBoundarySettings")
-    minimum_refinement_region_point: WrappedPoint3D = element(tag="MinimumRefinementRegionPoint")
-    maximum_refinement_region_point: WrappedPoint3D = element(tag="MaximumRefinementRegionPoint")
+    minimum_refinement_region_point: WrappedPoint3D = element(
+        tag="MinimumRefinementRegionPoint"
+    )
+    maximum_refinement_region_point: WrappedPoint3D = element(
+        tag="MaximumRefinementRegionPoint"
+    )
     cfd_boundary_component_list: None = element(tag="CFDBoundaryComponentList", default=None)
 
 
