@@ -1,5 +1,5 @@
 [project]
-name = "designbuilder_schema"
+name = "db-schema"
 version = "1.0.4"
 description = "Python package for DesignBuilder XML files with read / edit / write functionality."
 requires-python = ">=3.10"
@@ -15,8 +15,8 @@ dependencies = [
 readme = "README.md"
 
 [project.urls]
-Homepage = "https://github.com/tokarzewski/designbuilder_schema"
-"Bug Tracker" = "https://github.com/tokarzewski/designbuilder_schema/issues"
+Homepage = "https://github.com/DesignBuilderSoftware/db-schema"
+"Bug Tracker" = "https://github.com/DesignBuilderSoftware/db-schema/issues"
 
 [tool.setuptools]
 packages = ["db_schema", "db_schema.hvac"]

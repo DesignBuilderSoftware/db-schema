@@ -178,7 +178,7 @@ wheels = [
 ]
 
 [[package]]
-name = "designbuilder-schema"
+name = "db-schema"
 version = "1.0.4"
 source = { editable = "." }
 dependencies = [
