@@ -1,5 +1,5 @@
 site_name: DesignBuilder Schema
-site_url: https://tokarzewski.github.io/designbuilder_schema/
+site_url: https://designbuildersoftware.github.io/db-schema/
 site_description: Automatically generated API documentation for DesignBuilder Schema
 docs_dir: docs_src
 site_dir: docs

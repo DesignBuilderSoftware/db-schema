@@ -1,10 +1,10 @@
 # DesignBuilder Schema - Usage Guide
 
-A comprehensive guide to using the `designbuilder_schema` library for loading, modifying, and saving DesignBuilder XML models.
+A comprehensive guide to using the `db_schema` library for loading, modifying, and saving DesignBuilder XML models.
 
 ## Overview
 
-The `designbuilder_schema` library provides Pydantic-based models for DesignBuilder simulation files. It enables you to:
+The `db_schema` library provides Pydantic-based models for DesignBuilder simulation files. It enables you to:
 
 - **Load** DesignBuilder XML files into Python objects
 - **Modify** building models programmatically
@@ -14,7 +14,7 @@ The `designbuilder_schema` library provides Pydantic-based models for DesignBuil
 ## Installation
 
 ```bash
-pip install designbuilder-schema
+pip install dsbxml
 ```
 
 ## Quick Start
@@ -22,7 +22,7 @@ pip install designbuilder-schema
 ### Loading a Model
 
 ```python
-from designbuilder_schema import load_model
+from db_schema import load_model
 
 # Load a DesignBuilder XML file
 model = load_model("my_building.xml")
@@ -41,7 +41,7 @@ if model.site:
 ### Modifying a Model
 
 ```python
-from designbuilder_schema import load_model, save_model
+from db_schema import load_model, save_model
 
 # Load the model
 model = load_model("my_building.xml")
@@ -77,10 +77,10 @@ if model.site and model.site.buildings:
 ### Creating a New Zone
 
 ```python
-from designbuilder_schema.core import Zone
-from designbuilder_schema.geometry import Point3D
-from designbuilder_schema.attributes import NameAttributes
-from designbuilder_schema.id import ObjectIDs, generate_site_handle
+from db_schema.core import Zone
+from db_schema.geometry import Point3D
+from db_schema.attributes import NameAttributes
+from db_schema.id import ObjectIDs, generate_site_handle
 
 # Create a new zone
 zone = Zone(
@@ -106,7 +106,7 @@ zone = Zone(
 ### Working with Geometry
 
 ```python
-from designbuilder_schema.geometry import Point3D, Vertices
+from db_schema.geometry import Point3D, Vertices
 
 # Create a 3D point
 point = Point3D(value="0, 0, 0")
@@ -129,7 +129,7 @@ vertices.append("0, 1, 0")
 
 ```python
 # Lazy loading: HVAC modules are imported only when accessed
-from designbuilder_schema import HVACNetwork, HVACComponents
+from db_schema import HVACNetwork, HVACComponents
 
 # Access HVAC loops (if present)
 if model.site and hasattr(model.site, 'hvac_network'):
@@ -144,7 +144,7 @@ if model.site and hasattr(model.site, 'hvac_network'):
 The library supports named attributes for most model elements:
 
 ```python
-from designbuilder_schema.attributes import NameAttributes
+from db_schema.attributes import NameAttributes
 
 # Create or modify attributes
 attrs = NameAttributes(
@@ -162,7 +162,7 @@ print(f"Description: {attrs.description}")
 ### File Not Found
 
 ```python
-from designbuilder_schema import load_model
+from db_schema import load_model
 
 try:
     model = load_model("nonexistent.xml")
@@ -173,7 +173,7 @@ except FileNotFoundError:
 ### Invalid File Format
 
 ```python
-from designbuilder_schema import load_model
+from db_schema import load_model
 
 try:
     model = load_model("document.pdf")  # Wrong format
@@ -184,7 +184,7 @@ except ValueError as e:
 ### XML Parsing Errors
 
 ```python
-from designbuilder_schema import load_model
+from db_schema import load_model
 
 try:
     model = load_model("corrupted.xml")
@@ -200,16 +200,16 @@ The library uses lazy loading to minimize import overhead:
 
 ```python
 # Fast import - HVAC modules not loaded yet
-import designbuilder_schema
+import db_schema
 
 # Only when accessed, HVAC modules are loaded
-hvac_net = designbuilder_schema.HVACNetwork  # Lazy load happens here
+hvac_net = db_schema.HVACNetwork  # Lazy load happens here
 ```
 
 If you know you'll be using HVAC features, you can import explicitly to avoid the lazy loading overhead:
 
 ```python
-from designbuilder_schema import HVACNetwork, HVACComponents
+from db_schema import HVACNetwork, HVACComponents
 ```
 
 ### Large File Handling
@@ -217,7 +217,7 @@ from designbuilder_schema import HVACNetwork, HVACComponents
 For very large DesignBuilder files:
 
 ```python
-from designbuilder_schema import load_model
+from db_schema import load_model
 
 # Load the file (will use all available memory)
 model = load_model("large_model.xml")
@@ -235,7 +235,7 @@ if model.site:
 The library uses Pydantic for automatic validation:
 
 ```python
-from designbuilder_schema.attributes import NameAttributes
+from db_schema.attributes import NameAttributes
 
 # Valid creation
 attrs = NameAttributes(name="Test", description="Desc")
@@ -267,7 +267,7 @@ if model.site:
 All model elements have unique handles:
 
 ```python
-from designbuilder_schema.id import current_site_handle, generate_site_handle
+from db_schema.id import current_site_handle, generate_site_handle
 
 # Get the current highest handle
 current = current_site_handle()
@@ -283,7 +283,7 @@ new_handle = generate_site_handle()
 The library maintains data integrity through save/load cycles:
 
 ```python
-from designbuilder_schema import load_model, save_model
+from db_schema import load_model, save_model
 
 # Load original
 model1 = load_model("original.xml")
@@ -356,10 +356,10 @@ Check that the module is correctly imported. For HVAC features, make sure to acc
 from designabilder_schema import HVACNetwork  # Typo!
 
 # Right
-from designbuilder_schema import HVACNetwork
+from db_schema import HVACNetwork
 # Or
-import designbuilder_schema
-hvac_net = designbuilder_schema.HVACNetwork
+import db_schema
+hvac_net = db_schema.HVACNetwork
 ```
 
 ### Model attributes are None
@@ -393,8 +393,8 @@ save_model(model, "file.xml")
 
 Contributions are welcome! The library is structured for extensibility:
 
-- Model classes are in `designbuilder_schema/`
-- Tests are in `designbuilder_schema/tests/`
+- Model classes are in `db_schema/`
+- Tests are in `db_schema/tests/`
 - Integration tests verify round-trip integrity
 - Type hints are used throughout for IDE support
 

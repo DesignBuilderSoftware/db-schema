@@ -1,21 +1,23 @@
-# designbuilder_schema
+# db-schema
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-103%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-241%20passing-brightgreen)
 
 Python package for reading, editing, and writing DesignBuilder XML files using Pydantic and pydantic-xml.
 
 ## Install
 
 ```bash
-pip install designbuilder_schema
+pip install dsbxml
 ```
+
+The PyPI package is named `dsbxml`; the import name is `db_schema`.
 
 ## Quick Start
 
 ```python
-from designbuilder_schema import load_model, save_model
+from db_schema import load_model, save_model
 
 dsb = load_model("building.xml")
 dsb.name = "Updated Building"
@@ -45,9 +47,10 @@ dsbXML
 ## Development
 
 ```bash
-git clone https://github.com/tokarzewski/designbuilder_schema
+git clone https://github.com/DesignBuilderSoftware/db-schema
+cd db-schema
 pip install -e ".[dev]"
-pytest designbuilder_schema/tests/
+pytest
 ```
 
 ## License
