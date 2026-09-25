@@ -14,7 +14,7 @@ dhvac_sample = repo_root / "samples" / "models_dhvac" / "1.xml"
 def hvac_model():
     if not detailed_hvac.exists():
         pytest.skip("DetailedHVAC.xml sample not found")
-    from db_schema.utils import load_model
+    from dsbxml.utils import load_model
 
     return load_model(str(detailed_hvac))
 
@@ -132,7 +132,7 @@ def test_zone_group_has_zone_element_list(hvac_model):
 def test_dhvac_sample_loads():
     if not dhvac_sample.exists():
         pytest.skip("dhvac/1.xml not found")
-    from db_schema.utils import load_model
+    from dsbxml.utils import load_model
 
     m = load_model(str(dhvac_sample))
     assert m is not None
@@ -142,7 +142,7 @@ def test_dhvac_sample_loads():
 def test_dhvac_hvac_network_has_loops():
     if not dhvac_sample.exists():
         pytest.skip("dhvac/1.xml not found")
-    from db_schema.utils import load_model
+    from dsbxml.utils import load_model
 
     m = load_model(str(dhvac_sample))
     net = m.site.buildings.building[0].hvac_network

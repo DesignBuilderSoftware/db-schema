@@ -3,7 +3,7 @@ import threading
 from pydantic import ConfigDict, Field
 from pydantic_xml import attr
 
-from db_schema.base import BaseModel
+from dsbxml.base import BaseModel
 
 _site_counter = 0
 _site_counter_lock = threading.Lock()

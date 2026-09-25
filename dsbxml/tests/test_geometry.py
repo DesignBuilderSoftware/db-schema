@@ -1,5 +1,5 @@
-from db_schema.geometry import Line, Point3D, Range, Vertices, WrappedPoint3D
-from db_schema.id import ObjectIDs
+from dsbxml.geometry import Line, Point3D, Range, Vertices, WrappedPoint3D
+from dsbxml.id import ObjectIDs
 
 
 class TestPoint3D:

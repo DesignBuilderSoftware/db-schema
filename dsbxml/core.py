@@ -6,12 +6,12 @@ from typing import Annotated
 from pydantic import ConfigDict, Field, field_serializer, field_validator
 from pydantic_xml import attr, element
 
-from db_schema.attributes import KeyAttributes, NameAttributes
-from db_schema.base import BaseModel
-from db_schema.geometry import HandlePoint, Line, Vertices, WrappedPoint3D
-from db_schema.hvac.network import HVACNetwork
-from db_schema.id import ObjectIDs, current_site_handle
-from db_schema.tables import Tables
+from dsbxml.attributes import KeyAttributes, NameAttributes
+from dsbxml.base import BaseModel
+from dsbxml.geometry import HandlePoint, Line, Vertices, WrappedPoint3D
+from dsbxml.hvac.network import HVACNetwork
+from dsbxml.id import ObjectIDs, current_site_handle
+from dsbxml.tables import Tables
 
 
 class dsbXML(BaseModel):

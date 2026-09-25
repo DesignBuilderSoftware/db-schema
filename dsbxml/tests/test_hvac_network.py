@@ -1,14 +1,14 @@
-"""Tests for db_schema.hvac.network model construction and serialisation."""
+"""Tests for dsbxml.hvac.network model construction and serialisation."""
 
 import pytest
 
 network = pytest.importorskip(
-    "db_schema.hvac.network",
-    reason="db_schema.hvac.network failed to import",
+    "dsbxml.hvac.network",
+    reason="dsbxml.hvac.network failed to import",
 )
 components = pytest.importorskip(
-    "db_schema.hvac.components",
-    reason="db_schema.hvac.components failed to import",
+    "dsbxml.hvac.components",
+    reason="dsbxml.hvac.components failed to import",
 )
 
 HVACNetwork = network.HVACNetwork
@@ -21,8 +21,8 @@ NoTypeHVACComponent = components.NoTypeHVACComponent
 @pytest.fixture(scope="module", autouse=True)
 def _resolve_forward_refs():
     """Touch the lazy package API so model_rebuild() has run for HVAC models."""
-    db_schema = pytest.importorskip("db_schema")
-    getattr(db_schema, "dsbXML", None)
+    dsbxml = pytest.importorskip("dsbxml")
+    getattr(dsbxml, "dsbXML", None)
 
 
 class TestHVACNetworkModel:

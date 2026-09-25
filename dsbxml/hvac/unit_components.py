@@ -4,8 +4,8 @@ from typing import Literal
 
 from pydantic_xml import attr, element
 
-from db_schema.base import BaseModel
-from db_schema.hvac.components import (
+from dsbxml.base import BaseModel
+from dsbxml.hvac.components import (
     GenericHeatingCoil,
     HVACComponent,
     NoTypeHVACComponent,

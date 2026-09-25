@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from db_schema import load_model, save_model
-from db_schema.id import set_site_counter
+from dsbxml import load_model, save_model
+from dsbxml.id import set_site_counter
 
 
 class TestRoundTrip:
@@ -173,26 +173,26 @@ class TestComplexModels:
 class TestLazyLoading:
     def test_lazy_hvac_components_access(self):
         # Import module freshly
-        import db_schema
+        import dsbxml
 
         # Should be able to access HVACComponents
-        hvac_components_class = db_schema.HVACComponents
+        hvac_components_class = dsbxml.HVACComponents
         assert hvac_components_class is not None
         assert hvac_components_class.__name__ == "HVACComponents"
 
     def test_lazy_hvac_network_access(self):
-        import db_schema
+        import dsbxml
 
         # Should be able to access HVACNetwork
-        hvac_network_class = db_schema.HVACNetwork
+        hvac_network_class = dsbxml.HVACNetwork
         assert hvac_network_class is not None
         assert hvac_network_class.__name__ == "HVACNetwork"
 
     def test_lazy_loading_error_handling(self):
-        import db_schema
+        import dsbxml
 
         with pytest.raises(AttributeError, match="has no attribute 'NonExistent'"):
-            getattr(db_schema, "NonExistent")
+            getattr(dsbxml, "NonExistent")
 
 
 class TestErrorHandling:

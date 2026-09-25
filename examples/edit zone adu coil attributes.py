@@ -1,6 +1,6 @@
 import time
 
-from db_schema.utils import load_model, save_model
+from dsbxml.utils import load_model, save_model
 
 start_time = time.time()  # TIME
 filepath = r".\samples\models\Large10x10x10x8.xml"

@@ -6,8 +6,8 @@ from typing import Annotated
 from pydantic import Field, field_validator
 from pydantic_xml import element
 
-from db_schema.base import BaseModel
-from db_schema.id import ObjectIDs
+from dsbxml.base import BaseModel
+from dsbxml.id import ObjectIDs
 
 
 class Point3D(BaseModel):

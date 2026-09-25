@@ -19,7 +19,7 @@ Homepage = "https://github.com/DesignBuilderSoftware/db-schema"
 "Bug Tracker" = "https://github.com/DesignBuilderSoftware/db-schema/issues"
 
 [tool.setuptools]
-packages = ["db_schema", "db_schema.hvac"]
+packages = ["dsbxml", "dsbxml.hvac"]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff>=0.12.11,<0.13", "pylint>=3.0.3", "pre-commit>=3.6.1", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
@@ -30,10 +30,10 @@ build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["db_schema/tests"]
+testpaths = ["dsbxml/tests"]
 
 [tool.coverage.run]
-source = ["db_schema"]
+source = ["dsbxml"]
 
 [tool.ruff]
 line-length = 96
@@ -58,13 +58,13 @@ ignore = ["E203"]
 max-complexity = 10
 
 [tool.ruff.lint.isort]
-known-first-party = ["db_schema"]
+known-first-party = ["dsbxml"]
 
 [tool.ruff.lint.per-file-ignores]
 # These HVAC component models reference classes that are injected into the
 # module namespace at model_rebuild() time via __init__.py (to avoid circular
 # imports), so ruff cannot resolve the forward references statically.
-"db_schema/hvac/components.py" = ["F821"]
+"dsbxml/hvac/components.py" = ["F821"]
 
 [tool.pylint.main]
 extension-pkg-allow-list = ["lxml"]

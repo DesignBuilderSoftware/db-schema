@@ -1,6 +1,6 @@
-from db_schema.core import Body
-from db_schema.geometry import Point3D
-from db_schema.utils import load_model
+from dsbxml.core import Body
+from dsbxml.geometry import Point3D
+from dsbxml.utils import load_model
 
 filepath = r"samples\models\model from Tiago.xml"
 dsb = load_model(filepath)

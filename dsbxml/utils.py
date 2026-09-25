@@ -1,14 +1,14 @@
 from functools import lru_cache
 from pathlib import Path
 
-from db_schema.id import set_site_counter
+from dsbxml.id import set_site_counter
 
 
 def _get_dsbXML():
     """Import dsbXML through the package to trigger lazy loading and model rebuilds"""
-    import db_schema
+    import dsbxml
 
-    return db_schema.dsbXML
+    return dsbxml.dsbXML
 
 
 @lru_cache(maxsize=32)

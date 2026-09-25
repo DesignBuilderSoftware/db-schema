@@ -26,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev
       - name: Run ruff check
-        run: uv run ruff check db_schema
+        run: uv run ruff check dsbxml
       - name: Run ruff format check
-        run: uv run ruff format --check db_schema
+        run: uv run ruff format --check dsbxml
       - name: Run pylint
-        run: uv run pylint db_schema
+        run: uv run pylint dsbxml
 
   test:
     needs: lint

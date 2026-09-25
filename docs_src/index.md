@@ -11,7 +11,7 @@ pip install dsbxml
 ## Quick start
 
 ```python
-from db_schema.utils import load_model, save_model
+from dsbxml.utils import load_model, save_model
 
 # Load a DesignBuilder XML file
 model = load_model("path/to/model.xml")

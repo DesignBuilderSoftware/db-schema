@@ -9,16 +9,16 @@ import typing
 import pytest
 
 components = pytest.importorskip(
-    "db_schema.hvac.components",
-    reason="db_schema.hvac.components failed to import",
+    "dsbxml.hvac.components",
+    reason="dsbxml.hvac.components failed to import",
 )
 zone_components = pytest.importorskip(
-    "db_schema.hvac.zone_components",
-    reason="db_schema.hvac.zone_components failed to import",
+    "dsbxml.hvac.zone_components",
+    reason="dsbxml.hvac.zone_components failed to import",
 )
 unit_components = pytest.importorskip(
-    "db_schema.hvac.unit_components",
-    reason="db_schema.hvac.unit_components failed to import",
+    "dsbxml.hvac.unit_components",
+    reason="dsbxml.hvac.unit_components failed to import",
 )
 
 HVACComponent = components.HVACComponent
@@ -31,8 +31,8 @@ ZoneElementList = zone_components.ZoneElementList
 @pytest.fixture(scope="module", autouse=True)
 def _resolve_forward_refs():
     """Touch the lazy package API so model_rebuild() has run for HVAC models."""
-    db_schema = pytest.importorskip("db_schema")
-    getattr(db_schema, "dsbXML", None)
+    dsbxml = pytest.importorskip("dsbxml")
+    getattr(dsbxml, "dsbXML", None)
 
 
 def _type_literal(cls):

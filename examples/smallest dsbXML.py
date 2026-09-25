@@ -1,7 +1,7 @@
 import datetime
 
-from db_schema.core import Site, dsbXML
-from db_schema.utils import save_model
+from dsbxml.core import Site, dsbXML
+from dsbxml.utils import save_model
 
 version = "2025.1.1.004"
 

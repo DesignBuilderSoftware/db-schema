@@ -25,7 +25,7 @@ repos:
         pass_filenames: false
         args:
           [
-            db_schema
+            dsbxml
           ]
 
   # Tests

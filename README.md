@@ -12,12 +12,10 @@ Python package for reading, editing, and writing DesignBuilder XML files using P
 pip install dsbxml
 ```
 
-The PyPI package is named `dsbxml`; the import name is `db_schema`.
-
 ## Quick Start
 
 ```python
-from db_schema import load_model, save_model
+from dsbxml import load_model, save_model
 
 dsb = load_model("building.xml")
 dsb.name = "Updated Building"

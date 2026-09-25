@@ -1,4 +1,4 @@
-from db_schema.id import (
+from dsbxml.id import (
     ObjectIDs,
     current_site_handle,
     generate_site_handle,

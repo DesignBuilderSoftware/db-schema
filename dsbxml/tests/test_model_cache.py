@@ -1,10 +1,10 @@
-"""Tests for the load_model cache and file-format guards in db_schema.utils."""
+"""Tests for the load_model cache and file-format guards in dsbxml.utils."""
 
 from pathlib import Path
 
 import pytest
 
-utils = pytest.importorskip("db_schema.utils", reason="db_schema.utils failed to import")
+utils = pytest.importorskip("dsbxml.utils", reason="dsbxml.utils failed to import")
 
 load_model = utils.load_model
 save_model = utils.save_model
@@ -71,7 +71,7 @@ class TestModelCache:
 
 class TestSiteCounterSync:
     def test_load_model_updates_site_counter(self, sample_path):
-        from db_schema.id import current_site_handle, set_site_counter
+        from dsbxml.id import current_site_handle, set_site_counter
 
         set_site_counter(0)
         model = load_model(sample_path, use_cache=False)

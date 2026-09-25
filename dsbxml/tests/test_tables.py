@@ -1,10 +1,10 @@
-"""Tests for db_schema.tables (Table / Tables XML models)."""
+"""Tests for dsbxml.tables (Table / Tables XML models)."""
 
 import pytest
 
 tables_mod = pytest.importorskip(
-    "db_schema.tables",
-    reason="db_schema.tables failed to import",
+    "dsbxml.tables",
+    reason="dsbxml.tables failed to import",
 )
 
 Table = tables_mod.Table

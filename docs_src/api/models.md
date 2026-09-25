@@ -7,7 +7,7 @@ Each class includes full type hints, field definitions, and inheritance informat
 
 Building geometry, thermal zones, surfaces, and structural components.
 
-::: db_schema.core
+::: dsbxml.core
     options:
       members:
         - dsbXML
@@ -29,7 +29,7 @@ Building geometry, thermal zones, surfaces, and structural components.
 
 ## HVAC Network
 
-::: db_schema.hvac.network
+::: dsbxml.hvac.network
     options:
       members:
         - HVACNetwork
@@ -44,7 +44,7 @@ Building geometry, thermal zones, surfaces, and structural components.
 
 ## HVAC Components
 
-::: db_schema.hvac.components
+::: dsbxml.hvac.components
     options:
       members:
         - NoTypeHVACComponent

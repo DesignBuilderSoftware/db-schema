@@ -5,14 +5,14 @@ from typing import Annotated
 from pydantic import Field
 from pydantic_xml import attr, element
 
-from db_schema.attributes import NameAttributes
-from db_schema.base import BaseModel
-from db_schema.geometry import Line, SegmentList, WrappedPoint3D
-from db_schema.hvac.components import (
+from dsbxml.attributes import NameAttributes
+from dsbxml.base import BaseModel
+from dsbxml.geometry import Line, SegmentList, WrappedPoint3D
+from dsbxml.hvac.components import (
     HVACComponents,
     NoTypeHVACComponent,
 )
-from db_schema.id import ObjectIDs
+from dsbxml.id import ObjectIDs
 
 
 class HVACNetwork(BaseModel):

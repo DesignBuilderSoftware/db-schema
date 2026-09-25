@@ -1,4 +1,4 @@
-from db_schema.utils import load_model
+from dsbxml.utils import load_model
 
 
 def report_set(hc):
