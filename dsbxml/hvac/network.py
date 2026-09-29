@@ -11,6 +11,7 @@ from dsbxml.geometry import Line, SegmentList, WrappedPoint3D
 from dsbxml.hvac.components import (
     HVACComponents,
     NoTypeHVACComponent,
+    VRFAirConditionerUnit,
 )
 from dsbxml.id import ObjectIDs
 
@@ -26,6 +27,7 @@ class HVACNetwork(BaseModel):
 
 class HVACLoops(BaseModel):
     hvac_loop: list[HVACLoop] = element(tag="HVACLoop", default_factory=list)
+    hvac_vrf_loop: list[HVACVRFLoop] = element(tag="HVACVRFLoop", default_factory=list)
 
 
 class HVACZoneGroups(BaseModel):
@@ -46,6 +48,16 @@ class HVACLoop(BaseModel):
     )
     demand_sub_loop: DemandSubLoop = element(tag="DemandSubLoop")
     supply_sub_loop: SupplySubLoop = element(tag="SupplySubLoop")
+    attributes: NameAttributes = element(tag="Attributes")
+
+
+class HVACVRFLoop(BaseModel):
+    object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
+        tag="ObjectIDs"
+    )
+    origin: WrappedPoint3D = element(tag="Origin")
+    vrf_air_conditioner_unit: VRFAirConditionerUnit = element(tag="VRFAirConditionerUnit")
+    hvac_connections: HVACConnections = element(tag="HVACConnections")
     attributes: NameAttributes = element(tag="Attributes")
 
 

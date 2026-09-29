@@ -195,6 +195,57 @@ class NoTypeHVACComponent(BaseModel):
         AbsorptionChillerGeneratorHeatExchanger | None
     ) = element(tag="AbsorptionChillerGeneratorHeatExchanger", default=None)
 
+    # Unitary coils: the DX coil that carries the coil's real geometry
+    dx_cooling_coil: UnitaryDXCoolingCoil | None = element(tag="DXCoolingCoil", default=None)
+    dx_heating_coil: UnitaryDXHeatingCoil | None = element(tag="DXHeatingCoil", default=None)
+
+    # Unitary system / unitary heat-cool: optional reheat coil
+    has_reheat_coil: int | None = element(tag="HasReheatCoil", default=None)
+    reheat_coil: ReheatCoil | None = element(tag="ReheatCoil", default=None)
+
+    # Water heater / heat pump / heat exchanger / storage parts
+    hot_water_heat_exchanger: int | None = element(tag="HotWaterHeatExchanger", default=None)
+    heater_element: WaterHeaterElement | None = element(tag="HeaterElement", default=None)
+    heat_pump_condenser: HeatPumpCondenser | None = element(
+        tag="HeatPumpCondenser", default=None
+    )
+    heat_exchanger_element: HeatExchangerElement | None = element(
+        tag="HeatExchangerElement", default=None
+    )
+    chilled_water_storage_heat_exchanger: ChilledWaterStorageHeatExchanger | None = element(
+        tag="ChilledWaterStorageHeatExchanger", default=None
+    )
+
+    # Water heater heat pump: parts and their offsets from the unit origin
+    water_heater: HeatPumpWaterHeaterTank | None = element(tag="WaterHeater", default=None)
+    water_heater_y_offset: float | None = element(tag="WaterHeaterYOffset", default=None)
+    supply_fan: HeatPumpWaterHeaterFan | None = element(tag="SupplyFan", default=None)
+    supply_fan_x_offset: float | None = element(tag="SupplyFanXOffset", default=None)
+    supply_fan_y_offset: float | None = element(tag="SupplyFanYOffset", default=None)
+    air_to_water_heat_pump_coil: AirToWaterHeatPumpCoil | None = element(
+        tag="AirToWaterHeatPumpCoil", default=None
+    )
+    air_to_water_heat_pump_coil_x_offset: float | None = element(
+        tag="AirToWaterHeatPumpCoilXOffset", default=None
+    )
+    air_to_water_heat_pump_coil_y_offset: float | None = element(
+        tag="AirToWaterHeatPumpCoilYOffset", default=None
+    )
+    air_to_water_hp_coil_connections: AirToWaterHPCoilConnections | None = element(
+        tag="AirToWaterHPCoilConnections", default=None
+    )
+
+    # Domestic water connections
+    water_equipment_list: WaterEquipmentList | None = element(
+        tag="WaterEquipmentList", default=None
+    )
+
+    # VRF air conditioner unit
+    refrigerant_connected: int | None = element(tag="RefrigerantConnected", default=None)
+    refrigerant_connection_coordinate: WrappedPoint3D | None = element(
+        tag="RefrigerantConnectionCoordinate", default=None
+    )
+
     # HVACZoneGroup (injected via __init__.py before model_rebuild)
     valid_zone_group: str | None = element(tag="ValidZoneGroup", default=None)
     zone_group_attributes: NameAttributes | None = element(
@@ -213,6 +264,17 @@ class NoTypeHVACComponent(BaseModel):
     mixing_box: MixingBox | None = element(tag="MixingBox", default=None)
     cooled_beam: CooledBeam | None = element(tag="CooledBeam", default=None)
     unit_element_list: UnitElementList | None = element(tag="UnitElementList", default=None)
+    supply_louvre: SupplyLouvre | None = element(tag="SupplyLouvre", default=None)
+    dual_duct_mixing_box: DualDuctMixingBox | None = element(
+        tag="DualDuctMixingBox", default=None
+    )
+    outdoor_air_supply: int | None = element(tag="OutdoorAirSupply", default=None)
+    warm_air_in_connected: int | None = element(tag="WarmAirInConnected", default=None)
+    cold_air_in_connected: int | None = element(tag="ColdAirInConnected", default=None)
+    has_heating_element: int | None = element(tag="HasHeatingElement", default=None)
+    heating_element: RadiantHeatingElement | None = element(tag="HeatingElement", default=None)
+    has_cooling_element: int | None = element(tag="HasCoolingElement", default=None)
+    cooling_element: RadiantCoolingElement | None = element(tag="CoolingElement", default=None)
 
 
 # ---------------------------------------------------------------------------
@@ -290,6 +352,9 @@ class OutdoorAirSystem(NoTypeHVACComponent):
     heat_recovery_device: HeatRecoveryDevice | None = element(
         tag="HeatRecoveryDevice", default=None
     )
+    component_list: OutdoorAirSystemComponentList | None = element(
+        tag="OutdoorAirSystemComponentList", default=None
+    )
 
 
 class IntakeDamper(NoTypeHVACComponent):
@@ -313,6 +378,86 @@ class MixingDamper(NoTypeHVACComponent):
 
 
 class HeatRecoveryDevice(NoTypeHVACComponent):
+    pass
+
+
+class OutdoorAirSystemHVACComponent(HVACComponent):
+    pass
+
+
+class OutdoorAirSystemComponentList(BaseModel):
+    outdoor_air_system_hvac_component: list[OutdoorAirSystemHVACComponent] = element(
+        tag="OutdoorAirSystemHVACComponent", default_factory=list
+    )
+
+
+# Parts nested inside another component. They have no ``type`` attribute (the
+# XML tag names the role), so each is a plain NoTypeHVACComponent subclass.
+class UnitaryDXCoolingCoil(NoTypeHVACComponent):
+    """The DX coil inside a "Unitary cooling coil" (tag ``DXCoolingCoil``)."""
+
+
+class UnitaryDXHeatingCoil(NoTypeHVACComponent):
+    """The DX coil inside a "Unitary heating coil" (tag ``DXHeatingCoil``)."""
+
+
+class ReheatCoil(NoTypeHVACComponent):
+    pass
+
+
+class WaterHeaterElement(NoTypeHVACComponent):
+    """The heater element of a water heater (tag ``HeaterElement``)."""
+
+
+class HeatPumpCondenser(NoTypeHVACComponent):
+    pass
+
+
+class HeatExchangerElement(NoTypeHVACComponent):
+    pass
+
+
+class ChilledWaterStorageHeatExchanger(NoTypeHVACComponent):
+    pass
+
+
+class RadiantHeatingElement(NoTypeHVACComponent):
+    """Heating element of a zone radiant surface (tag ``HeatingElement``)."""
+
+
+class RadiantCoolingElement(NoTypeHVACComponent):
+    """Cooling element of a zone radiant surface (tag ``CoolingElement``)."""
+
+
+class DualDuctMixingBox(NoTypeHVACComponent):
+    pass
+
+
+class SupplyLouvre(NoTypeHVACComponent):
+    pass
+
+
+class HeatPumpWaterHeaterTank(NoTypeHVACComponent):
+    """The water heater inside a "Water heater heat pump" (tag ``WaterHeater``)."""
+
+
+class HeatPumpWaterHeaterFan(NoTypeHVACComponent):
+    """The supply fan inside a "Water heater heat pump" (tag ``SupplyFan``)."""
+
+
+class AirToWaterHeatPumpCoil(NoTypeHVACComponent):
+    pass
+
+
+class AirToWaterHPCoilConnections(BaseModel):
+    line_array: LineArray | None = element(tag="LineArray", default=None)
+
+
+class WaterEquipmentList(BaseModel):
+    hvac_component: list[HVACComponent] = element(tag="HVACComponent", default_factory=list)
+
+
+class VRFAirConditionerUnit(NoTypeHVACComponent):
     pass
 
 
