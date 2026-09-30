@@ -157,7 +157,8 @@ class ImageRectangle(BaseModel):
 
 
 class SegmentList(BaseModel):
-    line_array: LineArray = element(tag="LineArray")
+    # Real files have both populated and empty (<SegmentList></SegmentList>) forms.
+    line_array: LineArray | None = element(tag="LineArray", default=None)
 
 
 class LineArray(BaseModel):

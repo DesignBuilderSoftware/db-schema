@@ -7,8 +7,8 @@ from pydantic import ConfigDict, Field, field_serializer, field_validator
 from pydantic_xml import attr, element
 
 from dsbxml.attributes import KeyAttributes, NameAttributes
-from dsbxml.base import BaseModel
-from dsbxml.geometry import HandlePoint, Line, Vertices, WrappedPoint3D
+from dsbxml.base import BaseModel, XSDFloat
+from dsbxml.geometry import HandlePoint, Line, SegmentList, Vertices, WrappedPoint3D
 from dsbxml.hvac.network import HVACNetwork
 from dsbxml.id import ObjectIDs, current_site_handle
 from dsbxml.tables import Tables
@@ -93,8 +93,8 @@ class ComponentBlock(BaseModel):
 
 
 class Body(BaseModel):
-    volume: float = attr()
-    extrusionHeight: float = attr()
+    volume: XSDFloat = attr()
+    extrusionHeight: XSDFloat = attr()
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
@@ -112,17 +112,20 @@ class Surfaces(BaseModel):
 
 class Surface(BaseModel):
     type: str = attr()
-    area: float = attr()
-    alpha: float = attr()
-    phi: float = attr()
-    defaultopenings: str | None = attr(default=None)
+    area: XSDFloat = attr()
+    alpha: XSDFloat = attr()
+    phi: XSDFloat = attr()
+    # name="defaultOpenings": the real attribute casing in DesignBuilder XML
+    defaultopenings: str | None = attr(name="defaultOpenings", default=None)
     adjacentPartitionHandle: int = attr()
-    thickness: float = attr()
+    thickness: XSDFloat = attr()
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
     vertex_indices: str | None = element(tag="VertexIndices", default=None)
-    hole_indices: str | None = element(tag="HoleIndices", default=None)
+    # Always present in real files, empty when the surface has no holes; an
+    # empty string is written back as an empty element (the schema requires it).
+    hole_indices: str = element(tag="HoleIndices", default="")
     openings: Openings | None = element(tag="Openings", default=None)
     adjacencies: Adjacencies | None = element(tag="Adjacencies", default=None)
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
@@ -136,6 +139,8 @@ class Opening(BaseModel):
     type: str = attr()
     polygon: Polygon = element(tag="Polygon")
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
+    # Real files always have a <SegmentList> here (empty or with lines).
+    segment_list: SegmentList | None = element(tag="SegmentList", default=None)
     cfd_segment_list: CFDSegmentList | None = element(tag="CFDSegmentList", default=None)
 
 
@@ -145,7 +150,7 @@ class Adjacencies(BaseModel):
 
 class Adjacency(BaseModel):
     type: str = attr()
-    adjacencyDistance: float = attr()
+    adjacencyDistance: XSDFloat = attr()
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
@@ -196,11 +201,11 @@ class BuildingBlocks(BaseModel):
 
 class BuildingBlock(BaseModel):
     type: str = attr()
-    height: float = attr()
-    roofSlope: float = attr()
-    roofOverlap: float = attr()
+    height: XSDFloat = attr()
+    roofSlope: XSDFloat = attr()
+    roofOverlap: XSDFloat = attr()
     roofType: str = attr()
-    wallSlope: float = attr()
+    wallSlope: XSDFloat = attr()
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
     )
@@ -229,8 +234,8 @@ class InternalPartitions(BaseModel):
 
 class InternalPartition(BaseModel):
     type: str = attr()
-    height: float = attr()
-    area: float = attr()
+    height: XSDFloat = attr()
+    area: XSDFloat = attr()
     floatingPartition: bool = attr()
     object_ids: Annotated[ObjectIDs, Field(default_factory=ObjectIDs)] = element(
         tag="ObjectIDs"
@@ -257,8 +262,8 @@ class Zone(BaseModel):
 
 
 class ProfileBody(BaseModel):
-    elementSlope: float = attr()
-    roofOverlap: float = attr()
+    elementSlope: XSDFloat = attr()
+    roofOverlap: XSDFloat = attr()
     body: Body = element(tag="Body")
 
 
@@ -405,27 +410,27 @@ class CFDSegmentList(BaseModel):
 
 
 class CFDBoundarySettings(BaseModel):
-    temperature: float = attr()
-    flowRate: float = attr()
-    xDirectionDischargeAngle: float = attr()
-    yDirectionDischargeAngle: float = attr()
-    multiWayDiffuserDischargeAngle: float = attr()
+    temperature: XSDFloat = attr()
+    flowRate: XSDFloat = attr()
+    xDirectionDischargeAngle: XSDFloat = attr()
+    yDirectionDischargeAngle: XSDFloat = attr()
+    multiWayDiffuserDischargeAngle: XSDFloat = attr()
     twoWayDiffuserDischargeDirection: int = attr()
-    minimumDischargeVelocity: float = attr()
-    actualDischargeVelocity: float = attr()
-    heatFlux: float = attr()
-    pressure: float = attr()
+    minimumDischargeVelocity: XSDFloat = attr()
+    actualDischargeVelocity: XSDFloat = attr()
+    heatFlux: XSDFloat = attr()
+    pressure: XSDFloat = attr()
     pressureType: int = attr()
-    moistureSource: float = attr()
-    contaminantSource: float = attr()
-    relativeHumidity: float = attr()
-    nonOrthoElementWidth: float = attr()
-    nonOrthoElementHeight: float = attr()
-    nonOrthoFaceOffset: float = attr()
-    nonOrthoElementXSpacing: float = attr()
-    nonOrthoElementYSpacing: float = attr()
-    nonOrthoElementXEdgeOffset: float = attr()
-    nonOrthoElementYEdgeOffset: float = attr()
-    diffuser_element_dimension: float = attr()
-    refinement_region_distance: float = attr()
+    moistureSource: XSDFloat = attr()
+    contaminantSource: XSDFloat = attr()
+    relativeHumidity: XSDFloat = attr()
+    nonOrthoElementWidth: XSDFloat = attr()
+    nonOrthoElementHeight: XSDFloat = attr()
+    nonOrthoFaceOffset: XSDFloat = attr()
+    nonOrthoElementXSpacing: XSDFloat = attr()
+    nonOrthoElementYSpacing: XSDFloat = attr()
+    nonOrthoElementXEdgeOffset: XSDFloat = attr()
+    nonOrthoElementYEdgeOffset: XSDFloat = attr()
+    diffuser_element_dimension: XSDFloat = attr()
+    refinement_region_distance: XSDFloat = attr()
     refinement_region_level: int = attr()
