@@ -83,4 +83,5 @@ def validate_against_xsd(source) -> list[str]:
         document = etree.fromstring(xml).getroottree()
     schema = _xsd_schema()
     schema.validate(document)
-    return [error.message for error in schema.error_log]
+    # lxml's error_log is a C extension type pylint cannot see is iterable.
+    return [error.message for error in schema.error_log]  # pylint: disable=not-an-iterable

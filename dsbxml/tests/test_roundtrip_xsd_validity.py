@@ -71,8 +71,9 @@ def test_loaded_handles_come_from_the_file(xsd_schema):
     geometry = {"Building", "BuildingBlock", "Zone", "Surface", "Opening", "Adjacency"}
 
     def handles(root):
-        return [el.get("handle") for el in root.iter("ObjectIDs")
-                if el.getparent().tag in geometry]
+        return [
+            el.get("handle") for el in root.iter("ObjectIDs") if el.getparent().tag in geometry
+        ]
 
     sample = sample_files[0]
     source = etree.parse(str(sample)).getroot()
@@ -133,7 +134,11 @@ def test_hvac_components_keep_the_schema_child_order():
     written = etree.fromstring(_round_trip(sample))
     for component in written.iter("HVACComponent"):
         tags = [c.tag for c in component]
-        if "ImageRectangle" in tags and "Attributes" in tags and "ZoneComponentAttributeList" in tags:
+        if (
+            "ImageRectangle" in tags
+            and "Attributes" in tags
+            and "ZoneComponentAttributeList" in tags
+        ):
             assert tags.index("Attributes") < tags.index("ZoneComponentAttributeList")
         if "Origin" in tags and "Width" in tags:
             assert tags.index("Width") < tags.index("Origin")
