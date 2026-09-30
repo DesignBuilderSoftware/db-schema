@@ -6,7 +6,7 @@ from pydantic import Field, field_validator
 from pydantic_xml import attr, element
 
 from dsbxml.attributes import NameAttributes, ZoneComponentAttributeList
-from dsbxml.base import BaseModel
+from dsbxml.base import BaseModel, XSDFloat
 from dsbxml.geometry import ImageRectangle, LineArray, SegmentList, WrappedPoint3D
 from dsbxml.id import ObjectIDs
 
@@ -71,13 +71,20 @@ class IntakeUnitComponentList(BaseModel):
 
 
 class NoTypeHVACComponent(BaseModel):
-    # Shared image / positioning
+    type: str | None = attr(default=None)
+
+    # The schema puts these first, before ImageRectangle, for the types that have
+    # them (an outdoor air system; the water heater inside a heat pump water
+    # heater). pydantic writes base-class fields before subclass fields, so they
+    # are declared here, unset (and so not written) for every other type.
+    heat_recovery: int | None = element(tag="HeatRecovery", default=None)
+    recirculation: int | None = element(tag="Recirculation", default=None)
+    hot_water_heat_exchanger: int | None = element(tag="HotWaterHeatExchanger", default=None)
+
     image_rectangle: ImageRectangle | None = element(tag="ImageRectangle", default=None)
     connecting_plant_loop_handle: list[int] = element(
         tag="ConnectingPlantLoopHandle", default_factory=list
     )
-
-    # Loop / connection metadata (formerly attr(), now element())
     connectingAirLoopHandle: int = element(tag="ConnectingAirLoopHandle", default=-1)
     loopType: int = element(tag="LoopType", default=0)
     subLoopType: int = element(tag="SubLoopType", default=0)
@@ -85,7 +92,7 @@ class NoTypeHVACComponent(BaseModel):
     airLoopDuctType: int = element(tag="AirLoopDuctType", default=0)
     componentType: int = element(tag="ComponentType", default=0)
     location: int = element(tag="Location", default=0)
-    connectionOffset: float = element(tag="ConnectionOffset", default=0.0)
+    connectionOffset: XSDFloat = element(tag="ConnectionOffset", default=0.0)
     editable: int = element(tag="Editable", default=0)
     zoneBranchFlag: int = element(tag="ZoneBranchFlag", default=0)
     orientation: int = element(tag="Orientation", default=0)
@@ -102,8 +109,6 @@ class NoTypeHVACComponent(BaseModel):
     airInConnected: int = element(tag="AirInConnected", default=0)
     airOutConnected: int = element(tag="AirOutConnected", default=0)
     fanPlacement: int = element(tag="FanPlacement", default=0)
-
-    # Connection coordinates
     water_in_connection_coordinate: WrappedPoint3D | None = element(
         tag="WaterInConnectionCoordinate", default=None
     )
@@ -116,37 +121,15 @@ class NoTypeHVACComponent(BaseModel):
     air_out_connection_coordinate: WrappedPoint3D | None = element(
         tag="AirOutConnectionCoordinate", default=None
     )
-
-    # Attributes
+    attributes: NameAttributes | None = element(tag="Attributes", default=None)
     zone_component_attribute_list: ZoneComponentAttributeList | None = element(
         tag="ZoneComponentAttributeList", default=None
     )
-    attributes: NameAttributes | None = element(tag="Attributes", default=None)
-
-    # Type discriminator — present as XML attribute on every HVAC component
-    type: str = attr(default="")
-
-    # -----------------------------------------------------------------------
-    # Fields previously bare (no XML mapping) on subclasses — now properly
-    # mapped here so every component type parses them correctly.
-    # -----------------------------------------------------------------------
-
-    # Geometry / positioning (AHU, Splitter/Mixer, zone units, zone groups)
-    origin: WrappedPoint3D | None = element(tag="Origin", default=None)
-    width: float | None = element(tag="Width", default=None)
-    height: float | None = element(tag="Height", default=None)
-    mixing_box_width: float | None = element(tag="MixingBoxWidth", default=None)
-
-    # Splitter / Mixer / Zone splitter / Zone mixer
+    refrigerant_connected: int | None = element(tag="RefrigerantConnected", default=None)
+    valid_zone_group: str | None = element(tag="ValidZoneGroup", default=None)
+    width: XSDFloat | None = element(tag="Width", default=None)
+    height: XSDFloat | None = element(tag="Height", default=None)
     loop_flow_direction: int | None = element(tag="LoopFlowDirection", default=None)
-    hvac_connector_node: HVACConnectorNode | None = element(
-        tag="HVACConnectorNode", default=None
-    )
-    branch_connection_list: BranchConnectionList | None = element(
-        tag="BranchConnectionList", default=None
-    )
-
-    # Sub-loop node
     number_of_flow_connections: int | None = element(
         tag="NumberOfFlowConnections", default=None
     )
@@ -154,14 +137,36 @@ class NoTypeHVACComponent(BaseModel):
     hvac_sub_loop_node_connection: HVACSubLoopNodeConnection | None = element(
         tag="HVACSubLoopNodeConnection", default=None
     )
-
-    # Setpoint manager
+    origin: WrappedPoint3D | None = element(tag="Origin", default=None)
     control_point: WrappedPoint3D | None = element(tag="ControlPoint", default=None)
     upstream_node: WrappedPoint3D | None = element(tag="UpStreamNode", default=None)
     downstream_node: WrappedPoint3D | None = element(tag="DownStreamNode", default=None)
     segment_list: SegmentList | None = element(tag="SegmentList", default=None)
-
-    # AHU / Unitary system
+    water_equipment_list: WaterEquipmentList | None = element(
+        tag="WaterEquipmentList", default=None
+    )
+    hvac_connector_node: HVACConnectorNode | None = element(
+        tag="HVACConnectorNode", default=None
+    )
+    branch_connection_list: BranchConnectionList | None = element(
+        tag="BranchConnectionList", default=None
+    )
+    dx_heating_coil: UnitaryDXHeatingCoil | None = element(tag="DXHeatingCoil", default=None)
+    refrigerant_connection_coordinate: WrappedPoint3D | None = element(
+        tag="RefrigerantConnectionCoordinate", default=None
+    )
+    building_zone_handle_list: BuildingZoneHandle | None = element(
+        tag="BuildingZoneHandleList", default=None
+    )
+    dx_cooling_coil: UnitaryDXCoolingCoil | None = element(tag="DXCoolingCoil", default=None)
+    water_cooled_condenser: WaterCooledCondenser | None = element(
+        tag="WaterCooledCondenser", default=None
+    )
+    zone_element_list: ZoneElementList | None = element(tag="ZoneElementList", default=None)
+    zone_group_attributes: NameAttributes | None = element(
+        tag="ZoneGroupAttributes", default=None
+    )
+    mixing_box_width: XSDFloat | None = element(tag="MixingBoxWidth", default=None)
     fan_type: int | None = element(tag="FanType", default=None)
     doas_air_in_connected: int | None = element(tag="DOASAirInConnected", default=None)
     doas_air_out_connected: int | None = element(tag="DOASAirOutConnected", default=None)
@@ -180,11 +185,6 @@ class NoTypeHVACComponent(BaseModel):
         tag="IntakeUnitComponentList", default=None
     )
     line_array: LineArray | None = element(tag="LineArray", default=None)
-
-    # Chiller
-    water_cooled_condenser: WaterCooledCondenser | None = element(
-        tag="WaterCooledCondenser", default=None
-    )
     chiller_hr_heat_exchanger: ChillerHRHeatExchanger | None = element(
         tag="ChillerHRHeatExchanger", default=None
     )
@@ -194,17 +194,8 @@ class NoTypeHVACComponent(BaseModel):
     absorption_chiller_generator_heat_exchanger: (
         AbsorptionChillerGeneratorHeatExchanger | None
     ) = element(tag="AbsorptionChillerGeneratorHeatExchanger", default=None)
-
-    # Unitary coils: the DX coil that carries the coil's real geometry
-    dx_cooling_coil: UnitaryDXCoolingCoil | None = element(tag="DXCoolingCoil", default=None)
-    dx_heating_coil: UnitaryDXHeatingCoil | None = element(tag="DXHeatingCoil", default=None)
-
-    # Unitary system / unitary heat-cool: optional reheat coil
     has_reheat_coil: int | None = element(tag="HasReheatCoil", default=None)
     reheat_coil: ReheatCoil | None = element(tag="ReheatCoil", default=None)
-
-    # Water heater / heat pump / heat exchanger / storage parts
-    hot_water_heat_exchanger: int | None = element(tag="HotWaterHeatExchanger", default=None)
     heater_element: WaterHeaterElement | None = element(tag="HeaterElement", default=None)
     heat_pump_condenser: HeatPumpCondenser | None = element(
         tag="HeatPumpCondenser", default=None
@@ -215,49 +206,23 @@ class NoTypeHVACComponent(BaseModel):
     chilled_water_storage_heat_exchanger: ChilledWaterStorageHeatExchanger | None = element(
         tag="ChilledWaterStorageHeatExchanger", default=None
     )
-
-    # Water heater heat pump: parts and their offsets from the unit origin
     water_heater: HeatPumpWaterHeaterTank | None = element(tag="WaterHeater", default=None)
-    water_heater_y_offset: float | None = element(tag="WaterHeaterYOffset", default=None)
+    water_heater_y_offset: XSDFloat | None = element(tag="WaterHeaterYOffset", default=None)
     supply_fan: HeatPumpWaterHeaterFan | None = element(tag="SupplyFan", default=None)
-    supply_fan_x_offset: float | None = element(tag="SupplyFanXOffset", default=None)
-    supply_fan_y_offset: float | None = element(tag="SupplyFanYOffset", default=None)
+    supply_fan_x_offset: XSDFloat | None = element(tag="SupplyFanXOffset", default=None)
+    supply_fan_y_offset: XSDFloat | None = element(tag="SupplyFanYOffset", default=None)
     air_to_water_heat_pump_coil: AirToWaterHeatPumpCoil | None = element(
         tag="AirToWaterHeatPumpCoil", default=None
     )
-    air_to_water_heat_pump_coil_x_offset: float | None = element(
+    air_to_water_heat_pump_coil_x_offset: XSDFloat | None = element(
         tag="AirToWaterHeatPumpCoilXOffset", default=None
     )
-    air_to_water_heat_pump_coil_y_offset: float | None = element(
+    air_to_water_heat_pump_coil_y_offset: XSDFloat | None = element(
         tag="AirToWaterHeatPumpCoilYOffset", default=None
     )
     air_to_water_hp_coil_connections: AirToWaterHPCoilConnections | None = element(
         tag="AirToWaterHPCoilConnections", default=None
     )
-
-    # Domestic water connections
-    water_equipment_list: WaterEquipmentList | None = element(
-        tag="WaterEquipmentList", default=None
-    )
-
-    # VRF air conditioner unit
-    refrigerant_connected: int | None = element(tag="RefrigerantConnected", default=None)
-    refrigerant_connection_coordinate: WrappedPoint3D | None = element(
-        tag="RefrigerantConnectionCoordinate", default=None
-    )
-
-    # HVACZoneGroup (injected via __init__.py before model_rebuild)
-    valid_zone_group: str | None = element(tag="ValidZoneGroup", default=None)
-    zone_group_attributes: NameAttributes | None = element(
-        tag="ZoneGroupAttributes", default=None
-    )
-    # Zone group (types injected at model_rebuild time — see __init__.py)
-    zone_element_list: ZoneElementList | None = element(tag="ZoneElementList", default=None)
-    building_zone_handle_list: BuildingZoneHandle | None = element(
-        tag="BuildingZoneHandleList", default=None
-    )
-
-    # Zone components (types injected at model_rebuild time — see __init__.py)
     supply_diffuser: SupplyDiffuser | None = element(tag="SupplyDiffuser", default=None)
     extract_grille: ExtractGrille | None = element(tag="ExtractGrille", default=None)
     intake_louvre: IntakeLouvre | None = element(tag="IntakeLouvre", default=None)

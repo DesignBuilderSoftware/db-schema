@@ -57,3 +57,31 @@ def save_model(model, filepath: str | Path) -> None:
             f.write(xml_output)
         else:
             f.write(xml_output.encode("utf-8"))
+
+
+@lru_cache(maxsize=1)
+def _xsd_schema():
+    from lxml import etree
+
+    return etree.XMLSchema(etree.parse(str(Path(__file__).with_name("DesignBuilder.xsd"))))
+
+
+def validate_against_xsd(source) -> list[str]:
+    """Check a model, an XML file path or XML bytes against DesignBuilder.xsd.
+
+    Returns the schema's error messages; an empty list means the XML is valid.
+    A loaded model is serialised first, so this also tells whether saving it
+    would produce a file DesignBuilder's schema accepts.
+    """
+    from lxml import etree
+
+    if isinstance(source, (str, Path)):
+        document = etree.parse(str(source))
+    else:
+        xml = source if isinstance(source, bytes) else source.to_xml()
+        xml = xml if isinstance(xml, bytes) else xml.encode("utf-8")
+        document = etree.fromstring(xml).getroottree()
+    schema = _xsd_schema()
+    schema.validate(document)
+    # lxml's error_log is a C extension type pylint cannot see is iterable.
+    return [error.message for error in schema.error_log]  # pylint: disable=not-an-iterable

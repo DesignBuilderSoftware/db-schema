@@ -1,6 +1,6 @@
 import threading
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict
 from pydantic_xml import attr
 
 from dsbxml.base import BaseModel
@@ -28,7 +28,7 @@ def set_site_counter(value: int) -> None:
 
 
 class ObjectIDs(BaseModel):
-    handle: int = Field(default_factory=generate_site_handle)
+    handle: int = attr(default_factory=generate_site_handle)
     buildingHandle: int = attr(default=-1)
     buildingBlockHandle: int = attr(default=-1)
     zoneHandle: int = attr(default=-1)
