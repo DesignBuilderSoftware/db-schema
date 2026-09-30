@@ -53,4 +53,4 @@ pytest
 
 ## License
 
-MIT — [Bartłomiej Tokarzewski](https://github.com/tokarzewski)
+MIT — [DesignBuilder](https://github.com/DesignBuilderSoftware), [Bartłomiej Tokarzewski](https://github.com/tokarzewski)
