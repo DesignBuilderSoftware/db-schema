@@ -18,7 +18,7 @@ from dsbxml.utils import load_model
 
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-xsd_path = repo_root / "DesignBuilder.xsd"
+xsd_path = test_dir.parent / "DesignBuilder.xsd"
 sample_files = sorted((repo_root / "samples" / "models_dhvac").glob("*.xml"))
 
 
@@ -137,3 +137,17 @@ def test_hvac_components_keep_the_schema_child_order():
             assert tags.index("Attributes") < tags.index("ZoneComponentAttributeList")
         if "Origin" in tags and "Width" in tags:
             assert tags.index("Width") < tags.index("Origin")
+
+
+def test_validate_against_xsd_accepts_a_round_tripped_model():
+    from dsbxml.utils import validate_against_xsd
+
+    sample = next(f for f in sample_files if not validate_against_xsd(f))
+    assert validate_against_xsd(load_model(str(sample))) == []
+
+
+def test_validate_against_xsd_reports_problems():
+    from dsbxml.utils import validate_against_xsd
+
+    errors = validate_against_xsd(b"<dsbXML><Nonsense/></dsbXML>")
+    assert errors and all(isinstance(message, str) for message in errors)

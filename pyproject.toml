@@ -21,6 +21,9 @@ Homepage = "https://github.com/DesignBuilderSoftware/db-schema"
 [tool.setuptools]
 packages = ["dsbxml", "dsbxml.hvac"]
 
+[tool.setuptools.package-data]
+dsbxml = ["DesignBuilder.xsd"]
+
 [project.optional-dependencies]
 dev = ["pytest", "ruff>=0.12.11,<0.13", "pylint>=3.0.3", "pre-commit>=3.6.1", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
 

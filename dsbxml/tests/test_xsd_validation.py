@@ -17,7 +17,7 @@ def get_filepaths(directory, extension=".xml"):
 # Get paths relative to repository root
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-xsd_path = repo_root / "DesignBuilder.xsd"
+xsd_path = test_dir.parent / "DesignBuilder.xsd"
 models_folder = repo_root / "samples" / "models_dhvac"
 
 xml_filepaths = get_filepaths(str(models_folder), extension=".xml")
