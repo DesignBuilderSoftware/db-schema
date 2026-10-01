@@ -77,6 +77,14 @@ class AssemblyLibrary(BaseModel):
     # <Assembly> children when a model has no assemblies.
     assembly: list[Assembly] = element(tag="Assembly", default_factory=list)
 
+    @field_serializer("assemblyHandle")
+    def serialize_assembly_handle(self, value: int) -> int:
+        # The library's handle is the next free assembly handle, so it follows
+        # the assemblies it holds. A library without assemblies keeps its own.
+        if not self.assembly:
+            return value
+        return max(item.assemblyHandle for item in self.assembly) + 1
+
 
 class Assembly(BaseModel):
     assemblyHandle: int = attr()
