@@ -3,11 +3,12 @@ from __future__ import annotations
 import datetime
 from typing import Annotated
 
-from pydantic import ConfigDict, Field, field_serializer, field_validator
+from pydantic import ConfigDict, Field, ValidationError, field_serializer, field_validator
 from pydantic_xml import attr, element
 
 from dsbxml.attributes import KeyAttributes, NameAttributes
 from dsbxml.base import BaseModel, XSDFloat
+from dsbxml.errors import ModelValidationError
 from dsbxml.geometry import HandlePoint, Line, SegmentList, Vertices, WrappedPoint3D
 from dsbxml.hvac.network import HVACNetwork
 from dsbxml.id import ObjectIDs, current_site_handle
@@ -36,7 +37,10 @@ class dsbXML(BaseModel):
         else:
             root = source
 
-        instance = super().from_xml_tree(root)
+        try:
+            instance = super().from_xml_tree(root)
+        except ValidationError as exc:
+            raise ModelValidationError(exc, root=root) from exc
         return instance
 
     def to_xml(self, **kwargs) -> str | bytes:

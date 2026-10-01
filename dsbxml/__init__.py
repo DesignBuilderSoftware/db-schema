@@ -114,4 +114,13 @@ def __getattr__(name: str):
 
         return HVACNetwork
 
+    if name in ("diff_models", "ModelDiff"):
+        from dsbxml import diffing
+
+        return getattr(diffing, name)
+    if name == "ModelValidationError":
+        from dsbxml.errors import ModelValidationError  # noqa: F401
+
+        return ModelValidationError
+
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
