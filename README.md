@@ -25,7 +25,6 @@ save_model(dsb, "building_updated.xml")
 ## Features
 
 - Type-safe XML handling via Pydantic v2
-- XXE attack protection built-in
 - Full DesignBuilder XML schema support including HVAC
 - Load/save XML and JSON formats
 
