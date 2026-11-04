@@ -208,7 +208,8 @@ class Building(BaseModel):
 
 
 class BuildingBlocks(BaseModel):
-    building_block: list[BuildingBlock] = element(tag="BuildingBlock")
+    # The schema allows <BuildingBlocks/> with no blocks (minOccurs="0").
+    building_block: list[BuildingBlock] = element(tag="BuildingBlock", default_factory=list)
 
 
 class BuildingBlock(BaseModel):
@@ -257,7 +258,8 @@ class InternalPartition(BaseModel):
 
 
 class Zones(BaseModel):
-    zone: list[Zone] = element(tag="Zone")
+    # The schema allows <Zones/> with no zones (minOccurs="0").
+    zone: list[Zone] = element(tag="Zone", default_factory=list)
 
 
 class Zone(BaseModel):
