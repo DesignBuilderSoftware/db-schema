@@ -1,37 +1,52 @@
-# API Overview
+# Package API
 
-## Utilities
+Functions and supporting models. Every class and function defined in these
+modules is listed, generated from the code.
+
+## Loading, saving and validation
 
 ::: dsbxml.utils
     options:
-      members:
-        - load_model
-        - save_model
-        - clear_model_cache
+      show_root_heading: false
+
+## Comparing models
+
+::: dsbxml.diffing
+    options:
+      show_root_heading: false
+
+## Errors
+
+::: dsbxml.errors
+    options:
+      show_root_heading: false
+
+## Identifiers and handles
+
+::: dsbxml.id
+    options:
+      show_root_heading: false
+
+## Attributes
+
+::: dsbxml.attributes
+    options:
+      show_root_heading: false
 
 ## Geometry
 
 ::: dsbxml.geometry
     options:
-      members:
-        - Point3D
-        - Vertices
-        - HandlePoint
-        - Range
-        - Line
-        - ImageRectangle
+      show_root_heading: false
 
 ## Tables
 
 ::: dsbxml.tables
     options:
-      members:
-        - Table
-        - Tables
+      show_root_heading: false
 
-## Identifiers
+## Base model
 
-::: dsbxml.id
+::: dsbxml.base
     options:
-      members:
-        - ObjectIDs
+      show_root_heading: false

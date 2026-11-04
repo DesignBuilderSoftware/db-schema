@@ -1,7 +1,14 @@
 site_name: DesignBuilder Schema
-site_description: Automatically generated API documentation for DesignBuilder Schema
+site_description: Python models and element reference for DesignBuilder's dsbXML file format
+site_url: https://designbuildersoftware.github.io/db-schema/
+repo_url: https://github.com/DesignBuilderSoftware/db-schema
+repo_name: DesignBuilderSoftware/db-schema
 docs_dir: docs_src
 site_dir: docs
+
+# Builds docs_src/schema/elements.md from dsbxml/DesignBuilder.xsd.
+hooks:
+  - scripts/docs_xsd_reference.py
 
 theme:
   name: material
@@ -38,14 +45,21 @@ plugins:
 
 nav:
   - Home: index.md
-  - API Reference:
+  - User guide: guide.md
+  - Schema reference:
+    - Elements: schema/elements.md
+  - API reference:
     - Overview: api/overview.md
-    - Models: api/models.md
+    - Core models: api/models.md
+    - HVAC models: api/hvac.md
 
 markdown_extensions:
+  - admonition
+  - attr_list
   - pymdownx.highlight
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      check_paths: true
   - pymdownx.superfences
   - tables
   - toc:
