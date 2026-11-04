@@ -47,3 +47,6 @@ Thumbs.db
 # Project-specific
 test_output/
 *.bmp
+
+# Local docs builds (the published site is built into docs/)
+site/
