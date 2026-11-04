@@ -2,9 +2,12 @@
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-241%20passing-brightgreen)
+[![PyPI](https://img.shields.io/pypi/v/dsbxml)](https://pypi.org/project/dsbxml/)
+[![Tests](https://github.com/DesignBuilderSoftware/db-schema/actions/workflows/run-tests.yml/badge.svg)](https://github.com/DesignBuilderSoftware/db-schema/actions/workflows/run-tests.yml)
 
-Python package for reading, editing, and writing DesignBuilder XML files using Pydantic and pydantic-xml.
+Python package for reading, editing, and writing DesignBuilder XML (dsbXML) files using Pydantic and pydantic-xml. It also ships `DesignBuilder.xsd`, the schema that defines the format.
+
+Documentation: <https://designbuildersoftware.github.io/db-schema/> (user guide, schema element reference, API reference).
 
 ## Install
 
@@ -25,8 +28,11 @@ save_model(dsb, "building_updated.xml")
 ## Features
 
 - Type-safe XML handling via Pydantic v2
-- Full DesignBuilder XML schema support including HVAC
-- Load/save XML and JSON formats
+- Models for the whole dsbXML tree, including detailed HVAC
+- Load and save XML; validate against the bundled `DesignBuilder.xsd` (`dsbxml.utils.validate_against_xsd`)
+- Semantic diff of two models (`dsbxml.diff_models`)
+
+See [USAGE_GUIDE.md](USAGE_GUIDE.md) for worked examples.
 
 ## Data Model
 
@@ -36,7 +42,14 @@ dsbXML
     ├── Attributes / Tables / AssemblyLibrary
     └── Buildings
         └── Building
-            ├── BuildingBlocks / Zones / Surfaces
+            ├── BuildingBlocks
+            │   └── BuildingBlock
+            │       └── Zones
+            │           └── Zone
+            │               └── Body
+            │                   └── Surfaces
+            │                       └── Surface
+            │                           └── Openings / Adjacencies
             └── HVACNetwork
                 └── HVACLoops / HVACZoneGroups
 ```
@@ -46,9 +59,14 @@ dsbXML
 ```bash
 git clone https://github.com/DesignBuilderSoftware/db-schema
 cd db-schema
-pip install -e ".[dev]"
-pytest
+uv sync --extra dev
+uv run pytest                    # tests (about 8 minutes: they round-trip every sample model)
+uv run ruff check dsbxml         # lint, as in CI
+uv run pylint dsbxml
+uv run mkdocs build --strict -d site   # docs, into an untracked folder
 ```
+
+The docs sources are in `docs_src/`; the schema element reference page is generated from `dsbxml/DesignBuilder.xsd` at build time by `scripts/docs_xsd_reference.py`.
 
 ## License
 
