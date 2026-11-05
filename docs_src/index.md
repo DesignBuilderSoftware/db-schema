@@ -26,7 +26,7 @@ for building in model.site.buildings.building:
             print(zone.body.vertices[0].coords)
 
 model.name = "Updated model"
-assert validate_against_xsd(model) == []  # would the saved file be schema-valid?
+print(validate_against_xsd(model))  # [] if the saved file would be schema-valid
 save_model(model, "output.xml")
 ```
 
