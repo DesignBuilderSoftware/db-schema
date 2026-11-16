@@ -4,7 +4,7 @@ import dsbxml
 from dsbxml.core import Opening
 
 SAMPLE = (
-    Path(__file__).resolve().parents[2] / "samples" / "models_dhvac" / "HVAC_Zones_Coloured.xml"
+    Path(__file__).resolve().parents[2] / "samples" / "2025.1.0.095" / "HVAC_Zones_Coloured.xml"
 )
 
 OPENING = """<Opening type="Hole">

@@ -168,7 +168,7 @@ def repeats() -> dict[str, int]:
 
     most: dict[str, int] = defaultdict(int)
     root = Path(dsbxml.__file__).resolve().parent.parent / "samples"
-    for f in sorted(root.glob("models*/*.xml")):
+    for f in sorted(root.glob("*/*.xml")):
         for el in etree.parse(str(f)).iter():
             if not isinstance(el.tag, str):
                 continue
