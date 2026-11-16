@@ -58,7 +58,18 @@ def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-ma
             for _name, _obj in all_hvac_types.items():
                 _ns.setdefault(_name, _obj)
 
-        # Rebuild all models in dependency order to resolve forward references
+        # Rebuild every model once, each after the models its fields hold (a depth-first
+        # walk over the field types). The HVAC component classes that only a `type`
+        # mapping selects are left for their first use: each carries the ~105 fields all
+        # components share, so building the 97 of them took 5.5 of the 5.7 s this step
+        # took, while a file uses a few. pydantic builds one when it is first created
+        # (HVAC_COMPONENT_MAPPING[...](**fields)); BaseModel._built covers a direct
+        # from_xml or to_xml.
+        import typing
+
+        from dsbxml.hvac.components import NoTypeHVACComponent
+
+        models: dict[str, type] = {}
         for module in [
             geometry,
             attributes,
@@ -69,21 +80,55 @@ def _load_core_module():  # noqa: C901  # pylint: disable=too-many-locals,too-ma
             hvac_network,
             core,
         ]:
-            for name, obj in inspect.getmembers(module):
+            for _name, obj in inspect.getmembers(module):
                 if (
                     inspect.isclass(obj)
                     and issubclass(obj, BaseXmlModel)
                     and obj is not BaseXmlModel
                     and obj.__module__.startswith("dsbxml")
                 ):
-                    try:
-                        obj.model_rebuild()
-                    except Exception as e:  # pylint: disable=broad-exception-caught
-                        import warnings
+                    models.setdefault(f"{obj.__module__}.{obj.__qualname__}", obj)
 
-                        warnings.warn(
-                            f"model_rebuild failed for {obj.__name__}: {e}", stacklevel=2
-                        )
+        # Every module's names and every model, to resolve any class's annotations.
+        everything: dict = {}
+        for _mod in list(sys.modules.values()):
+            if getattr(_mod, "__name__", "").startswith("dsbxml"):
+                everything.update(vars(_mod))
+        everything.update({c.__name__: c for c in models.values()})
+
+        def held(annotation, out: list) -> None:
+            if isinstance(annotation, str):
+                return
+            if inspect.isclass(annotation) and issubclass(annotation, BaseXmlModel):
+                out.append(annotation)
+            for arg in typing.get_args(annotation):
+                held(arg, out)
+
+        done: set[type] = set()
+
+        def rebuild(cls: type) -> None:
+            if cls in done:
+                return
+            done.add(cls)
+            try:
+                hints = typing.get_type_hints(cls, globalns=everything)
+            except Exception:  # pylint: disable=broad-exception-caught
+                hints = {}
+            deps: list = []
+            for annotation in hints.values():
+                held(annotation, deps)
+            for dep in deps:
+                rebuild(dep)
+            try:
+                cls.model_rebuild()
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                import warnings
+
+                warnings.warn(f"model_rebuild failed for {cls.__name__}: {e}", stacklevel=2)
+
+        for cls in models.values():
+            if not issubclass(cls, NoTypeHVACComponent):
+                rebuild(cls)
 
         _core_module_loaded = True
     finally:

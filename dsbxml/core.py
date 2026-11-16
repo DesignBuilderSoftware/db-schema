@@ -44,16 +44,24 @@ class dsbXML(BaseModel):
         return instance
 
     def to_xml(self, **kwargs) -> str | bytes:
+        """The model as UTF-8 XML with a declaration: bytes, or str for encoding="unicode".
+
+        The tree is written once; it used to be written, parsed back and written again only
+        to set the root's tag.
+        """
         from lxml import etree
 
-        xml_output = super().to_xml(**kwargs)
-        if isinstance(xml_output, bytes):
-            root = etree.fromstring(xml_output)
-            root.tag = "dsbXML"
-            return bytes(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
-        root = etree.fromstring(xml_output.encode())
+        tree_args = ("skip_empty", "exclude_none", "exclude_unset")
+        tree = {k: kwargs.pop(k) for k in tree_args if k in kwargs}
+        as_text = kwargs.pop("encoding", None) in ("unicode", str)
+        root = self.to_xml_tree(**tree)
         root.tag = "dsbXML"
-        return str(etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8"))
+        for el in root.iter():
+            if el.text == "":  # written <X/>, as a parsed tree has it
+                el.text = None
+        kwargs.setdefault("xml_declaration", True)
+        out = etree.tostring(root, encoding="UTF-8", **kwargs)
+        return out.decode("UTF-8") if as_text else bytes(out)
 
 
 class Site(BaseModel):
@@ -153,7 +161,6 @@ class Opening(BaseModel):
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
     # Real files always have a <SegmentList> here: empty, with lines, or with a CFD boundary.
     segment_list: OpeningSegmentList | None = element(tag="SegmentList", default=None)
-    cfd_segment_list: CFDSegmentList | None = element(tag="CFDSegmentList", default=None)
 
 
 class Adjacencies(BaseModel):
@@ -349,6 +356,7 @@ class Planes(BaseModel):
 class Plane(BaseModel):
     type: int = attr()
     polygon: Polygon = element(tag="Polygon")
+    attributes: KeyAttributes | None = element(tag="Attributes", default=None)
 
 
 class AssemblyInstances(BaseModel):
@@ -429,10 +437,6 @@ class OpeningSegmentList(SegmentList):
     """
 
     cfd_boundary: CFDBoundary | None = element(tag="CFDBoundary", default=None)
-
-
-class CFDSegmentList(BaseModel):
-    cfd_boundary: CFDBoundary = element(tag="CFDBoundary")
 
 
 class CFDBoundarySettings(BaseModel):

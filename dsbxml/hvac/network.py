@@ -73,7 +73,10 @@ class PlantOperationScheme(BaseModel):
 
 
 class PlantOperationRanges(BaseModel):
-    plant_operation_range: PlantOperationRange = element(tag="PlantOperationRange")
+    # The XSD allows several ranges per scheme (one per load band).
+    plant_operation_range: list[PlantOperationRange] = element(
+        tag="PlantOperationRange", default_factory=list
+    )
 
 
 class PlantOperationRange(BaseModel):
