@@ -52,4 +52,4 @@ Lint as CI does: `uv run ruff check dsbxml`, `uv run ruff format --check dsbxml`
 
 New `ObjectIDs` take handles from a module-level counter that `load_model` resets to the loaded site's `handle`; it is shared by every model in the process. `diff_models` ignores handles and indices because DesignBuilder renumbers them on every save. Tests that create objects must not depend on handle values from another test.
 
-`scripts/check_xml_vs_xsd.py` validates `samples/models_dhvac/*.xml` against the XSD with lxml only; run it from the repo root (it uses relative paths). `scripts/gen_stub_files.py` has a hard-coded path from an old checkout and needs editing before use.
+`scripts/check_xml_vs_xsd.py` validates `samples/models_dhvac/*.xml` against the XSD with lxml only; run it from the repo root (it uses relative paths).

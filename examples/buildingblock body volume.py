@@ -1,12 +1,12 @@
 from dsbxml.utils import load_model
 
-filepath = r"C:\GitHub\db_schema\samples\models\Shoebox10x10.xml"
+filepath = r".\samples\models\Shoebox261.xml"
 model = load_model(filepath)
 
-site = model.Site
-first_building = site.Buildings.Building[0]
-first_building_blocks = first_building.BuildingBlocks.BuildingBlock[0]
-first_zone = first_building_blocks.Zones.Zone[0]
-body = first_zone.Body
+site = model.site
+first_building = site.buildings.building[0]
+first_building_block = first_building.building_blocks.building_block[0]
+first_zone = first_building_block.zones.zone[0]
+body = first_zone.body
 
 print(body.volume)
