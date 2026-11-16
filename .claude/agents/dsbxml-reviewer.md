@@ -20,7 +20,7 @@ dsbxml reads and writes DesignBuilder models. The failure that matters is silent
 - **Data loss on round trip:** a field renamed, retyped or removed so that XML DesignBuilder writes no longer maps; a type narrowed to a `Literal` or enum that rejects values in the samples; defaults written back for attributes the source file didn't have.
 - **HVAC mappings:** a component class whose `type` Literal doesn't match its key in `ZONE_COMPONENT_MAPPING` / `UNIT_COMPONENT_MAPPING`, or a new component missing from the mapping, so it parses as a plain `HVACComponent`.
 - **Lazy loading:** a direct import between `dsbxml/hvac/*` modules or from `core.py` that bypasses the namespace injection in `dsbxml/__init__.py` (import cycles, or forward refs left unresolved until `model_rebuild()`); a new model module not added to the rebuild order.
-- **XSD validity:** output that `validate_against_xsd` rejects where the input passed (beyond the known empty-`HVACNetwork` `ObjectIDs` case in `USAGE_GUIDE.md`).
+- **XSD validity:** output that `validate_against_xsd` rejects where the input passed (beyond the known empty-`HVACNetwork` `ObjectIDs` case in `docs_src/guide/validation.md`).
 - **Handles:** code that changes how the site-wide counter in `dsbxml/id.py` is reset or advanced, or reads handles across models in one process.
 - **Silent failure:** `except` blocks in loading or `diff_models` that hide a `ModelValidationError` or return an empty diff.
 

@@ -32,7 +32,8 @@ save_model(dsb, "building_updated.xml")
 - Load and save XML; validate against the bundled `DesignBuilder.xsd` (`dsbxml.utils.validate_against_xsd`)
 - Semantic diff of two models (`dsbxml.diff_models`)
 
-See [USAGE_GUIDE.md](USAGE_GUIDE.md) for worked examples.
+See the [user guide](https://designbuildersoftware.github.io/db-schema/guide/) for worked examples
+(source in [`docs_src/guide/`](docs_src/guide)).
 
 ## Data Model
 

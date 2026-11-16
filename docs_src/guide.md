@@ -1,1 +1,0 @@
---8<-- "USAGE_GUIDE.md"

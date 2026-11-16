@@ -32,8 +32,9 @@ save_model(model, "output.xml")
 
 ## Where to go next
 
-- [User guide](guide.md): loading and saving, the model tree, attributes,
+- [User guide](guide/index.md): loading and saving, the model tree, attributes,
   geometry, HVAC, validation, diffs and errors.
+- [Examples](examples.md): short scripts that run against the sample models.
 - [Schema element reference](schema/elements.md): every element and
   attribute in `DesignBuilder.xsd`, generated from the schema.
 - API reference: the [package functions and supporting models](api/overview.md),

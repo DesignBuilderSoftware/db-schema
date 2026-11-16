@@ -44,8 +44,22 @@ plugins:
             show_if_no_docstring: true
 
 nav:
-  - Home: index.md
-  - User guide: guide.md
+  - Home:
+    - Overview: index.md
+    - Examples: examples.md
+  - User guide:
+    - Introduction: guide/index.md
+    - Loading and saving: guide/loading-and-saving.md
+    - Model structure: guide/model-structure.md
+    - Attributes: guide/attributes.md
+    - Geometry: guide/geometry.md
+    - Tables: guide/tables.md
+    - HVAC: guide/hvac.md
+    - Validating against the schema: guide/validation.md
+    - Comparing two models: guide/comparing-models.md
+    - Errors: guide/errors.md
+    - Handles: guide/handles.md
+    - Package imports: guide/package-imports.md
   - Schema reference:
     - Elements: schema/elements.md
   - API reference:

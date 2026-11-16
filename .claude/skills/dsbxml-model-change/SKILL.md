@@ -43,8 +43,8 @@ uv run pytest -q          # once, before pushing
 
 - `test_full_model_round_trip.py`: load, `to_xml()`, reload, compare, for every XML in `samples/*/` (one folder per DesignBuilder version).
 - `test_hvac_roundtrip_completeness.py`: counts every element path under the HVAC network before and after a round trip.
-- `test_roundtrip_xsd_validity.py` / `test_xsd_validation.py`: saved XML against the bundled XSD (`dsbxml.utils.validate_against_xsd`). A building without detailed HVAC writes `<ObjectIDs>` into an empty `<HVACNetwork>`, which the XSD rejects; that is a known issue in `USAGE_GUIDE.md`.
-- `test_usage_guide.py` runs every Python block in `USAGE_GUIDE.md`, so a change to public behaviour must keep the guide's examples working.
+- `test_roundtrip_xsd_validity.py` / `test_xsd_validation.py`: saved XML against the bundled XSD (`dsbxml.utils.validate_against_xsd`). A building without detailed HVAC writes `<ObjectIDs>` into an empty `<HVACNetwork>`, which the XSD rejects; that is a known issue in `docs_src/guide/validation.md`.
+- `test_usage_guide.py` runs every Python block in the `docs_src/guide/` pages, so a change to public behaviour must keep the guide's examples working.
 
 Lint as CI does: `uv run ruff check dsbxml`, `uv run ruff format --check dsbxml`, `uv run pylint dsbxml`. `apps/`, `examples/` and `scripts/` are excluded from ruff.
 
