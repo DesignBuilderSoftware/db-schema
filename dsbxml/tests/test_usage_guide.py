@@ -12,7 +12,7 @@ import pytest
 
 repo_root = Path(__file__).parent.parent.parent
 guide = repo_root / "USAGE_GUIDE.md"
-sample = repo_root / "samples" / "models" / "Shoebox261.xml"
+sample = repo_root / "samples" / "2026.1.0.013" / "Shoebox261.xml"
 
 _PYTHON_BLOCK = re.compile(r"^```python\n(.*?)^```", re.MULTILINE | re.DOTALL)
 

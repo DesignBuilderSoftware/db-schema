@@ -9,7 +9,7 @@ The source file is the oracle: whatever DesignBuilder wrote must come back out o
 
 ## Steps
 
-1. Take the file the user names, or the samples: `samples/models/*.xml` and `samples/models_dhvac/*.xml`. `.dsb` files are DesignBuilder's own format and can't be read; ask for an XML export.
+1. Take the file the user names, or the samples: `samples/*/*.xml`, grouped into one folder per DesignBuilder version. `.dsb` files are DesignBuilder's own format and can't be read; ask for an XML export.
 2. From the repo root with `uv run python <script>`:
    - `model = dsbxml.utils.load_model(path, use_cache=False)`;
    - `xml = model.to_xml()` (bytes) and write it to the temp directory;

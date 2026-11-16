@@ -19,7 +19,9 @@ from dsbxml.utils import load_model
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
 xsd_path = test_dir.parent / "DesignBuilder.xsd"
-sample_files = sorted((repo_root / "samples" / "models_dhvac").glob("*.xml"))
+sample_files = sorted((repo_root / "samples" / "2026.1.0.004").glob("*.xml")) + [
+    repo_root / "samples" / "2025.1.0.095" / "HVAC_Zones_Coloured.xml"
+]
 
 
 @pytest.fixture(scope="module")

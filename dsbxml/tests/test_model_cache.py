@@ -11,7 +11,7 @@ save_model = utils.save_model
 clear_model_cache = utils.clear_model_cache
 
 repo_root = Path(__file__).parent.parent.parent
-EMPTY_SITE = repo_root / "samples" / "models" / "EmptySite.xml"
+EMPTY_SITE = repo_root / "samples" / "8.0.0.057" / "EmptySite.xml"
 
 
 @pytest.fixture()
@@ -63,7 +63,7 @@ class TestModelCache:
 
     def test_cache_key_uses_resolved_path(self, sample_path):
         # A relative-style path spelling of the same file hits the same entry.
-        alias = sample_path.parent / ".." / "models" / sample_path.name
+        alias = sample_path.parent / ".." / sample_path.parent.name / sample_path.name
         m1 = load_model(sample_path)
         m2 = load_model(alias)
         assert m1 is m2

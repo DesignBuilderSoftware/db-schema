@@ -2,28 +2,25 @@ from dsbxml.utils import load_model
 
 
 def report_set(hc):
-    return f"{hc.__class__.__name__} | {hc.type} | {hc.ComponentType}"
+    return f"{hc.__class__.__name__} | {hc.type} | {hc.componentType}"
 
 
-filepath = r".\samples\models\DetailedHVAC.xml"
+filepath = r".\samples\8.0.0.058\DetailedHVAC.xml"
 model = load_model(filepath)
 
-building = model.Site.Buildings.Building[0]
-zone_groups = building.HVACNetwork.HVACZoneGroups.HVACZoneGroup
+building = model.site.buildings.building[0]
+zone_groups = building.hvac_network.hvac_zone_groups.hvac_zone_group
 
 hzc_set = set()
 for zone_group in zone_groups:
-    zone_components = zone_group.ZoneElementList.HVACZoneComponent
+    if zone_group.zone_element_list is None:
+        continue
 
-    for hc in zone_components:
-        # hzc_set.add(report_set(hc))
+    for hc in zone_group.zone_element_list.hvac_zone_component:
+        unit_element_list = getattr(hc, "unit_element_list", None)
+        if unit_element_list is not None:
+            for sub_hc in unit_element_list.hvac_component:
+                hzc_set.add(report_set(sub_hc))
 
-        if hasattr(hc, "UnitElementList"):
-            if hasattr(hc.UnitElementList, "HVACComponent"):
-                sub_hcs = hc.UnitElementList.HVACComponent
-
-                for sub_hc in sub_hcs:
-                    hzc_set.add(report_set(sub_hc))
-
-for item in hzc_set:
+for item in sorted(hzc_set):
     print(item)

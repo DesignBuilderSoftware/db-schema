@@ -6,8 +6,8 @@ import pytest
 
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-detailed_hvac = repo_root / "samples" / "models" / "DetailedHVAC.xml"
-dhvac_sample = repo_root / "samples" / "models_dhvac" / "1.xml"
+detailed_hvac = repo_root / "samples" / "8.0.0.058" / "DetailedHVAC.xml"
+dhvac_sample = repo_root / "samples" / "2026.1.0.004" / "1_DHVAC.xml"
 
 
 @pytest.fixture(scope="module")

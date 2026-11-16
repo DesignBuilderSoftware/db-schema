@@ -6,7 +6,7 @@ from dsbxml.extension_visualise.zone import (
 )
 from dsbxml.utils import load_model
 
-filepath = r".\samples\models_dhvac\HVAC_Zones_Coloured.xml"
+filepath = r".\samples\2025.1.0.095\HVAC_Zones_Coloured.xml"
 model = load_model(filepath)
 
 building = model.Site.Buildings.Building[0]

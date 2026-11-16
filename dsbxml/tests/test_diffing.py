@@ -9,7 +9,7 @@ repo_root = Path(__file__).parent.parent.parent
 
 
 def _sample(name: str):
-    path = repo_root / "samples/models_dhvac" / name
+    path = repo_root / "samples/2026.1.0.004" / name
     if not path.exists():
         pytest.skip(f"{path} not found")
     return load_model(path, use_cache=False)
@@ -17,7 +17,7 @@ def _sample(name: str):
 
 class TestDiffModels:
     def test_identical_model_has_no_changes(self):
-        model = _sample("1.xml")
+        model = _sample("1_DHVAC.xml")
         diff = diff_models(model, model)
         assert not diff.has_changes
         assert not diff.added
@@ -25,8 +25,8 @@ class TestDiffModels:
         assert not diff.attribute_changes
 
     def test_handle_only_differences_are_ignored(self):
-        model_a = _sample("1.xml")
-        model_b = _sample("1.xml")
+        model_a = _sample("1_DHVAC.xml")
+        model_b = _sample("1_DHVAC.xml")
 
         surface = (
             model_b.site.buildings.building[0]
@@ -41,8 +41,8 @@ class TestDiffModels:
         assert not diff.has_changes
 
     def test_changed_name_is_reported_as_attribute_change(self):
-        model_a = _sample("1.xml")
-        model_b = _sample("1.xml")
+        model_a = _sample("1_DHVAC.xml")
+        model_b = _sample("1_DHVAC.xml")
         model_b.name = "Renamed"
 
         diff = diff_models(model_a, model_b)
@@ -50,8 +50,8 @@ class TestDiffModels:
         assert matches == [{"path": "name", "old": model_a.name, "new": "Renamed"}]
 
     def test_added_and_removed_surfaces_are_reported(self):
-        model_a = _sample("1.xml")
-        model_b = _sample("1.xml")
+        model_a = _sample("1_DHVAC.xml")
+        model_b = _sample("1_DHVAC.xml")
 
         surfaces = (
             model_b.site.buildings.building[0]
@@ -65,8 +65,8 @@ class TestDiffModels:
         assert len(diff.removed.get("surfaces", [])) == 1
 
     def test_summary_is_human_readable(self):
-        model_a = _sample("1.xml")
-        model_b = _sample("2.xml")
+        model_a = _sample("1_DHVAC.xml")
+        model_b = _sample("2_DHVAC.xml")
         diff = diff_models(model_a, model_b)
         summary = diff.summary()
         assert isinstance(summary, str)

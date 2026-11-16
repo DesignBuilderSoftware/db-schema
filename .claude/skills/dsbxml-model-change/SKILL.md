@@ -24,7 +24,7 @@ description: Use when adding or changing a dsbxml model class or field (core, ge
 
 ## Adding an HVAC component or field
 
-1. Find the element in a sample: `samples/models/DetailedHVAC.xml` and the 66 files in `samples/models_dhvac/` carry the detailed HVAC parts. `scripts/report_hvac_component_coverage.py` reports which component types are mapped.
+1. Find the element in a sample: `samples/8.0.0.058/DetailedHVAC.xml` and the 66 detailed HVAC samples (the 65 in `samples/2026.1.0.004/` plus `samples/2025.1.0.095/HVAC_Zones_Coloured.xml`) carry the detailed HVAC parts. `scripts/report_hvac_component_coverage.py` reports which component types are mapped.
 2. Add the subclass with its `type` Literal, or the field with the XML name DesignBuilder uses (`attr(...)`, `element(...)`).
 3. Add zone and unit components to their `*_MAPPING`; `dsbxml/tests/test_hvac_mappings.py` checks each key equals its class's `type` Literal.
 4. Forward references to classes in other HVAC modules resolve through the namespace injection in `__init__.py`; don't add direct imports between the HVAC modules (that is what the cycle avoidance is for). ruff's F821 is ignored for `dsbxml/hvac/components.py` for this reason.
@@ -41,7 +41,7 @@ uv run pytest dsbxml/tests/test_hvac_roundtrip_completeness.py -q -k "DetailedHV
 uv run pytest -q          # once, before pushing
 ```
 
-- `test_full_model_round_trip.py`: load, `to_xml()`, reload, compare, for every XML in `samples/models/` and `samples/models_dhvac/`.
+- `test_full_model_round_trip.py`: load, `to_xml()`, reload, compare, for every XML in `samples/*/` (one folder per DesignBuilder version).
 - `test_hvac_roundtrip_completeness.py`: counts every element path under the HVAC network before and after a round trip.
 - `test_roundtrip_xsd_validity.py` / `test_xsd_validation.py`: saved XML against the bundled XSD (`dsbxml.utils.validate_against_xsd`). A building without detailed HVAC writes `<ObjectIDs>` into an empty `<HVACNetwork>`, which the XSD rejects; that is a known issue in `USAGE_GUIDE.md`.
 - `test_usage_guide.py` runs every Python block in `USAGE_GUIDE.md`, so a change to public behaviour must keep the guide's examples working.
@@ -52,4 +52,4 @@ Lint as CI does: `uv run ruff check dsbxml`, `uv run ruff format --check dsbxml`
 
 New `ObjectIDs` take handles from a module-level counter that `load_model` resets to the loaded site's `handle`; it is shared by every model in the process. `diff_models` ignores handles and indices because DesignBuilder renumbers them on every save. Tests that create objects must not depend on handle values from another test.
 
-`scripts/check_xml_vs_xsd.py` validates `samples/models_dhvac/*.xml` against the XSD with lxml only; run it from the repo root (it uses relative paths).
+`scripts/check_xml_vs_xsd.py` validates the 66 detailed HVAC samples against the XSD with lxml only; run it from the repo root (it uses relative paths).

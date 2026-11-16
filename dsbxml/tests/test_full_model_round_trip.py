@@ -13,9 +13,8 @@ from dsbxml import dsbXML
 from dsbxml.utils import load_model
 
 repo_root = Path(__file__).parent.parent.parent
-sample_files = sorted((repo_root / "samples" / "models").glob("*.xml")) + sorted(
-    (repo_root / "samples" / "models_dhvac").glob("*.xml")
-)
+# Samples are grouped into one folder per DesignBuilder version.
+sample_files = sorted((repo_root / "samples").glob("*/*.xml"))
 
 
 @pytest.mark.parametrize("filepath", sample_files, ids=lambda p: p.name)

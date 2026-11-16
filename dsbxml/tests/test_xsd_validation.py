@@ -18,9 +18,11 @@ def get_filepaths(directory, extension=".xml"):
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
 xsd_path = test_dir.parent / "DesignBuilder.xsd"
-models_folder = repo_root / "samples" / "models_dhvac"
+samples_folder = repo_root / "samples"
 
-xml_filepaths = get_filepaths(str(models_folder), extension=".xml")
+xml_filepaths = get_filepaths(str(samples_folder / "2026.1.0.004"), extension=".xml") + [
+    str(samples_folder / "2025.1.0.095" / "HVAC_Zones_Coloured.xml")
+]
 
 
 @pytest.fixture(scope="module")

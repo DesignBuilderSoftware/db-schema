@@ -13,7 +13,7 @@ from dsbxml.utils import (
 # Get path to samples folder relative to repository root
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-samples_models = repo_root / "samples" / "models"
+samples_models = repo_root / "samples" / "8.0.0.057"
 
 
 class TestModelOperations:

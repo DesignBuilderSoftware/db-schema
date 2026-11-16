@@ -8,7 +8,7 @@ description: Use when editing or building the db-schema (dsbxml) docs site, the 
 ## Docs
 
 - Sources: `docs_src/` (MkDocs Material, config `mkdocs.yml`). `docs_src/guide.md` is one line, `--8<-- "USAGE_GUIDE.md"`, so edit `USAGE_GUIDE.md` at the repo root, never the guide page.
-- `USAGE_GUIDE.md`'s Python blocks are run in order by `dsbxml/tests/test_usage_guide.py` against `samples/models/Shoebox261.xml` copied to `building.xml`. Run it after editing the guide: `uv run pytest dsbxml/tests/test_usage_guide.py -q`.
+- `USAGE_GUIDE.md`'s Python blocks are run in order by `dsbxml/tests/test_usage_guide.py` against `samples/2026.1.0.013/Shoebox261.xml` copied to `building.xml`. Run it after editing the guide: `uv run pytest dsbxml/tests/test_usage_guide.py -q`.
 - The element reference page (`schema/elements.md`) is generated at build time from `dsbxml/DesignBuilder.xsd` by the MkDocs hook `scripts/docs_xsd_reference.py`; `uv run python scripts/docs_xsd_reference.py > elements.md` prints it.
 - The API pages use mkdocstrings (Google docstring style) over the package.
 
