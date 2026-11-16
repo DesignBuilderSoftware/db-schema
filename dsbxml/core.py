@@ -151,8 +151,8 @@ class Opening(BaseModel):
     type: str = attr()
     polygon: Polygon = element(tag="Polygon")
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
-    # Real files always have a <SegmentList> here (empty or with lines).
-    segment_list: SegmentList | None = element(tag="SegmentList", default=None)
+    # Real files always have a <SegmentList> here: empty, with lines, or with a CFD boundary.
+    segment_list: OpeningSegmentList | None = element(tag="SegmentList", default=None)
     cfd_segment_list: CFDSegmentList | None = element(tag="CFDSegmentList", default=None)
 
 
@@ -416,7 +416,19 @@ class CFDBoundary(BaseModel):
     maximum_refinement_region_point: WrappedPoint3D = element(
         tag="MaximumRefinementRegionPoint"
     )
-    cfd_boundary_component_list: None = element(tag="CFDBoundaryComponentList", default=None)
+    # Empty in every file seen (whitespace only); what it lists when filled is not known.
+    cfd_boundary_component_list: str = element(tag="CFDBoundaryComponentList", default="")
+    attributes: KeyAttributes | None = element(tag="Attributes", default=None)
+
+
+class OpeningSegmentList(SegmentList):
+    """An opening's <SegmentList>: lines, or the CFD boundary drawn on the opening.
+
+    HVAC_Zones_Coloured.xml (DesignBuilder 7) has twelve openings whose <SegmentList> holds a
+    <CFDBoundary> with its settings as child elements.
+    """
+
+    cfd_boundary: CFDBoundary | None = element(tag="CFDBoundary", default=None)
 
 
 class CFDSegmentList(BaseModel):
@@ -424,27 +436,28 @@ class CFDSegmentList(BaseModel):
 
 
 class CFDBoundarySettings(BaseModel):
-    temperature: XSDFloat = attr()
-    flowRate: XSDFloat = attr()
-    xDirectionDischargeAngle: XSDFloat = attr()
-    yDirectionDischargeAngle: XSDFloat = attr()
-    multiWayDiffuserDischargeAngle: XSDFloat = attr()
-    twoWayDiffuserDischargeDirection: int = attr()
-    minimumDischargeVelocity: XSDFloat = attr()
-    actualDischargeVelocity: XSDFloat = attr()
-    heatFlux: XSDFloat = attr()
-    pressure: XSDFloat = attr()
-    pressureType: int = attr()
-    moistureSource: XSDFloat = attr()
-    contaminantSource: XSDFloat = attr()
-    relativeHumidity: XSDFloat = attr()
-    nonOrthoElementWidth: XSDFloat = attr()
-    nonOrthoElementHeight: XSDFloat = attr()
-    nonOrthoFaceOffset: XSDFloat = attr()
-    nonOrthoElementXSpacing: XSDFloat = attr()
-    nonOrthoElementYSpacing: XSDFloat = attr()
-    nonOrthoElementXEdgeOffset: XSDFloat = attr()
-    nonOrthoElementYEdgeOffset: XSDFloat = attr()
-    diffuser_element_dimension: XSDFloat = attr()
-    refinement_region_distance: XSDFloat = attr()
-    refinement_region_level: int = attr()
+    # Child elements, as DesignBuilder writes them (HVAC_Zones_Coloured.xml).
+    temperature: XSDFloat = element(tag="Temperature")
+    flowRate: XSDFloat = element(tag="FlowRate")
+    xDirectionDischargeAngle: XSDFloat = element(tag="XDirectionDischargeAngle")
+    yDirectionDischargeAngle: XSDFloat = element(tag="YDirectionDischargeAngle")
+    multiWayDiffuserDischargeAngle: XSDFloat = element(tag="MultiWayDiffuserDischargeAngle")
+    twoWayDiffuserDischargeDirection: int = element(tag="TwoWayDiffuserDischargeDirection")
+    minimumDischargeVelocity: XSDFloat = element(tag="MinimumDischargeVelocity")
+    actualDischargeVelocity: XSDFloat = element(tag="ActualDischargeVelocity")
+    heatFlux: XSDFloat = element(tag="HeatFlux")
+    pressure: XSDFloat = element(tag="Pressure")
+    pressureType: int = element(tag="PressureType")
+    moistureSource: XSDFloat = element(tag="MoistureSource")
+    contaminantSource: XSDFloat = element(tag="ContaminantSource")
+    relativeHumidity: XSDFloat = element(tag="RelativeHumidity")
+    nonOrthoElementWidth: XSDFloat = element(tag="NonOrthoElementWidth")
+    nonOrthoElementHeight: XSDFloat = element(tag="NonOrthoElementHeight")
+    nonOrthoFaceOffset: XSDFloat = element(tag="NonOrthoFaceOffset")
+    nonOrthoElementXSpacing: XSDFloat = element(tag="NonOrthoElementXSpacing")
+    nonOrthoElementYSpacing: XSDFloat = element(tag="NonOrthoElementYSpacing")
+    nonOrthoElementXEdgeOffset: XSDFloat = element(tag="NonOrthoElementXEdgeOffset")
+    nonOrthoElementYEdgeOffset: XSDFloat = element(tag="NonOrthoElementYEdgeOffset")
+    diffuser_element_dimension: XSDFloat = element(tag="DiffuserElementDimension")
+    refinement_region_distance: XSDFloat = element(tag="RefinementRegionDistance")
+    refinement_region_level: int = element(tag="RefinementRegionLevel")
