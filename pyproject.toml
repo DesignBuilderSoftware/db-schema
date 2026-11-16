@@ -2,7 +2,7 @@
 name = "dsbxml"
 version = "1.3.0"
 description = "Python package for DesignBuilder XML files with read / edit / write functionality."
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     { name = "Bartlomiej Tokarzewski", email = "bartlomiej.tokarzewski@gmail.com" },
 ]
@@ -25,7 +25,7 @@ packages = ["dsbxml", "dsbxml.hvac"]
 dsbxml = ["DesignBuilder.xsd"]
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff>=0.12.11,<0.13", "pylint>=3.0.3", "pre-commit>=3.6.1; python_version >= '3.11'", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
+dev = ["pytest", "ruff>=0.12.11,<0.13", "pylint>=3.0.3", "pre-commit>=3.6.1", "xmlschema", "lxml", "mkdocs>=1.5.0", "mkdocs-material>=9.0.0", "mkdocstrings[python]>=0.24.0"]
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -40,7 +40,7 @@ source = ["dsbxml"]
 
 [tool.ruff]
 line-length = 96
-target-version = "py310"
+target-version = "py311"
 # Lint/format only the package; apps/examples/scripts are auxiliary and
 # out of scope for this migration. force-exclude applies these even when
 # files are passed explicitly (e.g. by pre-commit).

@@ -10,7 +10,7 @@ XML (dsbXML) files, built on Pydantic v2 and pydantic-xml. It also ships the
 pip install dsbxml
 ```
 
-Requires Python 3.10 or later.
+Requires Python 3.11 or later.
 
 ## Quick start
 

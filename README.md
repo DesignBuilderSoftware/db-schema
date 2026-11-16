@@ -1,6 +1,6 @@
 # db-schema
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![PyPI](https://img.shields.io/pypi/v/dsbxml)](https://pypi.org/project/dsbxml/)
 [![Tests](https://github.com/DesignBuilderSoftware/db-schema/actions/workflows/run-tests.yml/badge.svg)](https://github.com/DesignBuilderSoftware/db-schema/actions/workflows/run-tests.yml)
