@@ -1,6 +1,8 @@
 # DesignBuilder Schema
 
-Python package for reading, editing, and writing DesignBuilder XML simulation files using Pydantic v2 and pydantic-xml.
+`dsbxml` is a Python package for reading, editing and writing DesignBuilder
+XML (dsbXML) files, built on Pydantic v2 and pydantic-xml. It also ships the
+`DesignBuilder.xsd` schema that defines the file format.
 
 ## Installation
 
@@ -8,28 +10,41 @@ Python package for reading, editing, and writing DesignBuilder XML simulation fi
 pip install dsbxml
 ```
 
+Requires Python 3.10 or later.
+
 ## Quick start
 
 ```python
-from dsbxml.utils import load_model, save_model
+from dsbxml import load_model, save_model
+from dsbxml.utils import validate_against_xsd
 
-# Load a DesignBuilder XML file
 model = load_model("path/to/model.xml")
 
-# Inspect geometry
 for building in model.site.buildings.building:
     for block in building.building_blocks.building_block:
-        for zone in block.zones.zone:
-            print(zone.body.vertices.point_3d)
+        for zone in block.zones.zone if block.zones else []:
+            print(zone.body.vertices[0].coords)
 
-# Save back to XML
+model.name = "Updated model"
+print(validate_against_xsd(model))  # [] if the saved file would be schema-valid
 save_model(model, "output.xml")
 ```
 
+## Where to go next
+
+- [User guide](guide/index.md): loading and saving, the model tree, attributes,
+  geometry, HVAC, validation, diffs and errors.
+- [Examples](examples.md): short scripts that run against the sample models.
+- [Schema element reference](schema/elements.md): every element and
+  attribute in `DesignBuilder.xsd`, generated from the schema.
+- API reference: the [package functions and supporting models](api/overview.md),
+  the [core building models](api/models.md) and the
+  [HVAC models](api/hvac.md), generated from the code.
+
 ## Features
 
-- Type-safe XML parsing via Pydantic v2 and pydantic-xml
-- Full DesignBuilder schema support: geometry, surfaces, openings, HVAC
-- Round-trip load → modify → save fidelity
-- Thread-safe handle generation
-- LRU caching for repeated loads
+- Typed models for the whole dsbXML tree, including detailed HVAC
+- Load, modify and save while keeping the file valid against the schema
+- Validation against the bundled `DesignBuilder.xsd`
+- Semantic diff of two models that ignores handle renumbering
+- Validation errors that name the building, zone or surface at fault

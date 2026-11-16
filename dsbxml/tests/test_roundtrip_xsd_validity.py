@@ -19,7 +19,9 @@ from dsbxml.utils import load_model
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
 xsd_path = test_dir.parent / "DesignBuilder.xsd"
-sample_files = sorted((repo_root / "samples" / "models_dhvac").glob("*.xml"))
+sample_files = sorted((repo_root / "samples" / "2026.1.0.004").glob("*.xml")) + [
+    repo_root / "samples" / "2025.1.0.095" / "HVAC_Zones_Coloured.xml"
+]
 
 
 @pytest.fixture(scope="module")
@@ -156,3 +158,17 @@ def test_validate_against_xsd_reports_problems():
 
     errors = validate_against_xsd(b"<dsbXML><Nonsense/></dsbXML>")
     assert errors and all(isinstance(message, str) for message in errors)
+
+
+@pytest.mark.parametrize(
+    ("class_name", "xml", "field"),
+    [
+        ("Zones", b"<Zones/>", "zone"),
+        ("BuildingBlocks", b"<BuildingBlocks/>", "building_block"),
+    ],
+)
+def test_containers_the_schema_allows_empty_load(class_name, xml, field):
+    import dsbxml
+
+    model = getattr(dsbxml, class_name).from_xml(xml)
+    assert getattr(model, field) == []

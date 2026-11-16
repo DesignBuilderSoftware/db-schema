@@ -1,17 +1,31 @@
-from dsbxml.tables import *
 from dsbxml.utils import load_model
 
-filepath = r"samples\models\Shoebox10x10.xml"
+filepath = r".\samples\2026.1.0.013\Shoebox261.xml"
 
 model = load_model(filepath)
 
-site = model.Site
-tables = site.Tables
-glazing_table = Tables.get_table_by_name(tables, "Glazing")  # type: Glazing
-# print(glazing_table.Id) # returns vector
+tables = model.site.tables
+glazing_table = tables.get_table_by_name("Glazing")  # KeyError if missing
 
-glazing_item = glazing_table[0]  # type: Glazing
-print(glazing_item.Id)  # returns 1 value
+# Each row is one string of "#"-prefixed values, in field_name order.
+# This split assumes no value contains "#".
+print(glazing_table.field_name[:5])
 
-glazing_item.Id = 123  # sets 1 value
-print(glazing_item.Id)  # returns 1 value
+
+def read_row(row: str) -> list[str]:
+    return [value.strip() for value in row.split("#")[1:]]
+
+
+def write_row(values: list[str]) -> str:
+    return "#" + " #".join(values)
+
+
+id_column = glazing_table.field_name.index("Id")
+print([read_row(row)[id_column] for row in glazing_table.row])  # every Id
+
+values = read_row(glazing_table.row[0])
+print(values[id_column])  # Id of the first row
+
+values[id_column] = "123"  # set the Id of the first row
+glazing_table.row[0] = write_row(values)
+print(read_row(glazing_table.row[0])[id_column])

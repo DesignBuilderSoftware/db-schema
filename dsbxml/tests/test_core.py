@@ -15,13 +15,18 @@ def get_filepaths(directory, extension=".xml"):
     return filepaths
 
 
-# Get model filepaths from models folder
-# Use Path to find samples folder relative to repository root
+# Get model filepaths from the per-version sample folders, except the
+# detailed HVAC sets (2026.1.0.004, 2025.1.0.095), which other tests load
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-models_folder = repo_root / "samples" / "models"
+model_folders = [
+    repo_root / "samples" / version
+    for version in ("7.3.1.003", "8.0.0.057", "8.0.0.058", "2026.1.0.013")
+]
 
-xml_filepaths = get_filepaths(str(models_folder), extension=".xml")
+xml_filepaths = [
+    path for folder in model_folders for path in get_filepaths(str(folder), extension=".xml")
+]
 
 
 @pytest.mark.parametrize("filepath", xml_filepaths)

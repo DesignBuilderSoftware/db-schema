@@ -11,9 +11,9 @@ class TestRoundTrip:
     @pytest.mark.parametrize(
         "sample_file",
         [
-            "samples/models/EmptySite.xml",
-            "samples/models/Tutorial Model.xml",
-            "samples/models/DetailedHVAC.xml",
+            "samples/8.0.0.057/EmptySite.xml",
+            "samples/8.0.0.057/Tutorial Model.xml",
+            "samples/8.0.0.058/DetailedHVAC.xml",
         ],
     )
     def test_load_save_load_produces_equivalent_models(self, sample_file: str):
@@ -49,7 +49,7 @@ class TestRoundTrip:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_load_save_maintains_xml_validity(self):
-        sample_path = Path("samples/models/EmptySite.xml")
+        sample_path = Path("samples/8.0.0.057/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -74,7 +74,7 @@ class TestRoundTrip:
 
 class TestModelModification:
     def test_modify_and_save_name(self):
-        sample_path = Path("samples/models/EmptySite.xml")
+        sample_path = Path("samples/8.0.0.057/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -99,7 +99,7 @@ class TestModelModification:
             Path(tmp_path).unlink(missing_ok=True)
 
     def test_site_counter_persistence(self):
-        sample_path = Path("samples/models/EmptySite.xml")
+        sample_path = Path("samples/8.0.0.057/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 
@@ -123,9 +123,9 @@ class TestComplexModels:
     @pytest.mark.parametrize(
         "sample_file",
         [
-            "samples/models_dhvac/1.xml",
-            "samples/models_dhvac/10.xml",
-            "samples/models/DetailedHVAC.xml",
+            "samples/2026.1.0.004/1_DHVAC.xml",
+            "samples/2026.1.0.004/10_DHVAC.xml",
+            "samples/8.0.0.058/DetailedHVAC.xml",
         ],
     )
     def test_load_complex_hvac_models(self, sample_file: str):
@@ -143,8 +143,8 @@ class TestComplexModels:
 
     def test_round_trip_complex_models(self):
         sample_files = [
-            "samples/models_dhvac/1.xml",
-            "samples/models/DetailedHVAC.xml",
+            "samples/2026.1.0.004/1_DHVAC.xml",
+            "samples/8.0.0.058/DetailedHVAC.xml",
         ]
 
         for sample_file in sample_files:
@@ -209,7 +209,7 @@ class TestErrorHandling:
                 load_model(tmp.name)
 
     def test_save_to_non_xml_path_raises_error(self):
-        sample_path = Path("samples/models/EmptySite.xml")
+        sample_path = Path("samples/8.0.0.057/EmptySite.xml")
         if not sample_path.exists():
             pytest.skip("Sample file not found")
 

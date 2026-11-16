@@ -50,7 +50,7 @@ def test_empty_library_keeps_its_handle():
 
 
 def test_loaded_library_is_written_unchanged():
-    model = load_model("samples/models/Tutorial Model.xml", use_cache=False)
+    model = load_model("samples/8.0.0.057/Tutorial Model.xml", use_cache=False)
     library = model.site.assembly_library
     assert library.assemblyHandle == len(library.assembly) == 8
     assert _written_handle(library) == "8"

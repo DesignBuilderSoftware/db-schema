@@ -17,8 +17,10 @@ from dsbxml.utils import load_model
 
 test_dir = Path(__file__).parent
 repo_root = test_dir.parent.parent
-detailed_hvac = repo_root / "samples" / "models" / "DetailedHVAC.xml"
-models_dhvac = sorted((repo_root / "samples" / "models_dhvac").glob("*.xml"))
+detailed_hvac = repo_root / "samples" / "8.0.0.058" / "DetailedHVAC.xml"
+models_dhvac = sorted((repo_root / "samples" / "2026.1.0.004").glob("*.xml")) + [
+    repo_root / "samples" / "2025.1.0.095" / "HVAC_Zones_Coloured.xml"
+]
 sample_files = [detailed_hvac, *models_dhvac]
 
 

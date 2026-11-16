@@ -8,7 +8,7 @@ from dsbxml.errors import ModelValidationError
 
 
 def _load_sample_root():
-    path = Path("samples/models/Tutorial Model.xml")
+    path = Path("samples/8.0.0.057/Tutorial Model.xml")
     if not path.exists():
         pytest.skip("Sample file not found")
     return etree.parse(str(path)).getroot()

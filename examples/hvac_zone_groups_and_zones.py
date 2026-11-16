@@ -1,60 +1,44 @@
 from dsbxml.utils import load_model
 
-filepath = r".\samples\models_dhvac\HVAC_Zones_Coloured.xml"
+filepath = r".\samples\2025.1.0.095\HVAC_Zones_Coloured.xml"
 model = load_model(filepath)
 
-building = model.Site.Buildings.Building[0]
+building = model.site.buildings.building[0]
+
+
+def title(attributes) -> str:
+    if attributes is None:
+        return "Unknown"
+    return next((a.value for a in attributes.attribute if a.name == "Title"), "Unknown")
+
 
 # Get all HVAC zone groups
-zone_groups = building.HVACNetwork.HVACZoneGroups.HVACZoneGroup
+zone_groups = building.hvac_network.hvac_zone_groups.hvac_zone_group
 
 print(f"Found {len(zone_groups)} HVAC Zone Groups\n")
 print("=" * 80)
 
 for idx, zone_group in enumerate(zone_groups, 1):
-    # Get zone group title
-    group_title = next(
-        (
-            attr.text
-            for attr in zone_group.Attributes.Attribute
-            if attr.name == "Title"
-        ),
-        "Unknown",
-    )
-
-    print(f"\n{idx}. HVAC Zone Group: {group_title}")
+    print(f"\n{idx}. HVAC Zone Group: {title(zone_group.zone_group_attributes)}")
     print("-" * 80)
 
     # Get zone components in this group
-    if zone_group.ZoneElementList:
-        zone_components = zone_group.ZoneElementList.HVACZoneComponent
+    if zone_group.zone_element_list:
+        zone_components = zone_group.zone_element_list.hvac_zone_component
 
         if zone_components:
             print(f"   Zone Components ({len(zone_components)}):")
             for component in zone_components:
-                component_title = next(
-                    (
-                        attr.text
-                        for attr in component.Attributes.Attribute
-                        if attr.name == "Title"
-                    ),
-                    "Unknown",
-                )
-                component_type = (
-                    component.type
-                    if hasattr(component, "type")
-                    else "Unknown type"
-                )
-                print(f"      - {component_title}")
-                print(f"        Type: {component_type}")
+                print(f"      - {title(component.attributes)}")
+                print(f"        Type: {component.type or 'Unknown type'}")
         else:
             print("   No zone components in this group")
     else:
         print("   No ZoneElementList")
 
     # Also show building zone handles if available
-    if zone_group.BuildingZoneHandleList:
-        zone_handles = zone_group.BuildingZoneHandleList.BuildingZoneHandle
+    if zone_group.building_zone_handle_list:
+        zone_handles = zone_group.building_zone_handle_list.building_zone_handle
         if zone_handles:
             print(f"   Building Zone Handles: {', '.join(zone_handles)}")
 
