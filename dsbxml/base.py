@@ -42,6 +42,20 @@ class BaseModel(BaseXmlModel, search_mode=SearchMode.UNORDERED):
         slots=True,
     )
 
+    @classmethod
+    def _built(cls) -> None:
+        """Build the class's schema now if import left it for first use (see __init__.py)."""
+        if cls.__xml_serializer__ is None:
+            import dsbxml
+
+            dsbxml._load_core_module()  # pylint: disable=protected-access
+            cls.model_rebuild()
+
+    @classmethod
+    def from_xml_tree(cls, root, *args, **kwargs):
+        cls._built()
+        return super().from_xml_tree(root, *args, **kwargs)
+
     def to_xml_tree(self, **kwargs):
         """Serialise without unset optional values.
 
@@ -51,6 +65,7 @@ class BaseModel(BaseXmlModel, search_mode=SearchMode.UNORDERED):
         and are still written.
         """
         kwargs.setdefault("exclude_none", True)
+        type(self)._built()
         return super().to_xml_tree(**kwargs)
 
     def to_xml(self, **kwargs):

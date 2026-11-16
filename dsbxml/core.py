@@ -44,16 +44,24 @@ class dsbXML(BaseModel):
         return instance
 
     def to_xml(self, **kwargs) -> str | bytes:
+        """The model as UTF-8 XML with a declaration: bytes, or str for encoding="unicode".
+
+        The tree is written once; it used to be written, parsed back and written again only
+        to set the root's tag.
+        """
         from lxml import etree
 
-        xml_output = super().to_xml(**kwargs)
-        if isinstance(xml_output, bytes):
-            root = etree.fromstring(xml_output)
-            root.tag = "dsbXML"
-            return bytes(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
-        root = etree.fromstring(xml_output.encode())
+        tree_args = ("skip_empty", "exclude_none", "exclude_unset")
+        tree = {k: kwargs.pop(k) for k in tree_args if k in kwargs}
+        as_text = kwargs.pop("encoding", None) in ("unicode", str)
+        root = self.to_xml_tree(**tree)
         root.tag = "dsbXML"
-        return str(etree.tostring(root, xml_declaration=True, encoding="UTF-8").decode("UTF-8"))
+        for el in root.iter():
+            if el.text == "":  # written <X/>, as a parsed tree has it
+                el.text = None
+        kwargs.setdefault("xml_declaration", True)
+        out = etree.tostring(root, encoding="UTF-8", **kwargs)
+        return out.decode("UTF-8") if as_text else bytes(out)
 
 
 class Site(BaseModel):
@@ -151,9 +159,8 @@ class Opening(BaseModel):
     type: str = attr()
     polygon: Polygon = element(tag="Polygon")
     attributes: KeyAttributes | None = element(tag="Attributes", default=None)
-    # Real files always have a <SegmentList> here (empty or with lines).
-    segment_list: SegmentList | None = element(tag="SegmentList", default=None)
-    cfd_segment_list: CFDSegmentList | None = element(tag="CFDSegmentList", default=None)
+    # Real files always have a <SegmentList> here: empty, with lines, or with a CFD boundary.
+    segment_list: OpeningSegmentList | None = element(tag="SegmentList", default=None)
 
 
 class Adjacencies(BaseModel):
@@ -349,6 +356,7 @@ class Planes(BaseModel):
 class Plane(BaseModel):
     type: int = attr()
     polygon: Polygon = element(tag="Polygon")
+    attributes: KeyAttributes | None = element(tag="Attributes", default=None)
 
 
 class AssemblyInstances(BaseModel):
@@ -416,35 +424,44 @@ class CFDBoundary(BaseModel):
     maximum_refinement_region_point: WrappedPoint3D = element(
         tag="MaximumRefinementRegionPoint"
     )
-    cfd_boundary_component_list: None = element(tag="CFDBoundaryComponentList", default=None)
+    # Empty in every file seen (whitespace only); what it lists when filled is not known.
+    cfd_boundary_component_list: str = element(tag="CFDBoundaryComponentList", default="")
+    attributes: KeyAttributes | None = element(tag="Attributes", default=None)
 
 
-class CFDSegmentList(BaseModel):
-    cfd_boundary: CFDBoundary = element(tag="CFDBoundary")
+class OpeningSegmentList(SegmentList):
+    """An opening's <SegmentList>: lines, or the CFD boundary drawn on the opening.
+
+    HVAC_Zones_Coloured.xml (DesignBuilder 7) has twelve openings whose <SegmentList> holds a
+    <CFDBoundary> with its settings as child elements.
+    """
+
+    cfd_boundary: CFDBoundary | None = element(tag="CFDBoundary", default=None)
 
 
 class CFDBoundarySettings(BaseModel):
-    temperature: XSDFloat = attr()
-    flowRate: XSDFloat = attr()
-    xDirectionDischargeAngle: XSDFloat = attr()
-    yDirectionDischargeAngle: XSDFloat = attr()
-    multiWayDiffuserDischargeAngle: XSDFloat = attr()
-    twoWayDiffuserDischargeDirection: int = attr()
-    minimumDischargeVelocity: XSDFloat = attr()
-    actualDischargeVelocity: XSDFloat = attr()
-    heatFlux: XSDFloat = attr()
-    pressure: XSDFloat = attr()
-    pressureType: int = attr()
-    moistureSource: XSDFloat = attr()
-    contaminantSource: XSDFloat = attr()
-    relativeHumidity: XSDFloat = attr()
-    nonOrthoElementWidth: XSDFloat = attr()
-    nonOrthoElementHeight: XSDFloat = attr()
-    nonOrthoFaceOffset: XSDFloat = attr()
-    nonOrthoElementXSpacing: XSDFloat = attr()
-    nonOrthoElementYSpacing: XSDFloat = attr()
-    nonOrthoElementXEdgeOffset: XSDFloat = attr()
-    nonOrthoElementYEdgeOffset: XSDFloat = attr()
-    diffuser_element_dimension: XSDFloat = attr()
-    refinement_region_distance: XSDFloat = attr()
-    refinement_region_level: int = attr()
+    # Child elements, as DesignBuilder writes them (HVAC_Zones_Coloured.xml).
+    temperature: XSDFloat = element(tag="Temperature")
+    flowRate: XSDFloat = element(tag="FlowRate")
+    xDirectionDischargeAngle: XSDFloat = element(tag="XDirectionDischargeAngle")
+    yDirectionDischargeAngle: XSDFloat = element(tag="YDirectionDischargeAngle")
+    multiWayDiffuserDischargeAngle: XSDFloat = element(tag="MultiWayDiffuserDischargeAngle")
+    twoWayDiffuserDischargeDirection: int = element(tag="TwoWayDiffuserDischargeDirection")
+    minimumDischargeVelocity: XSDFloat = element(tag="MinimumDischargeVelocity")
+    actualDischargeVelocity: XSDFloat = element(tag="ActualDischargeVelocity")
+    heatFlux: XSDFloat = element(tag="HeatFlux")
+    pressure: XSDFloat = element(tag="Pressure")
+    pressureType: int = element(tag="PressureType")
+    moistureSource: XSDFloat = element(tag="MoistureSource")
+    contaminantSource: XSDFloat = element(tag="ContaminantSource")
+    relativeHumidity: XSDFloat = element(tag="RelativeHumidity")
+    nonOrthoElementWidth: XSDFloat = element(tag="NonOrthoElementWidth")
+    nonOrthoElementHeight: XSDFloat = element(tag="NonOrthoElementHeight")
+    nonOrthoFaceOffset: XSDFloat = element(tag="NonOrthoFaceOffset")
+    nonOrthoElementXSpacing: XSDFloat = element(tag="NonOrthoElementXSpacing")
+    nonOrthoElementYSpacing: XSDFloat = element(tag="NonOrthoElementYSpacing")
+    nonOrthoElementXEdgeOffset: XSDFloat = element(tag="NonOrthoElementXEdgeOffset")
+    nonOrthoElementYEdgeOffset: XSDFloat = element(tag="NonOrthoElementYEdgeOffset")
+    diffuser_element_dimension: XSDFloat = element(tag="DiffuserElementDimension")
+    refinement_region_distance: XSDFloat = element(tag="RefinementRegionDistance")
+    refinement_region_level: int = element(tag="RefinementRegionLevel")
